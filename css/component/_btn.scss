@@ -1,2 +1,170 @@
 @charset "UTF-8";
 
+// btn
+//----------------------------------------------------
+// btn-basic
+// 按钮基本样式，联合申明
+%btn-basic {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    user-select: none;
+    padding: 0 1em;
+    white-space: nowrap;
+    text-decoration: none; //for a element
+    font-family: "微软雅黑";
+}
+
+// btn-size
+// 按钮大小
+@mixin btn-size($padding: map-get($btnPadding, normal), $height: map-get($btnSize, normal), $fontSize: $defaultFontSize, $radius: 3px) {
+    padding: 0 $padding;
+    line-height: $height - 2px; // 减掉2px的上下高度
+    font-size: $fontSize;
+    @if $radius {
+        border-radius: $radius;
+    }
+}
+
+// btn-color
+// 包括按钮背景色，文本色，是否有边框
+@mixin btn-color($colorText: #333, $colorBg: #666, $colorBorder: false) {
+    color: nth($colorText, 1);
+    background-color: nth($colorBg, 1);
+    @if $colorBorder {
+        border-color: nth($colorBorder, 1);
+    }
+    &:hover, &:active {
+        @if $colorBorder and length($colorBorder) == 2 {
+            border-color: nth($colorBorder, 2); // $colorBorder: #dbdbdb #ccc => #ccc
+        }
+    }
+    &:hover {
+        @if length($colorText) == 3 {
+            color: nth($colorText, 3);
+        }
+        @if length($colorBg) == 3 {
+            background-color: nth($colorBg, 3);
+        } @else {
+            @if lightness($colorBg) > 40% {
+                background-color: darken($colorBg, 5%);
+            }
+            @else {
+                background-color: lighten($colorBg, 5%);
+            }
+        }
+    }
+    &:active {
+        @if length($colorText) > 1 {
+            color: nth($colorText, 2);
+        }
+        @if length($colorBg) > 1 {
+            background-color: nth($colorBg, 2);
+        } @else {
+            @if lightness($colorBg) > 40% {
+                background-color: darken($colorBg, 5%);
+            }
+            @else {
+                background-color: lighten($colorBg, 5%);
+            }
+        }
+    }
+}
+
+//定义变量
+
+$primary: #007aff !default;
+$info: #2dc3e8 !default;
+$warning: #ffb752 !default;
+$danger: #ff7f66 !default;
+
+$defaultFontSize: 14px !default; //按钮默认字体大小
+$btnSize:  (large: 46px, normal: 30px, small: 24px, mini: 22px) !default;  //按钮高度
+$btnPadding: (large: 18px, normal: 16px, small: 12px, mini: 8px) !default; //按钮padding
+
+$gapList: 5 10;
+
+$colorDisabled: (text: #999, bg: #e3e3e3, border: #dbdbdb) !default;
+
+.dui-btn,
+.dui-btn-info,
+.dui-btn-info-bordered,
+.dui-btn-warning,
+.dui-btn-warning-bordered,
+.dui-btn-danger,
+.dui-btn-danger-bordered {
+    @extend %btn-basic;
+    @include btn-size();
+    i {
+        margin-right: 5px;
+    }
+}
+
+.dui-btn {
+    @include btn-color(#333, #fff #e6e6e6 #f2f2f2, #ccc)
+}
+
+.dui-btn-info {
+    @include btn-color(#fff, $info #02aed9 #11bde8);
+}
+
+.dui-btn-info-bordered {
+    @include btn-color($info, #fff #dbf8ff #f1fcff, $info);
+}
+
+.dui-btn-warning {
+    @include btn-color(#fff, $warning #f0ad4e #f6b354);
+}
+
+.dui-btn-warning-bordered {
+    @include btn-color($warning, #fff #fcf3df #fffbf3, $warning);
+}
+
+.dui-btn-danger {
+    @include btn-color(#fff, $danger #ff8770 #ff917c);
+}
+
+.dui-btn-danger-bordered {
+    @include btn-color($danger, #fff, $danger);
+}
+
+.dui-btn-large {
+    @include btn-size(map-get($btnPadding, large), map-get($btnSize, large));
+}
+
+.dui-btn-small {
+    @include btn-size(map-get($btnPadding, small), map-get($btnSize, small), 12px);
+}
+
+.dui-btn-mini {
+    @include btn-size(map-get($btnPadding, mini), map-get($btnSize, mini), 12px);
+}
+
+@each $gap in $gapList {
+    .dui-btn-list-g#{$gap} a, .dui-btn-list-g#{$gap} button{
+        margin-right: $gap + px;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.disabled[class^="dui-btn"] {
+    background-color: map-get($colorDisabled, bg) !important;
+    color: #fff !important;
+    cursor: default !important;
+    pointer-events: none;
+}
+
+.dui-btn-special {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.dui-btn-w100 {
+    @extend .dui-btn-special;
+    width: 100px;
+}

@@ -72,7 +72,7 @@ fis.match('**.less', {
 
 // 2. 属性或值自动补全前缀
 fis.match('{**.scss,**.sass,**.less,**.css}', {
-    preprocessor: fis.plugin('cssprefixer')
+    //preprocessor: fis.plugin('cssprefixer')
 });
 
 // 3. 精简压缩 css 文件
