@@ -100,6 +100,7 @@ $colorDisabled: (text: #999, bg: #e3e3e3, border: #dbdbdb) !default;
     @include btn-size();
     i {
         margin-right: 5px;
+        font-size: inherit;
     }
 }
 
