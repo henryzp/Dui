@@ -206,5 +206,13 @@ fis.hook('node_modules', {
     shimBuffer: false
 });
 
+//构建最终文件
+fis.media('build')
+   .set('project.files', ['src/css/dui.scss'])
+   .match('src/css/(dui.scss)', {
+        // clean-css 为 fis 内置插件，无需安装
+        optimizer: fis.plugin('clean-css'),
+        release: '/css/$1'
+    })
 
 

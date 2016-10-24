@@ -20,3 +20,9 @@
 而webpack，比较适合模块化，它对于css的多个文件合并、编译并不是太理想。
 
 较理想的是gulp+webpack（服务器利用webpack，监听文件变化利用gulp），但目前还未找到合适的方案。
+
+### 打包
+
+```
+fis3 release build -d ./dist
+```
