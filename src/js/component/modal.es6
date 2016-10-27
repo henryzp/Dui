@@ -8,25 +8,34 @@ export default (function(){
 
     //TODO 未来希望是通过webpack loader 来引入html模板
     const modalTemplate = [
-        '<div class="dui-dialog" style="width: <%= width %>px; height: <%= height %>px">',
-            '<div class="dui-dialog-hd">',
+        '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px">',
+            '<% if(close) { %>',
                 '<a class="dui-dialog-close J_dialog-close" href="javascript:;">关闭</a>',
-                '<h3 class="dui-dialog-title"><%= title %></h3>',
-            '</div>',
-            '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">',
-                '<%= content %>',
-            '</div>',
-            '<% if(ok || cancel) { %>',
-            '<div class="dui-dialog-ft dui-dialog-ft-center">',
-                '<div class="dui-btn-list-g10">',
-                    '<% if(ok) { %>',
-                    '<a class="dui-btn-info J_dialog-ok" href="javascript:;"><%= okValue %></a>',
-                    '<% } %>',
-                    '<% if(cancel) { %>',
-                    '<a class="dui-btn J_dialog-cancel" href="javascript:;"><%= cancelValue %></a>',
-                    '<% } %>',
+            '<% } %>',
+            '<% if(title != "" && type == "default") { %>',
+                '<div class="dui-dialog-hd">',
+                    '<h3 class="dui-dialog-title"><%= title %></h3>',
                 '</div>',
-            '</div>',
+            '<% } %>',
+            '<% if(type == "custom") { %>',
+                '<div class="dui-dialog-custom-bd"><%= content %></div>',
+            '<% } %>',
+            '<% if(type == "default") { %>',
+                '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">',
+                    '<%= content %>',
+                '</div>',
+                '<% if(ok || cancel) { %>',
+                '<div class="dui-dialog-ft <%= btnPosClass %>">',
+                    '<div class="dui-btn-list-g10">',
+                        '<% if(ok) { %>',
+                        '<a class="dui-btn-info J_dialog-ok" href="javascript:;"><%= okValue %></a>',
+                        '<% } %>',
+                        '<% if(cancel) { %>',
+                        '<a class="dui-btn J_dialog-cancel" href="javascript:;"><%= cancelValue %></a>',
+                        '<% } %>',
+                    '</div>',
+                '</div>',
+                '<% }  %>',
             '<% }  %>',
         '</div>'
     ]
@@ -36,12 +45,16 @@ export default (function(){
         constructor(option) {
 
             let defaultOption = {
+                type: "default",
                 title: "提示",
                 content: "内容",
                 okValue: "确定",
                 cancelValue: "取消",
+                className: "",
+                close: true,
                 ok: false,
-                cancel: false
+                cancel: false,
+                btnPos: "right"
             }
 
             this.option = option;
@@ -59,6 +72,8 @@ export default (function(){
             this.show();
 
             this.bindEvent();
+
+            this.option.init && this.option.init.apply(this);
 
         }
 
@@ -133,12 +148,14 @@ export default (function(){
             let spacing;
 
             if(!this.option.ok && !this.option.cancel) {
-                console.log(111);
                 spacing = 2 * padding;
                 ftHeight = 0;
             }else{
-                console.log(222);
                 spacing = 3 * padding;
+            }
+
+            if(this.option.title == "") {
+                hdHeight = 0;
             }
 
             let contentHeight = height - hdHeight - ftHeight - spacing;
@@ -147,7 +164,9 @@ export default (function(){
 
         }
 
+        //处理底部按钮
         handleOptionButton() {
+
             var ok = this.option.ok,
                 cancel = this.option.cancel;
 
@@ -175,8 +194,11 @@ export default (function(){
                 this.option.cancel = true;
             }
 
+            this.option.btnPosClass = "dui-dialog-ft-" + this.option.btnPos;
+
         }
 
+        //显示弹窗
         show() {
 
             let len = DOM.has(".dui-dialog-wrap").length;
@@ -199,6 +221,7 @@ export default (function(){
 
         }
 
+        //隐藏弹窗（remove掉）
         hide() {
 
             var len = DOM.has(".dui-dialog").length;
@@ -211,6 +234,7 @@ export default (function(){
 
         }
 
+        //绑定按钮事件
         bindEvent() {
 
             let _this = this;
@@ -237,7 +261,7 @@ export default (function(){
 
             }, false);
 
-            closeBtn.addEventListener("click", function() {
+            closeBtn && closeBtn.addEventListener("click", function() {
 
                 _this.hide();
 
@@ -259,17 +283,20 @@ export default (function(){
     }
 
     Modal.confirm = function(text) {
-        //要支持promise
+
         return new Promise(function(resolve) {
 
             new Modal({
                 content: text,
                 okFn: function() {
+                    resolve();
                     this.hide();
-                }
+                },
+                cancel: true
             })
 
         })
+
     }
 
     return Modal;

@@ -48,15 +48,16 @@ $posList: left center right;
     border-radius: 3px;
     font-family: '微软雅黑';
     font-size: 14px;
+    position: relative;
     .dui-dialog-hd {
         height: 44px;
         border-bottom: #e5e5e5 solid 1px;
     }
     .dui-dialog-close {
-        float: right;
+        position: absolute;
+        top: 15px;
+        right: $dialogPadding;
         background: url("../images/close.png") no-repeat;
-        margin-top: 15px;
-        margin-right: $dialogPadding;
         text-indent: -999em;
         width: 14px;
         height: 14px;

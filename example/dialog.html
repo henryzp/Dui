@@ -8,35 +8,112 @@
 </head>
 <body>
 
+<div>
+    <h3>常规弹窗</h3>
+    <a class="J_modal dui-btn" href="javascript:;">普通Modal</a>
+    <a class="J_alert dui-btn" href="javascript:;">alert Modal</a>
+    <a class="J_confirm dui-btn" href="javascript:;">确定Modal</a>
+</div>
+
+<div>
+    <h3>特殊弹窗</h3>
+    <a class="J_no-title dui-btn" href="javascript:;">无标题</a>
+    <a class="J_no-close dui-btn" href="javascript:;">无关闭</a>
+    <a class="J_custom dui-btn" href="javascript:;">自定义弹窗</a>
+</div>
+
 <script src="js/modJS.js" data-loader="true"></script>
 
 <script>
 
     require("../src/js/dui.es6");
 
-    /*
-    new Dui.Modal({
-        width: 100,
-        height: 100,
-        content: "",
 
-        isMax: true,
+    document.querySelector(".J_modal").addEventListener("click", function() {
 
-        //buttonAglin
-        draggable: true
+        new Dui.Modal({
+            width: "200",  //宽度，可选
+            height: "300", //高度，可选
+            title: "呵呵",
+            className: "xxx", //新加class，绑定在dui-dialog上
+            content: "...", //内容，可选
+            //btnPos: "right", //按钮方向，left|center|right，默认right
+            init: function(){
 
-    })
-    */
+                console.log(this.dialogDom);
 
-    Dui.Modal.alert("xxxxxxx")
+            },
 
-    //var Modal = Dui.Modal.alert("123");
+            okFn: function() {
 
-    //Dui.Modal.confirm("1111").then(func);
+            },
 
-    //确认后面callback
+            cancelFn: function() {
 
-    //console.log(Modal.say());
+            }
+
+
+        })
+
+    }, false);
+
+    document.querySelector(".J_alert").addEventListener("click", function() {
+
+        Dui.Modal.alert("这是一段提示文案啊");
+
+    });
+
+    document.querySelector(".J_confirm").addEventListener("click", function() {
+
+        Dui.Modal.confirm("是否关闭窗口").then(function(){
+            alert("我点了确定");
+        })
+
+    });
+
+
+    document.querySelector(".J_no-title").addEventListener("click", function() {
+
+        new Dui.Modal({
+            title: "",
+            content: "...", //内容，可选
+            //btnPos: "right", //按钮方向，left|center|right，默认right
+            init: function(){
+
+                console.log(this.dialogDom);
+
+            },
+
+            okFn: function() {
+
+            }
+
+        })
+
+    }, false);
+
+    document.querySelector(".J_no-close").addEventListener("click", function() {
+
+        new Dui.Modal({
+            title: "",
+            content: "...", //内容，可选
+            ok: true,
+            cancel: true,
+            close: false
+        })
+
+    }, false);
+
+    document.querySelector(".J_custom").addEventListener("click", function() {
+
+        new Dui.Modal({
+            type: "custom",
+            content: "xxxx"
+        })
+
+    }, false);
+
+
 
 </script>
 
