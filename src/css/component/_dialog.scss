@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+$dialogMinWidth: 420px !default; //弹窗最小宽度
+$dialogMinHeight: 170px !default; //弹窗最小高度
+
+$dialogMaxWidth: 920px !default; //弹窗最小宽度
+$dialogMaxHeight: 580px !default; //弹窗最小高度
+
+$dialogHdHeight: 44px !default; //弹窗标题高度
+
+$dialogPadding: 16px !default; //默认间距大小
+
+$posList: left center right;
+
+.dui-dialog-wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: cross-slide-y pinch-zoom double-tap-zoom;
+    text-align: center;
+    overflow: hidden;
+    background: rgba(0,0,0,.6);
+    &:before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%
+    }
+}
+
+.dui-dialog {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    min-width: $dialogMinWidth;
+    min-height: $dialogMinHeight;
+    max-width: $dialogMaxWidth;
+    max-height: $dialogMaxHeight;
+    background: #fff;
+    border: rgba(0, 0, 0, .3) solid 1px;
+    -webkit-box-shadow: 0 2px 3px rgba(0,0,0,.125);
+    box-shadow: 0 2px 3px rgba(0,0,0,.125);
+    border-radius: 3px;
+    font-family: '微软雅黑';
+    font-size: 14px;
+    .dui-dialog-hd {
+        height: 44px;
+        border-bottom: #e5e5e5 solid 1px;
+    }
+    .dui-dialog-close {
+        float: right;
+        background: url("../images/close.png") no-repeat;
+        margin-top: 15px;
+        margin-right: $dialogPadding;
+        text-indent: -999em;
+        width: 14px;
+        height: 14px;
+        cursor: pointer;
+        &:hover {
+            background-image: url("../images/close_hover.png");
+        }
+    }
+    .dui-dialog-title {
+        margin: 0 0 0 $dialogPadding;
+        font-weight: normal;
+        line-height: 44px;
+    }
+    .dui-dialog-bd {
+        padding: 0 $dialogPadding;
+        margin: $dialogPadding 0;
+        overflow: auto;
+    }
+    .dui-dialog-ft {
+        margin: 0 $dialogPadding;
+        @each $pos in $posList {
+            &.dui-dialog-ft-#{$pos} {
+                .dui-btn-list-g10 {
+                    text-align: $pos;
+                }
+            }
+        }
+
+    }
+
+}

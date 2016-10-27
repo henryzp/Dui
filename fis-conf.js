@@ -192,8 +192,6 @@ fis.match('::packager', {
 });
 
 
-
-
 fis.match('/node_modules/**.js', {
     isMod: true,
     useSameNameRequire: true
@@ -215,4 +213,8 @@ fis.media('build')
         release: '/css/$1'
     })
 
-
+fis.media("pack").match('src/js/**',{
+    packTo: 'pack.js',
+    release: '$&',
+    deploy: fis.plugin('local-deliver',{to: './dist'})
+});

@@ -105,7 +105,7 @@ $colorDisabled: (text: #999, bg: #e3e3e3, border: #dbdbdb) !default;
 }
 
 .dui-btn {
-    @include btn-color(#333, #fff #e6e6e6 #f2f2f2, #ccc)
+    @include btn-color(#666, #fff #e6e6e6 #f2f2f2, #ccc)
 }
 
 .dui-btn-info {
