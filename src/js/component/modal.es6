@@ -10,7 +10,7 @@ export default (function(){
     const modalTemplate = [
         '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px">',
             '<% if(close) { %>',
-                '<a class="dui-dialog-close J_dialog-close" href="javascript:;">关闭</a>',
+                '<i class="dui-dialog-close J_dialog-close iconfont icon-shanchu5" href="javascript:;"></i>',
             '<% } %>',
             '<% if(title != "" && type == "default") { %>',
                 '<div class="dui-dialog-hd">',
@@ -21,7 +21,11 @@ export default (function(){
                 '<div class="dui-dialog-custom-bd"><%= content %></div>',
             '<% } %>',
             '<% if(type == "default") { %>',
+                '<% if(contentHeight != "auto"){ %>',
                 '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">',
+                '<% }else { %>',
+                '<div style="height: <%= contentHeight %>;max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">123',
+                '<% } %>',
                     '<%= content %>',
                 '</div>',
                 '<% if(ok || cancel) { %>',
@@ -119,6 +123,11 @@ export default (function(){
 
             let height = this.option.height;
 
+            //处理特殊的auto情况
+            if(height == "auto") {
+                return;
+            }
+
             if(!height) {
                 height = Config.minHeight;
             }else {
@@ -143,7 +152,8 @@ export default (function(){
             let height = this.option.height,
                 hdHeight = Config.hdHeight,
                 ftHeight = Config.ftHeight,
-                padding = Config.padding;
+                padding = Config.padding,
+                maxHeight = Config.maxHeight;
 
             let spacing;
 
@@ -158,9 +168,21 @@ export default (function(){
                 hdHeight = 0;
             }
 
-            let contentHeight = height - hdHeight - ftHeight - spacing;
+            if(height == "auto") {
 
-            this.option.contentHeight = contentHeight;
+                this.option.contentHeight = "auto";
+
+                let contentMaxHeight = maxHeight - hdHeight - ftHeight - spacing;
+
+                this.option.contentMaxHeight = contentMaxHeight;
+
+            }else {
+
+                let contentHeight = height - hdHeight - ftHeight - spacing;
+
+                this.option.contentHeight = contentHeight;
+
+            }
 
         }
 
@@ -215,14 +237,16 @@ export default (function(){
 
             let result = compiled(this.option);
 
-            console.log(result);
-
             this.dialogDom = DOM.appendHTML(DOM.find(".dui-dialog-wrap"), result);
 
         }
 
         //隐藏弹窗（remove掉）
         hide() {
+
+            //console.log("释放内存");
+
+            this.unBindEvent();
 
             var len = DOM.has(".dui-dialog").length;
 
@@ -232,40 +256,65 @@ export default (function(){
                 DOM.remove(DOM.find(".dui-dialog-wrap"));
             }
 
+            this.dialogDom = null;
+
+        }
+
+        //确定事件处理
+        _okFn() {
+
+            //TODO 判断是否是函数
+            this.option.okFn && this.option.okFn.apply(this);
+
+        }
+
+        //取消事件处理
+        _cancelFn() {
+
+            //TODO 判断是否是函数
+            this.option.cancelFn && this.option.cancelFn.apply(this);
+
+            this.hide();
+
+        }
+
+        //关闭事件处理
+        _closeFn() {
+
+            this.hide();
+
         }
 
         //绑定按钮事件
         bindEvent() {
 
-            let _this = this;
+            let okBtn = this.okBtn = DOM.find(this.dialogDom, ".J_dialog-ok");
 
-            let okBtn = DOM.find(this.dialogDom, ".J_dialog-ok");
+            let cancelBtn = this.cancelBtn = DOM.find(this.dialogDom, ".J_dialog-cancel");
 
-            let cancelBtn = DOM.find(this.dialogDom, ".J_dialog-cancel");
+            let closeBtn =  this.closeBtn = DOM.find(this.dialogDom, ".J_dialog-close");
 
-            let closeBtn = DOM.find(this.dialogDom, ".J_dialog-close");
 
-            okBtn && okBtn.addEventListener("click", function() {
+            okBtn && okBtn.addEventListener("click", this._okFn.bind(this), false);
 
-                 //TODO 判断是否是函数
-                 _this.option.okFn && _this.option.okFn.apply(_this);
+            cancelBtn && cancelBtn.addEventListener("click", this._cancelFn.bind(this), false);
 
-            }, false);
+            closeBtn && closeBtn.addEventListener("click", this._closeFn.bind(this), false);
 
-            cancelBtn && cancelBtn.addEventListener("click", function() {
+        }
 
-                //TODO 判断是否是函数
-                _this.option.cancelFn && _this.option.cancelFn.apply(_this);
+        unBindEvent() {
 
-                _this.hide();
+            let okBtn = this.okBtn,
+                cancelBtn = this.cancelBtn,
+                closeBtn =  this.closeBtn;
 
-            }, false);
+            okBtn && okBtn.removeEventListener("click", this._okFn.bind(this), false);
 
-            closeBtn && closeBtn.addEventListener("click", function() {
+            cancelBtn && cancelBtn.removeEventListener("click", this._cancelFn.bind(this), false);
 
-                _this.hide();
+            closeBtn && closeBtn.removeEventListener("click", this._closeFn.bind(this), false);
 
-            }, false);
 
         }
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>弹窗</title>
     <link rel="stylesheet" href="../src/css/dui.scss"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1475922891_4469836.css">
     <link rel="stylesheet" href="css/page.css" />
 </head>
 <body>
@@ -11,8 +12,9 @@
 <div>
     <h3>常规弹窗</h3>
     <a class="J_modal dui-btn" href="javascript:;">普通Modal</a>
+    <a class="J_icon dui-btn" href="javascript:;">带图标标题Modal</a>
     <a class="J_alert dui-btn" href="javascript:;">alert Modal</a>
-    <a class="J_confirm dui-btn" href="javascript:;">确定Modal</a>
+    <a class="J_confirm dui-btn" href="javascript:;">用户确认提示Modal</a>
 </div>
 
 <div>
@@ -20,6 +22,12 @@
     <a class="J_no-title dui-btn" href="javascript:;">无标题</a>
     <a class="J_no-close dui-btn" href="javascript:;">无关闭</a>
     <a class="J_custom dui-btn" href="javascript:;">自定义弹窗</a>
+    <a class="J_autoHeight dui-btn" href="javascript:;">自适应高度</a>
+</div>
+
+<div>
+    <h3>多个弹窗</h3>
+    <a class="J_more-dialog dui-btn" href="javascript:;">多层</a>
 </div>
 
 <script src="js/modJS.js" data-loader="true"></script>
@@ -53,6 +61,19 @@
             }
 
 
+        })
+
+    }, false);
+
+    document.querySelector(".J_icon").addEventListener("click", function() {
+
+        new Dui.Modal({
+            title: '<i class="iconfont icon-sousuo1"></i>我是图标啊',
+
+            okFn: function() {
+
+            },
+            cancel: true
         })
 
     }, false);
@@ -113,6 +134,35 @@
 
     }, false);
 
+
+    document.querySelector(".J_autoHeight").addEventListener("click", function() {
+
+        new Dui.Modal({
+            height: "auto",
+            init: function() {
+                var obtn = this.dialogDom.querySelector("button"),
+                    odiv = this.dialogDom.querySelector(".hiddenElem");
+                obtn.onclick = function(){
+                    odiv.style.display = "block";
+                }
+            },
+            content: '这是一个自适应的弹窗<button>点我显示</button><div style="display: none;height: 200px;" class="hiddenElem">这是一个隐藏的200高度的DIV</div>'
+        });
+
+    }, false);
+
+
+    document.querySelector(".J_more-dialog").addEventListener("click", function() {
+
+        new Dui.Modal({
+            width: 500,
+            height: 300,
+            okFn: function() {
+                new Dui.Modal();
+            }
+        })
+
+    }, false);
 
 
 </script>

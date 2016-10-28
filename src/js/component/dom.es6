@@ -24,16 +24,16 @@ export default {
     },
 
     appendHTML(elem, html) {
-        var divTemp = document.createElement("div"), nodes = null
-        // 文档片段，一次性append，提高性能
-            , fragment = document.createDocumentFragment();
+
+        var divTemp = document.createElement("div");
+
         divTemp.innerHTML = html;
-        nodes = divTemp.childNodes;
-        for (var i=0, length=nodes.length; i<length; i+=1) {
-            fragment.appendChild(nodes[i].cloneNode(true));
-        }
-        elem.appendChild(fragment);
-        return elem.childNodes[0];
+
+        var dom = divTemp.childNodes[0];
+
+        elem.appendChild(dom);
+
+        return dom;
     },
 
     remove(elem) {
