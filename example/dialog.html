@@ -36,10 +36,11 @@
 
     require("../src/js/dui.es6");
 
+    Dui.Modal.alert("123");
 
     document.querySelector(".J_modal").addEventListener("click", function() {
 
-        new Dui.Modal({
+        var dialog = new Dui.Modal({
             width: "200",  //宽度，可选
             height: "300", //高度，可选
             title: "呵呵",
@@ -61,7 +62,7 @@
             }
 
 
-        })
+        });
 
     }, false);
 

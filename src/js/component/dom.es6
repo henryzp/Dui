@@ -37,6 +37,7 @@ export default {
     },
 
     remove(elem) {
+
         elem.parentNode.removeChild(elem);
         return elem;
     }

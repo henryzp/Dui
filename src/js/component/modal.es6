@@ -4,6 +4,8 @@ import Config from "../config/modal_config";
 
 import DOM from "./dom.es6";
 
+import Event from "./event.es6";
+
 export default (function(){
 
     //TODO 未来希望是通过webpack loader 来引入html模板
@@ -44,9 +46,11 @@ export default (function(){
         '</div>'
     ]
 
-    class Modal {
+    class Modal extends Event {
 
         constructor(option) {
+
+            super();
 
             let defaultOption = {
                 type: "default",
@@ -244,8 +248,6 @@ export default (function(){
         //隐藏弹窗（remove掉）
         hide() {
 
-            //console.log("释放内存");
-
             this.unBindEvent();
 
             var len = DOM.has(".dui-dialog").length;
@@ -257,6 +259,8 @@ export default (function(){
             }
 
             this.dialogDom = null;
+
+            //this.$emit("hide");
 
         }
 
@@ -285,6 +289,17 @@ export default (function(){
 
         }
 
+        _escFn(event) {
+
+            event = event || window.event;
+
+            //ESC键
+            if(event.keyCode == "27") {
+                this.hide();
+            }
+
+        }
+
         //绑定按钮事件
         bindEvent() {
 
@@ -294,12 +309,13 @@ export default (function(){
 
             let closeBtn =  this.closeBtn = DOM.find(this.dialogDom, ".J_dialog-close");
 
+            okBtn && okBtn.addEventListener("click", this.bindOkClick=this._okFn.bind(this), false);
 
-            okBtn && okBtn.addEventListener("click", this._okFn.bind(this), false);
+            cancelBtn && cancelBtn.addEventListener("click", this.bindCancelClick = this._cancelFn.bind(this), false);
 
-            cancelBtn && cancelBtn.addEventListener("click", this._cancelFn.bind(this), false);
+            closeBtn && closeBtn.addEventListener("click", this.bindCloseClick = this._closeFn.bind(this), false);
 
-            closeBtn && closeBtn.addEventListener("click", this._closeFn.bind(this), false);
+            document.addEventListener("keydown", this.bindEscClick = this._escFn.bind(this), false);
 
         }
 
@@ -309,12 +325,13 @@ export default (function(){
                 cancelBtn = this.cancelBtn,
                 closeBtn =  this.closeBtn;
 
-            okBtn && okBtn.removeEventListener("click", this._okFn.bind(this), false);
+            okBtn && okBtn.removeEventListener("click", this.bindOkClick, false);
 
-            cancelBtn && cancelBtn.removeEventListener("click", this._cancelFn.bind(this), false);
+            cancelBtn && cancelBtn.removeEventListener("click", this.bindCancelClick, false);
 
-            closeBtn && closeBtn.removeEventListener("click", this._closeFn.bind(this), false);
+            closeBtn && closeBtn.removeEventListener("click", this.bindCloseClick, false);
 
+            document.removeEventListener("keydown", this.bindEscClick, false);
 
         }
 
