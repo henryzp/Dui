@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="../src/css/dui.scss"/>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1475922891_4469836.css">
     <link rel="stylesheet" href="css/page.css" />
+    <style>
+
+    </style>
 </head>
 <body>
 
@@ -36,7 +39,7 @@
 
     require("../src/js/dui");
 
-    //Dui.Modal.alert("123");
+    Dui.Modal.alert("123");
 
     document.querySelector(".J_modal").addEventListener("click", function() {
 
@@ -47,6 +50,7 @@
             className: "xxx", //新加class，绑定在dui-dialog上
             content: "...", //内容，可选
             //btnPos: "right", //按钮方向，left|center|right，默认right
+            draggable: true,
             init: function(){
 
                 console.log(this.dialogDom);

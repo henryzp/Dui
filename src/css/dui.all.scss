@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+html {
+    height: 100%;
+}
+
 @import "./component/_normalize";
 @import "./component/scrollbar";
 @import "./component/_btn";

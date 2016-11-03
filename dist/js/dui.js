@@ -84,6 +84,10 @@
 
 	var _event2 = _interopRequireDefault(_event);
 
+	var _drag = __webpack_require__(7);
+
+	var _drag2 = _interopRequireDefault(_drag);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -115,7 +119,8 @@
 	                close: true,
 	                ok: false,
 	                cancel: false,
-	                btnPos: "right"
+	                btnPos: "right",
+	                draggable: false
 	            };
 
 	            _this.option = option;
@@ -136,6 +141,8 @@
 	                this.show();
 
 	                this.bindEvent();
+
+	                this.handleDrag();
 
 	                this.option.init && this.option.init.apply(this);
 	            }
@@ -336,6 +343,8 @@
 	            key: "_okFn",
 	            value: function _okFn() {
 
+	                this.$emit("ok");
+
 	                //TODO 判断是否是函数
 	                this.option.okFn && this.option.okFn.apply(this);
 	            }
@@ -345,6 +354,8 @@
 	        }, {
 	            key: "_cancelFn",
 	            value: function _cancelFn() {
+
+	                this.$emit("cancel");
 
 	                //TODO 判断是否是函数
 	                this.option.cancelFn && this.option.cancelFn.apply(this);
@@ -358,6 +369,8 @@
 	            key: "_closeFn",
 	            value: function _closeFn() {
 
+	                this.$emit("close");
+
 	                this.hide();
 	            }
 	        }, {
@@ -369,6 +382,19 @@
 	                //ESC键
 	                if (event.keyCode == "27") {
 	                    this.hide();
+	                }
+	            }
+	        }, {
+	            key: "handleDrag",
+	            value: function handleDrag() {
+
+	                if (this.option.draggable) {
+
+	                    var bar = _dom2.default.find(this.dialogDom, ".dui-dialog-hd");
+
+	                    _dom2.default.addClass(bar, "z-draggable");
+
+	                    _drag2.default.startDrag(bar, this.dialogDom, _modal_config2.default.boundary(this.dialogDom));
 	                }
 	            }
 
@@ -17462,7 +17488,43 @@
 	    maxHeight: 580,
 	    hdHeight: 45, //44 + 1 (下边框)
 	    ftHeight: 30,
-	    padding: 16
+	    padding: 16,
+	    boundary: function boundary(elem) {
+
+	        var width = elem.offsetWidth,
+	            height = elem.offsetHeight;
+
+	        return {
+	            getLeft: function getLeft(left) {
+
+	                var containerWidth = document.documentElement.clientWidth;
+
+	                if (left < width / 2) {
+	                    return width / 2;
+	                }
+
+	                if (left > containerWidth - width / 2) {
+	                    return containerWidth - width / 2;
+	                }
+
+	                return left;
+	            },
+	            getTop: function getTop(top) {
+
+	                var containerHeight = document.documentElement.clientHeight;
+
+	                if (top < height / 2) {
+	                    return height / 2;
+	                }
+
+	                if (top > containerHeight - height / 2) {
+	                    return containerHeight - height / 2;
+	                }
+
+	                return top;
+	            }
+	        };
+	    }
 	};
 
 /***/ },
@@ -17477,6 +17539,12 @@
 	//dom简单操作
 
 	exports.default = {
+	    getCss: function getCss(elem, key) {
+	        return elem.currentStyle ? elem.currentStyle[key] : document.defaultView.getComputedStyle(elem, false)[key];
+	    },
+	    addClass: function addClass(elem, className) {
+	        elem.classList.add(className);
+	    },
 	    has: function has(selector) {
 
 	        var domArr = document.querySelectorAll(selector);
@@ -17610,6 +17678,83 @@
 	}();
 
 	exports.default = Event;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dom = __webpack_require__(5);
+
+	var params = {
+	    left: 0,
+	    top: 0,
+	    currentX: 0,
+	    currentY: 0,
+	    flag: false
+	};
+
+	exports.default = {
+	    startDrag: function startDrag(bar, target, boundary) {
+
+	        if ((0, _dom.getCss)(target, "left") !== "auto") {
+	            params.left = (0, _dom.getCss)(target, "left");
+	        }
+
+	        if ((0, _dom.getCss)(target, "top") !== "auto") {
+	            params.top = (0, _dom.getCss)(target, "top");
+	        }
+
+	        bar.onmousedown = function (event) {
+	            params.flag = true;
+	            if (!event) {
+	                event = window.event;
+	                bar.onselectstart = function () {
+	                    return false;
+	                };
+	            }
+	            var e = event;
+	            params.currentX = e.clientX;
+	            params.currentY = e.clientY;
+	        };
+
+	        document.onmouseup = function () {
+	            params.flag = false;
+	            if ((0, _dom.getCss)(target, "left") !== "auto") {
+	                params.left = (0, _dom.getCss)(target, "left");
+	            }
+	            if ((0, _dom.getCss)(target, "top") !== "auto") {
+	                params.top = (0, _dom.getCss)(target, "top");
+	            }
+	        };
+
+	        document.onmousemove = function (event) {
+	            var e = event ? event : window.event;
+	            if (params.flag) {
+	                var nowX = e.clientX,
+	                    nowY = e.clientY;
+	                var disX = nowX - params.currentX,
+	                    disY = nowY - params.currentY;
+
+	                var left = parseInt(params.left) + disX,
+	                    top = parseInt(params.top) + disY;
+
+	                if (boundary) {
+	                    left = boundary.getLeft(left);
+	                    top = boundary.getTop(top);
+	                }
+
+	                target.style.left = left + "px";
+	                target.style.top = top + "px";
+	            }
+	        };
+	    }
+	};
 
 /***/ }
 /******/ ]);

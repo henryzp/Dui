@@ -6,6 +6,8 @@ import DOM from "./dom";
 
 import Event from "./event";
 
+import Drag from "./drag";
+
 export default (function(){
 
     //TODO 未来希望是通过webpack loader 来引入html模板
@@ -62,7 +64,8 @@ export default (function(){
                 close: true,
                 ok: false,
                 cancel: false,
-                btnPos: "right"
+                btnPos: "right",
+                draggable: false
             }
 
             this.option = option;
@@ -80,6 +83,8 @@ export default (function(){
             this.show();
 
             this.bindEvent();
+
+            this.handleDrag();
 
             this.option.init && this.option.init.apply(this);
 
@@ -302,6 +307,19 @@ export default (function(){
             //ESC键
             if(event.keyCode == "27") {
                 this.hide();
+            }
+
+        }
+
+        handleDrag() {
+
+            if(this.option.draggable) {
+
+                let bar = DOM.find(this.dialogDom, ".dui-dialog-hd");
+
+                DOM.addClass(bar, "z-draggable")
+
+                Drag.startDrag(bar, this.dialogDom, Config.boundary(this.dialogDom));
             }
 
         }

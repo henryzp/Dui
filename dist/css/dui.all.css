@@ -1,4 +1,7 @@
 @charset "UTF-8";
+html {
+  height: 100%; }
+
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
@@ -553,6 +556,9 @@ th {
   .dui-dialog .dui-dialog-hd {
     height: 44px;
     border-bottom: #e5e5e5 solid 1px; }
+    .dui-dialog .dui-dialog-hd.z-draggable {
+      cursor: move;
+      cursor: -webkit-grab; }
   .dui-dialog .dui-dialog-close {
     position: absolute;
     top: 10px;

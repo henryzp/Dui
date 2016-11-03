@@ -2,6 +2,14 @@
 
 export default {
 
+    getCss(elem, key) {
+        return elem.currentStyle? elem.currentStyle[key] : document.defaultView.getComputedStyle(elem,false)[key];
+    },
+
+    addClass(elem, className) {
+        elem.classList.add(className);
+    },
+
     has(selector) {
 
         let domArr = document.querySelectorAll(selector);
