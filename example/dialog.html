@@ -69,14 +69,22 @@
 
         dialog.$on("close", function() {
             alert("我要关闭！");
-        })
+        });
 
         dialog.$on("ok", function() {
             alert("额");
-        })
+        });
 
         dialog.$on("cancel", function() {
             alert("取消");
+        });
+
+        dialog.$on("dragStart", function() {
+            console.log("开始拖动");
+        });
+
+        dialog.$on("dragEnd", function() {
+            console.log("结束拖动");
         })
 
 

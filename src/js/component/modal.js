@@ -319,7 +319,7 @@ export default (function(){
 
                 DOM.addClass(bar, "z-draggable")
 
-                Drag.startDrag(bar, this.dialogDom, Config.boundary(this.dialogDom));
+                Drag.startDrag(bar, this.dialogDom, Config.boundary(this.dialogDom), this);
             }
 
         }
