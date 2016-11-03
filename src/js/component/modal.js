@@ -2,9 +2,9 @@ import _ from "lodash";
 
 import Config from "../config/modal_config";
 
-import DOM from "./dom.es6";
+import DOM from "./dom";
 
-import Event from "./event.es6";
+import Event from "./event";
 
 export default (function(){
 

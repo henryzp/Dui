@@ -2,7 +2,9 @@
  * 基本配置
  */
 // 配置按需编译
-fis.set('project.files', ['*.html', 'server.conf', '/test/**', '/mock/**']);
+fis.set('project.files', ['example/*.html', 'server.conf', '/test/**', '/mock/**']);
+
+fis.set('project.ignore', ['dist/**']);
 
 // 配置 fis-components 安装目录
 fis.set('component.dir', 'fis-components');
@@ -30,7 +32,7 @@ fis.match('**.html', {
     parser: fis.plugin('html-uri')
 });
 
-fis.set('project.fileType.text', 'ts,es,es6');
+fis.set('project.fileType.text', 'ts,es,es6,js');
 
 
 
@@ -93,7 +95,7 @@ fis.media('prod').match('**.css', {
  */
 
 // 1. 将 es6, jsx 转换为 es5
-fis.match('{**.es6,**.jsx}', {
+fis.match('{**.js,**.es6,**.jsx}', {
     parser: fis.plugin('es6-babel', {
         sourceMaps: true
     }),
@@ -101,14 +103,14 @@ fis.match('{**.es6,**.jsx}', {
 });
 
 // 2. 校验 js 文件
-fis.match('{**.es6,**.jsx,**.js}', {
+fis.match('{**.js,**.es6,**.jsx,**.js}', {
     lint: fis.plugin('jshint', {
         // 使用汉语提示
         i18n: 'zh-CN'
     })
 });
 
-fis.media('prod').match('{**.es6,**.js}', {
+fis.media('prod').match('{**.js,**.es6,**.js}', {
     optimizer: fis.plugin('uglify-js', {
         compress: {
             // 保留未被用到的变量或函数
