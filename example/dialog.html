@@ -36,7 +36,7 @@
 
     require("../src/js/dui");
 
-    Dui.Modal.alert("123");
+    //Dui.Modal.alert("123");
 
     document.querySelector(".J_modal").addEventListener("click", function() {
 
@@ -55,6 +55,8 @@
 
             okFn: function() {
 
+                alert(456);
+
             },
 
             cancelFn: function() {
@@ -63,6 +65,19 @@
 
 
         });
+
+        dialog.$on("close", function() {
+            alert("我要关闭！");
+        })
+
+        dialog.$on("ok", function() {
+            alert("额");
+        })
+
+        dialog.$on("cancel", function() {
+            alert("取消");
+        })
+
 
     }, false);
 

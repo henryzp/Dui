@@ -267,6 +267,8 @@ export default (function(){
         //确定事件处理
         _okFn() {
 
+            this.$emit("ok");
+
             //TODO 判断是否是函数
             this.option.okFn && this.option.okFn.apply(this);
 
@@ -274,6 +276,8 @@ export default (function(){
 
         //取消事件处理
         _cancelFn() {
+
+            this.$emit("cancel");
 
             //TODO 判断是否是函数
             this.option.cancelFn && this.option.cancelFn.apply(this);
@@ -284,6 +288,8 @@ export default (function(){
 
         //关闭事件处理
         _closeFn() {
+
+            this.$emit("close");
 
             this.hide();
 
