@@ -1,4 +1,6 @@
-import _ from "lodash";
+import Template from "lodash/template";
+
+import Extend from "lodash/extend";
 
 import Config from "../config/modal_config";
 
@@ -70,7 +72,7 @@ export default (function(){
 
             this.option = option;
 
-            this.option = _.extend({}, defaultOption, this.option);
+            this.option = Extend({}, defaultOption, this.option);
 
             this.init();
 
@@ -242,7 +244,7 @@ export default (function(){
 
             }
 
-            let compiled = _.template(modalTemplate.join(""));
+            let compiled = Template(modalTemplate.join(""));
 
             let result = compiled(this.option);
 
