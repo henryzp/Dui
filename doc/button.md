@@ -7,7 +7,7 @@
 - dui-btn-warning、dui-btn-warning-bordered
 - dui-btn-danger 
 
-![button](./images/button.png)
+![button](images/button.png)
 
 ### button的尺寸
 
