@@ -34,6 +34,7 @@ option为json对象
 | width | int/string |   420     |  弹框宽度，写法支持：160px 或者 160，当宽超过920时，会取920的宽度   |
 | height | int/string  |   170   |  弹框高度，写法支持：160px 或者 160，当要求高度自适应时，值为auto，但它和宽度一样，有一个最大高度：580 |
 | title   | string |  提示  | 弹框标题，目前允许传入html字符串，即当图标标题时，写法：`<i class="font-icon"></i>标题`，未来可能会做控制，建议传单纯的文字。当值为空时，整个title不存在  |
+| content | string | 内容 | 弹框内容，支持HTML |
 | btnPos | string |   right     |  弹框底部按钮对齐方式，默认靠右对齐，取值：left/center/right  |
 | ok | boolean/string |  false  |  当值为boolean时，表示是否显示确认按钮；当值为字符串时，显示确认按钮，并将它的按钮文本修改成该字符串   |
 | cancel | boolean/string |  false  |  当值为boolean时，表示是否显示取消按钮；当值为字符串时，显示取消按钮，并将它的按钮文本修改成该字符串  |
