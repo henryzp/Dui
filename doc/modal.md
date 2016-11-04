@@ -20,7 +20,7 @@
 
 ### 依赖
 
-因为右上角的关闭图标用到了webIcon，所以会依赖下面的css文件
+因为右上角的关闭图标用到了webIcon，所以会依赖下面的css文件，这一块在将来会做处理。
 
 ```
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1475922891_4469836.css">
@@ -39,6 +39,7 @@ option为json对象
 | 参数        | 类型   |  默认值  |  描述 |
 | ------   | --------  | ----  | -------- |
 | type | string |   default  | 弹框类型，默认为标准弹窗。当需要支持非标准弹框，值为：custom  |
+| className | string | 空 | 挂载到弹框上的类，通过它来自定义自己的class |
 | width | int/string |   420     |  弹框宽度，写法支持：160px 或者 160，当宽超过920时，会取920的宽度   |
 | height | int/string  |   170   |  弹框高度，写法支持：160px 或者 160，当要求高度自适应时，值为auto，但它和宽度一样，有一个最大高度：580 |
 | title   | string |  提示  | 弹框标题，目前允许传入html字符串，即当图标标题时，写法：`<i class="font-icon"></i>标题`，未来可能会做控制，建议传单纯的文字。当值为空时，整个title不存在  |
