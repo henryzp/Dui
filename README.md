@@ -5,6 +5,7 @@
 ### 组件模块
 
 - [button](./doc/button.md)
+- [modal](./doc/modal.md)
 
 ### 环境
 

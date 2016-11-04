@@ -8,7 +8,6 @@ let params = {
     flag: false
 }
 
-
 export default {
 
     startDrag(bar, target, boundary, $scope) {

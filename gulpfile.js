@@ -1,6 +1,7 @@
 var gulp = require("gulp"),
     gutil = require('gulp-util'),
     uglify = require('gulp-uglify'),
+    gzip = require('gulp-gzip'),
     rename = require('gulp-rename'),
     sass = require('gulp-sass'),
     cleanCSS = require('gulp-clean-css'),
@@ -32,6 +33,7 @@ gulp.task("build-js", function(callback) {
         gulp.src("./dist/js/dui.js")
             .pipe(rename({suffix: '.min'}))   //rename压缩后的文件名
             .pipe(uglify())    //压缩
+            .pipe(gzip())
             .pipe(gulp.dest('./dist/js'));
         callback();
     });
