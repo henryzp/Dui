@@ -33,6 +33,7 @@ gulp.task("build-js", function(callback) {
         gulp.src("./dist/js/dui.js")
             .pipe(rename({suffix: '.min'}))   //rename压缩后的文件名
             .pipe(uglify())    //压缩
+            .pipe(gulp.dest('./dist/js'))
             .pipe(gzip())
             .pipe(gulp.dest('./dist/js'));
         callback();
