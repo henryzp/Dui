@@ -30,7 +30,7 @@ export default (function(){
                 '<% if(contentHeight != "auto"){ %>',
                 '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">',
                 '<% }else { %>',
-                '<div style="height: <%= contentHeight %>;max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">123',
+                '<div style="height: <%= contentHeight %>;max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">',
                 '<% } %>',
                     '<%= content %>',
                 '</div>',
