@@ -31,3 +31,9 @@ body {
 .w80 {
     width: 80px;
 }
+
+.layout {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}

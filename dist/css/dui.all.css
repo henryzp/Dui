@@ -556,6 +556,8 @@ th {
   .dui-dialog .dui-dialog-hd {
     height: 44px;
     border-bottom: #e5e5e5 solid 1px; }
+    .dui-dialog .dui-dialog-hd h3 {
+      font-size: 16px; }
     .dui-dialog .dui-dialog-hd.z-draggable {
       cursor: move;
       cursor: -webkit-grab; }
@@ -587,3 +589,64 @@ th {
       text-align: center; }
     .dui-dialog .dui-dialog-ft.dui-dialog-ft-right .dui-btn-list-g10 {
       text-align: right; }
+
+.dui-tip, .dui-tip-success, .dui-tip-info, .dui-tip-warning, .dui-tip-error {
+  padding: 8px 15px;
+  font-family: "微软雅黑";
+  font-size: 12px;
+  color: #666;
+  position: relative; }
+  .dui-tip i, .dui-tip-success i, .dui-tip-info i, .dui-tip-warning i, .dui-tip-error i {
+    font-size: 14px;
+    position: absolute;
+    top: 7px; }
+  .dui-tip p, .dui-tip-success p, .dui-tip-info p, .dui-tip-warning p, .dui-tip-error p {
+    margin: 0 0 0 20px;
+    line-height: 16px; }
+
+.dui-tip {
+  border: #dbdada solid 1px;
+  background: #f5f5f5; }
+  .dui-tip i {
+    color: #333; }
+
+.dui-tip-success {
+  border: solid #f9d08f 1px;
+  background: #fff9eb; }
+  .dui-tip-success i {
+    color: #31c37c; }
+
+.dui-tip-info {
+  border: solid #f9d08f 1px;
+  background: #fff9eb; }
+  .dui-tip-info i {
+    color: #2db7f5; }
+
+.dui-tip-warning {
+  border: solid #f9d08f 1px;
+  background: #fff9eb; }
+  .dui-tip-warning i {
+    color: #ffb745; }
+
+.dui-tip-error {
+  border: solid #f9d08f 1px;
+  background: #fff9eb; }
+  .dui-tip-error i {
+    color: #ff424f; }
+
+.dui-tip-text {
+  padding: 15px 15px 10px;
+  margin-bottom: 14px;
+  border: solid #f9d08f 1px;
+  background: #fff9eb;
+  font-family: "微软雅黑";
+  font-size: 14px;
+  color: #666;
+  width: 556px; }
+  .dui-tip-text p {
+    margin: 0;
+    line-height: 20px; }
+  .dui-tip-text .close-box {
+    text-align: right; }
+  .dui-tip-text button {
+    width: 70px; }

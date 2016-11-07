@@ -53,6 +53,9 @@ $posList: left center right;
     .dui-dialog-hd {
         height: 44px;
         border-bottom: #e5e5e5 solid 1px;
+        h3{
+            font-size: 16px;
+        }
         &.z-draggable {
             cursor: move;
             cursor: -webkit-grab;

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试动画</title>
+    <style>
+        .test{
+            width: 500px;
+            height: 30px;
+            background: red;
+            position: absolute;
+            top: -60px;
+            left: calc(50% - 250px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="test"></div>
+
+<script src="js/modJS.js" data-loader="true"></script>
+
+<script>
+
+    require("../src/js/dui");
+
+    var dom = document.querySelector(".test");
+
+    Dui.Animate.startMove(dom, { top: 10 }, 600, function() {
+        setTimeout(function(){
+            Dui.Animate.startMove(dom, { top: -60 }, 600);
+        }, 1000)
+    })
+
+    //console.log(Dui.Animate);
+
+
+</script>
+</body>
+</html>

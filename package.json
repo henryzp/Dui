@@ -1,7 +1,7 @@
 {
-  "name": "mior-corp-front-component",
-  "version": "1.0.0",
-  "description": "",
+  "name": "Dui",
+  "version": "0.0.1",
+  "description": "针对税友小企业部门的UI组件开发",
   "main": "index.js",
   "directories": {
     "doc": "doc",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@192.168.2.107:mior-corp-front/mior-corp-front-component.git"
+    "url": "https://github.com/henryzp/Dui"
   },
   "author": "",
   "license": "ISC",
