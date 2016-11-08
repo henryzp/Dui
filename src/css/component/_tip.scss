@@ -59,3 +59,103 @@ $typeList: (success: #31c37c, info: #2db7f5, warning: #ffb745, error: #ff424f);
         width: 70px;
     }
 }
+
+@mixin tip-arrow($colorBg, $colorBorder, $size, $pos, $borderWidth: 1px) {
+    position: relative;
+    background: $colorBg;
+    border: $colorBorder solid $borderWidth;
+    &:before, &:after {
+        @if $pos == "left" {
+            right: 100%;
+            top: 50%;
+        }
+        @if $pos == "right" {
+            left: 100%;
+            top: 50%;
+        }
+        @if $pos == "top" or (length($pos) == 2 and nth($pos, 1) == "top") {
+            bottom: 100%;
+            left: 50%;
+        }
+        @if (length($pos) == 2 and nth($pos, 1) == "top") {
+            left: nth($pos, 2) + ($size + round($borderWidth * 1.41421356));
+        }
+        @if $pos == "bottom" or (length($pos) == 2 and nth($pos, 1) == "bottom") {
+            top: 100%;
+            left: 50%;
+        }
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+    &:after {
+        border-width: $size;
+        @if $pos == "left" {
+            border-right-color: $colorBg;
+            margin-top: -$size;
+        }
+        @if $pos == "right" {
+            border-left-color: $colorBg;
+            margin-top: -$size;
+        }
+        @if $pos == "top" or (length($pos) == 2 and nth($pos, 1) == "top") {
+            border-bottom-color: $colorBg;
+            margin-left: -$size;
+        }
+        @if $pos == "bottom" or (length($pos) == 2 and nth($pos, 1) == "bottom") {
+            border-top-color: $colorBg;
+            margin-left: -$size;
+        }
+    }
+    &:before {
+        border-width: $size + round($borderWidth * 1.41421356);
+        @if $pos == "left" {
+            border-right-color: $colorBorder;
+            margin-top: -($size + round($borderWidth * 1.41421356));
+        }
+        @if $pos == "right" {
+            border-left-color: $colorBorder;
+            margin-top: -($size + round($borderWidth * 1.41421356));
+        }
+        @if $pos == "top" or (length($pos) == 2 and nth($pos, 1) == "top") {
+            border-bottom-color: $colorBorder;
+            margin-left: -($size + round($borderWidth * 1.41421356));
+        }
+        @if $pos == "bottom" or (length($pos) == 2 and nth($pos, 1) == "bottom") {
+            border-top-color: $colorBorder;
+            margin-left: -($size + round($borderWidth * 1.41421356));
+        }
+    }
+}
+
+.dui-tip-arrow {
+    font-size: 12px;
+    padding: 8px 15px;
+    display: inline-block;
+    border-radius: 3px;
+    border: #d2d2d3 solid 1px;
+}
+
+.dui-tip-left-arrow {
+    @include tip-arrow(#fff, #d2d2d3, 5px, left);
+}
+
+.dui-tip-right-arrow {
+    @include tip-arrow(#fff, #d2d2d3, 5px, right);
+}
+
+.dui-tip-top-arrow {
+    @include tip-arrow(#fff, #d2d2d3, 5px, top);
+}
+
+.dui-tip-top-left-arrow {
+    @include tip-arrow(#fff, #d2d2d3, 5px, top 5px);
+}
+
+.dui-tip-bottom-arrow {
+    @include tip-arrow(#fff, #d2d2d3, 5px, bottom);
+}
+

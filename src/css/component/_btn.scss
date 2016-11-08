@@ -38,6 +38,7 @@
         border-color: nth($colorBorder, 1);
     }
     &:hover, &:active {
+        text-decoration: none;
         @if $colorBorder and length($colorBorder) == 2 {
             border-color: nth($colorBorder, 2); // $colorBorder: #dbdbdb #ccc => #ccc
         }
@@ -105,31 +106,31 @@ $colorDisabled: (text: #999, bg: #e3e3e3, border: #dbdbdb) !default;
 }
 
 .dui-btn {
-    @include btn-color(#666, #fff #e6e6e6 #f2f2f2, #ccc)
+    @include btn-color(#666 #666 #666, #fff #e6e6e6 #f2f2f2, #ccc)
 }
 
 .dui-btn-info {
-    @include btn-color(#fff, $info #02aed9 #11bde8);
+    @include btn-color(#fff #fff #fff, $info #02aed9 #11bde8);
 }
 
 .dui-btn-info-bordered {
-    @include btn-color($info, #fff #dbf8ff #f1fcff, $info);
+    @include btn-color($info $info $info, #fff #dbf8ff #f1fcff, $info);
 }
 
 .dui-btn-warning {
-    @include btn-color(#fff, $warning #f0ad4e #f6b354);
+    @include btn-color(#fff #fff #fff, $warning #f0ad4e #f6b354);
 }
 
 .dui-btn-warning-bordered {
-    @include btn-color($warning, #fff #fcf3df #fffbf3, $warning);
+    @include btn-color($warning $warning $warning, #fff #fcf3df #fffbf3, $warning);
 }
 
 .dui-btn-danger {
-    @include btn-color(#fff, $danger #ff8770 #ff917c);
+    @include btn-color(#fff #fff #fff, $danger #ff8770 #ff917c);
 }
 
 .dui-btn-danger-bordered {
-    @include btn-color($danger, #fff, $danger);
+    @include btn-color($danger $danger $danger, #fff, $danger);
 }
 
 .dui-btn-large {
