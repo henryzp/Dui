@@ -77,8 +77,11 @@ $typeList: (success: #31c37c, info: #2db7f5, warning: #ffb745, error: #ff424f);
             bottom: 100%;
             left: 50%;
         }
-        @if (length($pos) == 2 and nth($pos, 1) == "top") {
+        @if (length($pos) == 2 and nth($pos, 1) == "top") and nth($pos, 2) >= 0 {
             left: nth($pos, 2) + ($size + round($borderWidth * 1.41421356));
+        }
+        @if (length($pos) == 2 and nth($pos, 1) == "top") and nth($pos, 2) < 0 {
+            left: unquote("calc( 100% - #{($size + round($borderWidth * 1.41421356))} - #{abs(nth($pos, 2))} )");
         }
         @if $pos == "bottom" or (length($pos) == 2 and nth($pos, 1) == "bottom") {
             top: 100%;
@@ -131,31 +134,73 @@ $typeList: (success: #31c37c, info: #2db7f5, warning: #ffb745, error: #ff424f);
     }
 }
 
-.dui-tip-arrow {
+
+.dui-tip-arrow,
+.dui-tip-error-arrow{
     font-size: 12px;
-    padding: 8px 15px;
     display: inline-block;
     border-radius: 3px;
+}
+
+.dui-tip-arrow {
+    padding: 8px 15px;
     border: #d2d2d3 solid 1px;
+    &.dui-tip-left-arrow {
+        @include tip-arrow(#fff, #d2d2d3, 5px, left);
+    }
+
+    &.dui-tip-right-arrow {
+        @include tip-arrow(#fff, #d2d2d3, 5px, right);
+    }
+
+    &.dui-tip-top-arrow {
+        @include tip-arrow(#fff, #d2d2d3, 5px, top);
+    }
+
+    &.dui-tip-top-left-arrow {
+        @include tip-arrow(#fff, #d2d2d3, 5px, top 15px);
+    }
+
+    &.dui-tip-top-right-arrow {
+        @include tip-arrow(#fff, #d2d2d3, 5px, top -15px);
+    }
+
+    &.dui-tip-bottom-arrow {
+        @include tip-arrow(#fff, #d2d2d3, 5px, bottom);
+    }
 }
 
-.dui-tip-left-arrow {
-    @include tip-arrow(#fff, #d2d2d3, 5px, left);
-}
+.dui-tip-error-arrow {
+    height: 18px;
+    line-height: 18px;
+    background: #ffa5a5;
+    color: #fff;
+    padding: 0 5px;
+    display: inline-block;
+    border: #ffa5a5 solid 1px;
+    &.dui-tip-error-left {
+        @include tip-arrow(#ffa5a5, #ffa5a5, 5px, left);
+    }
 
-.dui-tip-right-arrow {
-    @include tip-arrow(#fff, #d2d2d3, 5px, right);
-}
+    &.dui-tip-error-right {
+        @include tip-arrow(#ffa5a5, #ffa5a5, 5px, right);
+    }
 
-.dui-tip-top-arrow {
-    @include tip-arrow(#fff, #d2d2d3, 5px, top);
-}
+    &.dui-tip-error-top {
+        @include tip-arrow(#ffa5a5, #ffa5a5, 5px, top);
+    }
 
-.dui-tip-top-left-arrow {
-    @include tip-arrow(#fff, #d2d2d3, 5px, top 5px);
-}
+    &.dui-tip-error-bottom {
+        @include tip-arrow(#ffa5a5, #ffa5a5, 5px, bottom);
+    }
 
-.dui-tip-bottom-arrow {
-    @include tip-arrow(#fff, #d2d2d3, 5px, bottom);
+    &.dui-tip-error-top-left {
+        @include tip-arrow(#ffa5a5, #ffa5a5, 5px, top 5px);
+    }
+
+    &.dui-tip-error-top-right {
+        @include tip-arrow(#ffa5a5, #ffa5a5, 5px, top -5px);
+    }
+
 }
 

@@ -53,6 +53,21 @@ option为json对象
 | init | function |   无     |  弹框渲染完可能要做一些处理的事件，在事件中可以通过`this.dialogDom`取到弹框容器   |
 | draggable | boolean | false | 是否可以拖拽对话框，默认为false |
 
+支持的方法：
+
+| 方法名   |  描述 |
+| ------ | -------- |
+| hide | 关闭弹窗 |
+
+调用方式简单如下：
+
+```
+var dialog = new Dui.Modal({})
+dialog.hide();
+```
+
+<mark>注：像init或者okFn函数中，可以通过调用this.hide()来关闭（销毁）弹窗</mark>
+
 支持的事件：
 
 事件通过$on来绑定，如：
