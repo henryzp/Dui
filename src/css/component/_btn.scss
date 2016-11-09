@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+button {
+    outline: none; //去掉蓝线
+}
+
 // btn
 //----------------------------------------------------
 // btn-basic
@@ -37,7 +41,8 @@
     @if $colorBorder {
         border-color: nth($colorBorder, 1);
     }
-    &:hover, &:active {
+    //&:focus是为了干掉bootstrap里面的样式
+    &:hover, &:active, &:focus {
         text-decoration: none;
         @if $colorBorder and length($colorBorder) == 2 {
             border-color: nth($colorBorder, 2); // $colorBorder: #dbdbdb #ccc => #ccc
@@ -58,7 +63,7 @@
             }
         }
     }
-    &:active {
+    &:active, &:focus {
         @if length($colorText) > 1 {
             color: nth($colorText, 2);
         }

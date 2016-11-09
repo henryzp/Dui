@@ -54,11 +54,16 @@
 
 	var _animate2 = _interopRequireDefault(_animate);
 
+	var _tip = __webpack_require__(77);
+
+	var _tip2 = _interopRequireDefault(_tip);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	window["Dui"] = module.exports = {
 	    Modal: _modal2.default,
-	    Animate: _animate2.default
+	    Animate: _animate2.default,
+	    Tip: _tip2.default
 	};
 
 /***/ },
@@ -2969,6 +2974,7 @@
 	    ftHeight: 30,
 	    padding: 16,
 	    closeIconClass: "iconfont icon-shanchu5",
+	    //边界范围
 	    boundary: function boundary(elem) {
 
 	        var width = elem.offsetWidth,
@@ -3059,9 +3065,20 @@
 
 	        return dom;
 	    },
-	    remove: function remove(elem) {
+	    prependHTML: function prependHTML(elem, html) {
 
-	        elem.parentNode.removeChild(elem);
+	        var divTemp = document.createElement("div");
+
+	        divTemp.innerHTML = html;
+
+	        var dom = divTemp.childNodes[0];
+
+	        elem.insertBefore(dom, elem.firstChild);
+
+	        return dom;
+	    },
+	    remove: function remove(elem) {
+	        elem.parentNode && elem.parentNode.removeChild(elem);
 	        return elem;
 	    }
 	};
@@ -3250,13 +3267,16 @@
 
 /***/ },
 /* 76 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+
+	var _dom = __webpack_require__(73);
+
 	var Tween = {
 	    linear: function linear(t, b, c, d) {
 	        //匀速
@@ -3428,9 +3448,9 @@
 	        iCur[attr] = 0;
 
 	        if (attr == 'opacity') {
-	            iCur[attr] = Math.round(getStyle(obj, attr) * 100);
+	            iCur[attr] = Math.round((0, _dom.getCss)(obj, attr) * 100);
 	        } else {
-	            iCur[attr] = parseInt(getStyle(obj, attr));
+	            iCur[attr] = parseInt((0, _dom.getCss)(obj, attr));
 	        }
 	    }
 
@@ -3464,14 +3484,6 @@
 	        }
 	    }, 13);
 
-	    function getStyle(obj, attr) {
-	        if (obj.currentStyle) {
-	            return obj.currentStyle[attr];
-	        } else {
-	            return getComputedStyle(obj, false)[attr];
-	        }
-	    }
-
 	    function now() {
 	        return new Date().getTime();
 	    }
@@ -3479,6 +3491,318 @@
 
 	exports.default = {
 	    startMove: startMove
+	};
+
+/***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _template = __webpack_require__(2);
+
+	var _template2 = _interopRequireDefault(_template);
+
+	var _extend = __webpack_require__(70);
+
+	var _extend2 = _interopRequireDefault(_extend);
+
+	var _tip_config = __webpack_require__(78);
+
+	var _tip_config2 = _interopRequireDefault(_tip_config);
+
+	var _dom = __webpack_require__(73);
+
+	var _dom2 = _interopRequireDefault(_dom);
+
+	var _event = __webpack_require__(74);
+
+	var _event2 = _interopRequireDefault(_event);
+
+	var _animate = __webpack_require__(76);
+
+	var _animate2 = _interopRequireDefault(_animate);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	exports.default = function () {
+
+	    var tipHint = ['<div class="dui-tip-hint <%= tipClass %>" style="margin-top: <%=marginTop %>px; top: <%=top %>px; min-width: <%=minWidth %>px; max-width: <%=maxWidth %>px;">', '<i class="<%= iconClass %>"></i>', '<p><%= msg %></p>', '</div>'];
+
+	    var tipText = ['<div class="dui-tip-text" style="opacity: 0;">', '<p><%= msg %></p>', '<div class="close-box">', '<button class="dui-btn-warning-bordered dui-btn-special dui-btn-small">我知道了</button>', '</div>', '</div>'];
+
+	    var Tip = function (_Event) {
+	        _inherits(Tip, _Event);
+
+	        function Tip(option) {
+	            _classCallCheck(this, Tip);
+
+	            var _this2 = _possibleConstructorReturn(this, (Tip.__proto__ || Object.getPrototypeOf(Tip)).call(this));
+
+	            var defaultOption = {
+	                tipContent: "这是一段提示"
+	            };
+
+	            _this2.option = option;
+
+	            _this2.option = (0, _extend2.default)({}, defaultOption, _this2.option);
+
+	            _this2.init();
+
+	            return _this2;
+	        }
+
+	        _createClass(Tip, [{
+	            key: "init",
+	            value: function init() {
+	                this.show();
+	                this.option.init && this.option.init.apply(this);
+	            }
+	        }, {
+	            key: "show",
+	            value: function show() {
+	                this.tipDom = _dom2.default.appendHTML(document.body, this.option.tipContent);
+	            }
+	        }, {
+	            key: "hide",
+	            value: function hide() {}
+	        }, {
+	            key: "destroy",
+	            value: function destroy() {
+	                _dom2.default.remove(this.tipDom);
+	            }
+	        }]);
+
+	        return Tip;
+	    }(_event2.default);
+
+	    Tip.showHint = function (type, msg, pos, time, callback) {
+
+	        //先把之前的tip给干掉
+	        if (_dom2.default.has(".dui-tip-hint").length > 0) {
+	            _dom2.default.remove(_dom2.default.find(".dui-tip-hint"));
+	        }
+
+	        var initialTop, finalTop;
+
+	        var option = {
+	            tipClass: _tip_config2.default.tipClassMap[type],
+	            marginTop: _tip_config2.default.hint.marginTop,
+	            minWidth: _tip_config2.default.hint.minWidth,
+	            maxWidth: _tip_config2.default.hint.maxWidth,
+	            iconClass: _tip_config2.default.hint.iconClass[type],
+	            msg: msg
+	        };
+
+	        finalTop = _tip_config2.default.hint.pos[pos];
+
+	        if (String(finalTop).slice(-1) == "%") {
+	            finalTop = Math.floor(_tip_config2.default.hint.pos.rel.offsetHeight * (finalTop.slice(0, -1) / 100));
+	        }
+
+	        initialTop = finalTop - _tip_config2.default.hint.pos.dis;
+	        option.top = initialTop;
+
+	        var compiled = (0, _template2.default)(tipHint.join(""));
+
+	        var tipContent = compiled(option);
+
+	        new Tip({
+	            tipContent: tipContent,
+	            init: function init() {
+	                var _this = this;
+
+	                this.tipDom.style.display = "block";
+
+	                setTimeout(function () {
+
+	                    Dui.Animate.startMove(_this.tipDom, { top: finalTop }, function () {
+
+	                        setTimeout(function () {
+
+	                            Dui.Animate.startMove(_this.tipDom, { top: initialTop }, function () {
+	                                callback && callback.apply(_this);
+	                                _this.tipDom.style.display = "none";
+	                                _this.destroy();
+	                            });
+	                        }, time * 1000);
+	                    });
+	                }, 10);
+	            }
+	        });
+	    };
+
+	    Tip.successInfo = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+	        Tip.showHint("success", msg, "top", time, callback);
+	    };
+
+	    Tip.middleSuccessInfo = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+	        Tip.showHint("success", msg, "middle", time, callback);
+	    };
+
+	    Tip.warning = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+	        Tip.showHint("warn", msg, "top", time, callback);
+	    };
+
+	    Tip.middleWarning = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+	        Tip.showHint("warn", msg, "middle", time, callback);
+	    };
+
+	    Tip.otherInfo = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+	        Tip.showHint("other", msg, "top", time, callback);
+	    };
+
+	    Tip.middleOtherInfo = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+	        Tip.showHint("other", msg, "middle", time, callback);
+	    };
+
+	    Tip.info = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+	        Tip.showHint("info", msg, "top", time, callback);
+	    };
+
+	    Tip.middleInfo = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+	        Tip.showHint("info", msg, "middle", time, callback);
+	    };
+
+	    Tip.error = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+	        Tip.showHint("error", msg, "top", time, callback);
+	    };
+
+	    Tip.middleError = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+	        Tip.showHint("error", msg, "middle", time, callback);
+	    };
+
+	    //显示更新的消息
+	    Tip.showUpdateMessage = function (msg) {
+
+	        function bindEvent(dom) {
+	            var elem = _dom2.default.find(dom, "button");
+	            elem.onclick = function () {
+	                Dui.Animate.startMove(dom, { opacity: 0 }, 400, function () {
+	                    _dom2.default.remove(dom);
+	                    var updateMessageDom = _dom2.default.find(".dui-update-message");
+	                    if (_dom2.default.has(updateMessageDom, ".dui-tip-text").length == 0) {
+	                        _dom2.default.remove(updateMessageDom);
+	                    }
+	                });
+	            };
+	        }
+
+	        var option = {
+	            msg: msg
+	        };
+
+	        var compiled = (0, _template2.default)(tipText.join("")),
+	            tipContent = compiled(option);
+
+	        if (_dom2.default.has(".dui-update-message").length == 0) {
+
+	            tipContent = '<div style="top: ' + _tip_config2.default.updateMessage.top + '" class="dui-update-message">' + tipContent + '</div>';
+
+	            new Tip({
+	                tipContent: tipContent,
+	                init: function init() {
+	                    var tipText = _dom2.default.find(this.tipDom, ".dui-tip-text");
+	                    Dui.Animate.startMove(tipText, { opacity: 100 }, 400, function () {
+	                        bindEvent(tipText);
+	                    });
+	                }
+	            });
+	        } else {
+	            (function () {
+
+	                var updateMessageDom = _dom2.default.find(".dui-update-message");
+	                var tipText = _dom2.default.prependHTML(updateMessageDom, tipContent);
+	                Dui.Animate.startMove(tipText, { opacity: 100 }, 400, function () {
+	                    bindEvent(tipText);
+	                });
+	            })();
+	        }
+	    };
+
+	    return Tip;
+	}();
+
+/***/ },
+/* 78 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = {
+	    hint: {
+	        marginTop: 8,
+	        minWidth: 250,
+	        maxWidth: 362,
+	        iconClass: {
+	            warn: "iconfont icon-tishi-20160921",
+	            info: "iconfont icon-yunxingyichangtishi-20150921",
+	            error: "iconfont icon-cuowu-20160921",
+	            success: "iconfont icon-right-2016-0921",
+	            other: "iconfont icon-tishi-20160921"
+	        },
+	        pos: {
+	            rel: document.documentElement,
+	            top: "0",
+	            middle: "35%",
+	            dis: 50
+	        }
+	    },
+	    tipClassMap: {
+	        success: "dui-tip-success",
+	        info: "dui-tip-info",
+	        warn: "dui-tip-warning",
+	        error: "dui-tip-error",
+	        other: "dui-tip"
+	    },
+	    updateMessage: {
+	        top: "2%"
+	    }
 	};
 
 /***/ }

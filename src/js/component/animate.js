@@ -1,3 +1,5 @@
+import {getCss} from "./dom";
+
 let Tween = {
     linear: function (t, b, c, d){  //匀速
         return c*t/d + b;
@@ -164,10 +166,10 @@ function startMove(obj,json,times,fx,fn){
         iCur[attr] = 0;
 
         if( attr == 'opacity' ){
-            iCur[attr] = Math.round(getStyle(obj,attr)*100);
+            iCur[attr] = Math.round(getCss(obj,attr)*100);
         }
         else{
-            iCur[attr] = parseInt(getStyle(obj,attr));
+            iCur[attr] = parseInt(getCss(obj,attr));
         }
 
     }
@@ -204,15 +206,6 @@ function startMove(obj,json,times,fx,fn){
         }
 
     },13);
-
-    function getStyle(obj,attr){
-        if(obj.currentStyle){
-            return obj.currentStyle[attr];
-        }
-        else{
-            return getComputedStyle(obj,false)[attr];
-        }
-    }
 
     function now(){
         return (new Date()).getTime();

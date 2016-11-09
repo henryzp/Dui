@@ -49,9 +49,22 @@ export default {
         return dom;
     },
 
-    remove(elem) {
+    prependHTML(elem, html) {
 
-        elem.parentNode.removeChild(elem);
+        var divTemp = document.createElement("div");
+
+        divTemp.innerHTML = html;
+
+        var dom = divTemp.childNodes[0];
+
+        elem.insertBefore(dom, elem.firstChild);
+
+        return dom;
+
+    },
+
+    remove(elem) {
+        elem.parentNode && elem.parentNode.removeChild(elem);
         return elem;
     }
 
