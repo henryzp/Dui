@@ -6,6 +6,7 @@ export default {
     hdHeight: 45, //44 + 1 (下边框)
     ftHeight: 30,
     padding: 16,
+    closeIconClass: "iconfont icon-shanchu5",
     boundary: function(elem) {
 
         let width = elem.offsetWidth,

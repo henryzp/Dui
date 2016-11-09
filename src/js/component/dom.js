@@ -10,9 +10,14 @@ export default {
         elem.classList.add(className);
     },
 
-    has(selector) {
+    has(elem, selector) {
 
-        let domArr = document.querySelectorAll(selector);
+        if(arguments.length == 1) {
+            elem = document;
+            selector = arguments[0];
+        }
+
+        let domArr = elem.querySelectorAll(selector);
 
         return {
             length: domArr.length

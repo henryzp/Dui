@@ -16,7 +16,7 @@ export default (function(){
     const modalTemplate = [
         '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px">',
             '<% if(close) { %>',
-                '<i class="dui-dialog-close J_dialog-close iconfont icon-shanchu5" href="javascript:;"></i>',
+                '<i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>',
             '<% } %>',
             '<% if(title != "" && type == "default") { %>',
                 '<div class="dui-dialog-hd">',
@@ -63,6 +63,8 @@ export default (function(){
                 okValue: "确定",
                 cancelValue: "取消",
                 className: "",
+                closeClass: Config.closeIconClass,
+                mask: true,
                 close: true,
                 ok: false,
                 cancel: false,
@@ -233,10 +235,9 @@ export default (function(){
 
         //显示弹窗
         show() {
-
             let len = DOM.has(".dui-dialog-wrap").length;
 
-            if(len == 0) {
+            if(len == 0 && this.option.mask) {
 
                 let wrap = '<div class="dui-dialog-wrap"></div>';
 
@@ -248,27 +249,31 @@ export default (function(){
 
             let result = compiled(this.option);
 
-            this.dialogDom = DOM.appendHTML(DOM.find(".dui-dialog-wrap"), result);
-
+            if(this.option.mask){
+                this.dialogDom = DOM.appendHTML(DOM.find(".dui-dialog-wrap"), result);
+            }else {
+                this.dialogDom = DOM.appendHTML(document.body, result);
+            }
         }
 
-        //隐藏弹窗（remove掉）
+        //隐藏弹窗
         hide() {
+            this.destroy();
+        }
 
+        //销毁弹窗
+        destroy() {
             this.unBindEvent();
 
-            var len = DOM.has(".dui-dialog").length;
+            var len = DOM.has(DOM.find(".dui-dialog-wrap"), ".dui-dialog").length;
 
             DOM.remove(this.dialogDom);
 
-            if(len == 1){
+            if(len == 1 && this.option.mask){
                 DOM.remove(DOM.find(".dui-dialog-wrap"));
             }
 
             this.dialogDom = null;
-
-            //this.$emit("hide");
-
         }
 
         //确定事件处理
@@ -302,6 +307,7 @@ export default (function(){
 
         }
 
+        //按ESC让弹窗消失
         _escFn(event) {
 
             event = event || window.event;

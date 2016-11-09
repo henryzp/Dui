@@ -23,6 +23,7 @@
     <a class="J_no-close dui-btn" href="javascript:;">无关闭</a>
     <a class="J_custom dui-btn" href="javascript:;">自定义弹窗</a>
     <a class="J_autoHeight dui-btn" href="javascript:;">自适应高度</a>
+    <a class="J_noMask dui-btn" href="javascript:;">拖拽无蒙板</a>
 </div>
 
 <div>
@@ -176,6 +177,12 @@
 
     }, false);
 
+    document.querySelector(".J_noMask").addEventListener("click", function() {
+        new Dui.Modal({
+            draggable: true,
+            mask: false
+        })
+    });
 
     document.querySelector(".J_more-dialog").addEventListener("click", function() {
 
