@@ -108,7 +108,7 @@
 	exports.default = function () {
 
 	    //TODO 未来希望是通过webpack loader 来引入html模板
-	    var modalTemplate = ['<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px">', '<% if(close) { %>', '<i class="dui-dialog-close J_dialog-close iconfont icon-shanchu5" href="javascript:;"></i>', '<% } %>', '<% if(title != "" && type == "default") { %>', '<div class="dui-dialog-hd">', '<h3 class="dui-dialog-title"><%= title %></h3>', '</div>', '<% } %>', '<% if(type == "custom") { %>', '<div class="dui-dialog-custom-bd"><%= content %></div>', '<% } %>', '<% if(type == "default") { %>', '<% if(contentHeight != "auto"){ %>', '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">', '<% }else { %>', '<div style="height: <%= contentHeight %>;max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">', '<% } %>', '<%= content %>', '</div>', '<% if(ok || cancel) { %>', '<div class="dui-dialog-ft <%= btnPosClass %>">', '<div class="dui-btn-list-g10">', '<% if(ok) { %>', '<a class="dui-btn-info J_dialog-ok" href="javascript:;"><%= okValue %></a>', '<% } %>', '<% if(cancel) { %>', '<a class="dui-btn J_dialog-cancel" href="javascript:;"><%= cancelValue %></a>', '<% } %>', '</div>', '</div>', '<% }  %>', '<% }  %>', '</div>'];
+	    var modalTemplate = ['<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px">', '<% if(close) { %>', '<i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>', '<% } %>', '<% if(title != "" && type == "default") { %>', '<div class="dui-dialog-hd">', '<h3 class="dui-dialog-title"><%= title %></h3>', '</div>', '<% } %>', '<% if(type == "custom") { %>', '<div class="dui-dialog-custom-bd"><%= content %></div>', '<% } %>', '<% if(type == "default") { %>', '<% if(contentHeight != "auto"){ %>', '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">', '<% }else { %>', '<div style="height: <%= contentHeight %>;max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">', '<% } %>', '<%= content %>', '</div>', '<% if(ok || cancel) { %>', '<div class="dui-dialog-ft <%= btnPosClass %>">', '<div class="dui-btn-list-g10">', '<% if(ok) { %>', '<a class="dui-btn-info J_dialog-ok" href="javascript:;"><%= okValue %></a>', '<% } %>', '<% if(cancel) { %>', '<a class="dui-btn J_dialog-cancel" href="javascript:;"><%= cancelValue %></a>', '<% } %>', '</div>', '</div>', '<% }  %>', '<% }  %>', '</div>'];
 
 	    var Modal = function (_Event) {
 	        _inherits(Modal, _Event);
@@ -125,6 +125,8 @@
 	                okValue: "确定",
 	                cancelValue: "取消",
 	                className: "",
+	                closeClass: _modal_config2.default.closeIconClass,
+	                mask: true,
 	                close: true,
 	                ok: false,
 	                cancel: false,
@@ -308,10 +310,9 @@
 	        }, {
 	            key: "show",
 	            value: function show() {
-
 	                var len = _dom2.default.has(".dui-dialog-wrap").length;
 
-	                if (len == 0) {
+	                if (len == 0 && this.option.mask) {
 
 	                    var wrap = '<div class="dui-dialog-wrap"></div>';
 
@@ -322,28 +323,37 @@
 
 	                var result = compiled(this.option);
 
-	                this.dialogDom = _dom2.default.appendHTML(_dom2.default.find(".dui-dialog-wrap"), result);
+	                if (this.option.mask) {
+	                    this.dialogDom = _dom2.default.appendHTML(_dom2.default.find(".dui-dialog-wrap"), result);
+	                } else {
+	                    this.dialogDom = _dom2.default.appendHTML(document.body, result);
+	                }
 	            }
 
-	            //隐藏弹窗（remove掉）
+	            //隐藏弹窗
 
 	        }, {
 	            key: "hide",
 	            value: function hide() {
+	                this.destroy();
+	            }
 
+	            //销毁弹窗
+
+	        }, {
+	            key: "destroy",
+	            value: function destroy() {
 	                this.unBindEvent();
 
-	                var len = _dom2.default.has(".dui-dialog").length;
+	                var len = _dom2.default.has(_dom2.default.find(".dui-dialog-wrap"), ".dui-dialog").length;
 
 	                _dom2.default.remove(this.dialogDom);
 
-	                if (len == 1) {
+	                if (len == 1 && this.option.mask) {
 	                    _dom2.default.remove(_dom2.default.find(".dui-dialog-wrap"));
 	                }
 
 	                this.dialogDom = null;
-
-	                //this.$emit("hide");
 	            }
 
 	            //确定事件处理
@@ -382,6 +392,9 @@
 
 	                this.hide();
 	            }
+
+	            //按ESC让弹窗消失
+
 	        }, {
 	            key: "_escFn",
 	            value: function _escFn(event) {
@@ -2948,6 +2961,7 @@
 	    hdHeight: 45, //44 + 1 (下边框)
 	    ftHeight: 30,
 	    padding: 16,
+	    closeIconClass: "iconfont icon-shanchu5",
 	    boundary: function boundary(elem) {
 
 	        var width = elem.offsetWidth,
@@ -3004,9 +3018,14 @@
 	    addClass: function addClass(elem, className) {
 	        elem.classList.add(className);
 	    },
-	    has: function has(selector) {
+	    has: function has(elem, selector) {
 
-	        var domArr = document.querySelectorAll(selector);
+	        if (arguments.length == 1) {
+	            elem = document;
+	            selector = arguments[0];
+	        }
+
+	        var domArr = elem.querySelectorAll(selector);
 
 	        return {
 	            length: domArr.length
