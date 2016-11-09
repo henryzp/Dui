@@ -1,6 +1,6 @@
 {
   "name": "Dui",
-  "version": "0.0.3-alpha.2",
+  "version": "0.0.3-alpha.4",
   "description": "针对税友小企业部门的UI组件开发",
   "main": "index.js",
   "directories": {
@@ -17,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/henryzp/Dui"
   },
-  "author": "",
+  "author": "zhangpu",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.18.2",

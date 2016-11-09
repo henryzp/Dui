@@ -343,9 +343,16 @@
 	        }, {
 	            key: "destroy",
 	            value: function destroy() {
+
 	                this.unBindEvent();
 
-	                var len = _dom2.default.has(_dom2.default.find(".dui-dialog-wrap"), ".dui-dialog").length;
+	                var len;
+
+	                if (this.option.mask) {
+	                    len = _dom2.default.has(_dom2.default.find(".dui-dialog-wrap"), ".dui-dialog").length;
+	                } else {
+	                    len = _dom2.default.has(".dui-dialog").length;
+	                }
 
 	                _dom2.default.remove(this.dialogDom);
 

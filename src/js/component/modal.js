@@ -263,9 +263,16 @@ export default (function(){
 
         //销毁弹窗
         destroy() {
+
             this.unBindEvent();
 
-            var len = DOM.has(DOM.find(".dui-dialog-wrap"), ".dui-dialog").length;
+            var len;
+
+            if(this.option.mask) {
+               len = DOM.has(DOM.find(".dui-dialog-wrap"), ".dui-dialog").length;
+            }else {
+                len = DOM.has(".dui-dialog").length;
+            }
 
             DOM.remove(this.dialogDom);
 
@@ -274,6 +281,7 @@ export default (function(){
             }
 
             this.dialogDom = null;
+
         }
 
         //确定事件处理
