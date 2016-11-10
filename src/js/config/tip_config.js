@@ -26,5 +26,14 @@ export default {
     },
     updateMessage: {
         top: "2%"
+    },
+    arrowSize: 5,
+    tipArrowClassMap: {
+        l: "dui-tip-right-arrow",
+        r: "dui-tip-left-arrow",
+        t: "dui-tip-bottom-arrow",
+        b: "dui-tip-top-arrow",
+        bl: "dui-tip-top-left-arrow",
+        br: "dui-tip-top-right-arrow"
     }
 }

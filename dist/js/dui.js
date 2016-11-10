@@ -3037,6 +3037,9 @@
 	    addClass: function addClass(elem, className) {
 	        elem.classList.add(className);
 	    },
+	    getAttr: function getAttr(dom) {
+	        return dom.getBoundingClientRect();
+	    },
 	    has: function has(elem, selector) {
 
 	        if (arguments.length == 1) {
@@ -3199,6 +3202,12 @@
 
 	var _dom = __webpack_require__(73);
 
+	var _dom2 = _interopRequireDefault(_dom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var getCss = _dom2.default.getCss;
+
 	var params = {
 	    left: 0,
 	    top: 0,
@@ -3210,12 +3219,12 @@
 	exports.default = {
 	    startDrag: function startDrag(bar, target, boundary, $scope) {
 
-	        if ((0, _dom.getCss)(target, "left") !== "auto") {
-	            params.left = (0, _dom.getCss)(target, "left");
+	        if (getCss(target, "left") !== "auto") {
+	            params.left = getCss(target, "left");
 	        }
 
-	        if ((0, _dom.getCss)(target, "top") !== "auto") {
-	            params.top = (0, _dom.getCss)(target, "top");
+	        if (getCss(target, "top") !== "auto") {
+	            params.top = getCss(target, "top");
 	        }
 
 	        bar.onmousedown = function (event) {
@@ -3234,11 +3243,11 @@
 
 	            document.onmouseup = function () {
 	                params.flag = false;
-	                if ((0, _dom.getCss)(target, "left") !== "auto") {
-	                    params.left = (0, _dom.getCss)(target, "left");
+	                if (getCss(target, "left") !== "auto") {
+	                    params.left = getCss(target, "left");
 	                }
-	                if ((0, _dom.getCss)(target, "top") !== "auto") {
-	                    params.top = (0, _dom.getCss)(target, "top");
+	                if (getCss(target, "top") !== "auto") {
+	                    params.top = getCss(target, "top");
 	                }
 	                //触发dragEnd事件
 	                $scope && $scope.$emit("dragEnd");
@@ -3282,6 +3291,12 @@
 	});
 
 	var _dom = __webpack_require__(73);
+
+	var _dom2 = _interopRequireDefault(_dom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var getCss = _dom2.default.getCss;
 
 	var Tween = {
 	    linear: function linear(t, b, c, d) {
@@ -3454,9 +3469,9 @@
 	        iCur[attr] = 0;
 
 	        if (attr == 'opacity') {
-	            iCur[attr] = Math.round((0, _dom.getCss)(obj, attr) * 100);
+	            iCur[attr] = Math.round(getCss(obj, attr) * 100);
 	        } else {
-	            iCur[attr] = parseInt((0, _dom.getCss)(obj, attr));
+	            iCur[attr] = parseInt(getCss(obj, attr));
 	        }
 	    }
 
@@ -3548,6 +3563,8 @@
 	    var tipHint = ['<div class="dui-tip-hint <%= tipClass %>" style="margin-top: <%=marginTop %>px; top: <%=top %>px; min-width: <%=minWidth %>px; max-width: <%=maxWidth %>px;">', '<i class="<%= iconClass %>"></i>', '<p><%= msg %></p>', '</div>'];
 
 	    var tipText = ['<div class="dui-tip-text" style="opacity: 0;">', '<p><%= msg %></p>', '<div class="close-box">', '<button class="dui-btn-warning-bordered dui-btn-special dui-btn-small">我知道了</button>', '</div>', '</div>'];
+
+	    var tipArrow = ['<div style="position: fixed; display: none;" class="dui-tip-arrow <%= tipClass %>">', '<%= msg %>', '</div>'];
 
 	    var Tip = function (_Event) {
 	        _inherits(Tip, _Event);
@@ -3772,6 +3789,49 @@
 	        }
 	    };
 
+	    Tip.showArrowTip = function (option) {
+
+	        //pos: l\r\t\b\bl\br
+
+	        if (!option.pos) {
+	            console.error("必须传pos字段，来表明箭头的位置");
+	            return;
+	        }
+
+	        if (!option.alignElem) {
+	            console.error("必须传alignElem，来决定Tip的显示位置");
+	            return;
+	        }
+
+	        option.tipClass = _tip_config2.default.tipArrowClassMap[option.pos];
+
+	        if (typeof option.alignElem == "string") {
+	            option.alignElem = _dom2.default.find(option.alignElem);
+	        }
+
+	        var compiled = (0, _template2.default)(tipArrow.join("")),
+	            tipContent = compiled(option);
+
+	        console.log(tipContent);
+
+	        new Tip({
+	            tipContent: tipContent,
+	            init: function init() {
+	                var tipAttr = _dom2.default.getAttr(this.tipDom),
+	                    alignAttr = _dom2.default.getAttr(option.alignElem);
+
+	                switch (option.pos) {
+	                    case "l":
+	                        console.log(alignAttr.top);
+	                        this.tipDom.style.top = alignAttr.top + "px";
+	                        this.tipDom.style.left = 0;
+	                        break;
+	                }
+	                this.tipDom.style.display = "block";
+	            }
+	        });
+	    };
+
 	    return Tip;
 	}();
 
@@ -3812,6 +3872,15 @@
 	    },
 	    updateMessage: {
 	        top: "2%"
+	    },
+	    arrowSize: 5,
+	    tipArrowClassMap: {
+	        l: "dui-tip-right-arrow",
+	        r: "dui-tip-left-arrow",
+	        t: "dui-tip-bottom-arrow",
+	        b: "dui-tip-top-arrow",
+	        bl: "dui-tip-top-left-arrow",
+	        br: "dui-tip-top-right-arrow"
 	    }
 	};
 

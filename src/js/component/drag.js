@@ -1,4 +1,6 @@
-import {getCss} from "./dom";
+import DOM from "./dom";
+
+let getCss = DOM.getCss;
 
 let params = {
     left: 0,

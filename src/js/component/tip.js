@@ -28,6 +28,12 @@ export default (function(){
         '</div>'
     ];
 
+    const tipArrow = [
+        '<div style="position: fixed; display: none;" class="dui-tip-arrow <%= tipClass %>">',
+            '<%= msg %>',
+        '</div>',
+    ];
+
     class Tip extends Event {
 
         constructor(option) {
@@ -210,6 +216,49 @@ export default (function(){
 
         }
 
+    }
+
+    Tip.showArrowTip = function(option) {
+
+        //pos: l\r\t\b\bl\br
+
+        if(!option.pos) {
+            console.error("必须传pos字段，来表明箭头的位置");
+            return;
+        }
+
+        if(!option.alignElem) {
+            console.error("必须传alignElem，来决定Tip的显示位置");
+            return;
+        }
+
+        option.tipClass = Config.tipArrowClassMap[option.pos];
+
+        if(typeof option.alignElem == "string") {
+            option.alignElem = DOM.find(option.alignElem);
+        }
+
+        let compiled = Template(tipArrow.join("")),
+            tipContent = compiled(option);
+
+        console.log(tipContent);
+
+        new Tip({
+            tipContent,
+            init() {
+                let tipAttr = DOM.getAttr(this.tipDom),
+                    alignAttr = DOM.getAttr(option.alignElem);
+
+                switch (option.pos) {
+                    case "l":
+                        console.log(alignAttr.top);
+                        this.tipDom.style.top = alignAttr.top + "px";
+                        this.tipDom.style.left = 0;
+                        break;
+                }
+                this.tipDom.style.display = "block";
+            }
+        })
     }
 
     return Tip;

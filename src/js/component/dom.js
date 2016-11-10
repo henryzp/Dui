@@ -10,6 +10,10 @@ export default {
         elem.classList.add(className);
     },
 
+    getAttr(dom) {
+        return dom.getBoundingClientRect();
+    },
+
     has(elem, selector) {
 
         if(arguments.length == 1) {

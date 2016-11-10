@@ -1,4 +1,6 @@
-import {getCss} from "./dom";
+import DOM from "./dom";
+
+let getCss = DOM.getCss;
 
 let Tween = {
     linear: function (t, b, c, d){  //匀速
