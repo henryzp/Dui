@@ -474,8 +474,11 @@
 	    }(_event2.default);
 
 	    Modal.alert = function (text) {
+	        var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "提示";
+
 
 	        return new Modal({
+	            title: title,
 	            content: text,
 	            okFn: function okFn() {
 	                this.hide();
@@ -484,10 +487,13 @@
 	    };
 
 	    Modal.confirm = function (text) {
+	        var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "提示";
+
 
 	        return new Promise(function (resolve) {
 
 	            new Modal({
+	                title: title,
 	                content: text,
 	                okFn: function okFn() {
 	                    resolve();
@@ -3588,7 +3594,11 @@
 	        return Tip;
 	    }(_event2.default);
 
-	    Tip.showHint = function (type, msg, pos, time, callback) {
+	    Tip.showHint = function (type, msg) {
+	        var pos = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "top";
+	        var time = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2;
+	        var callback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function () {};
+
 
 	        //先把之前的tip给干掉
 	        if (_dom2.default.has(".dui-tip-hint").length > 0) {

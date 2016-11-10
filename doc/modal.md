@@ -91,19 +91,27 @@ dialog.$on("事件名", function(){})
 
 高级用法（静态方法）
 
-- Dui.Modal.alert(content)
+- Dui.Modal.alert(content[, title])
 
 弹出一个alert对话框。
 
-- Dui.Modal.confirm(content)
+例：
+```
+Dui.Modal.alert("xxxx");
+```
 
-弹出一个confirm对话框。通常我们在点击`确认`后，想做一些事件，代码如下：
+- Dui.Modal.confirm(content[, title])
+
+弹出一个confirm对话框。它会返回一个Promise对象，因此如果在非chrome下要引用promise库才行，不然会报错
+
+通常我们在点击`确认`后，想做一些事件，代码如下：
 
 ```
-Dui.Modal.confirm(content).then(function(){
+Dui.Modal.confirm("xxxx").then(function(){
     //todo something
 });
 ```
+
 
 
 

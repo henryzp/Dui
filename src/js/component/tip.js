@@ -65,7 +65,7 @@ export default (function(){
 
     }
 
-    Tip.showHint = function(type, msg, pos, time, callback) {
+    Tip.showHint = function(type, msg, pos = "top", time = 2, callback = function(){}) {
 
         //先把之前的tip给干掉
         if(DOM.has(".dui-tip-hint").length > 0) {

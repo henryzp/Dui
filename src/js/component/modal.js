@@ -377,9 +377,10 @@ export default (function(){
 
     }
 
-    Modal.alert = function(text){
+    Modal.alert = function(text, title = "提示"){
 
        return new Modal({
+            title: title,
             content: text,
             okFn: function() {
                 this.hide();
@@ -388,11 +389,12 @@ export default (function(){
 
     }
 
-    Modal.confirm = function(text) {
+    Modal.confirm = function(text, title = "提示") {
 
         return new Promise(function(resolve) {
 
             new Modal({
+                title: title,
                 content: text,
                 okFn: function() {
                     resolve();
