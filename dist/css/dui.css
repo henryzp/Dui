@@ -469,11 +469,11 @@ button {
   padding: 0 5px;
   display: inline-block;
   border: #ffa5a5 solid 1px; }
-  .dui-tip-error-arrow.dui-tip-error-left {
+  .dui-tip-error-arrow.dui-tip-left-arrow {
     position: relative;
     background: #ffa5a5;
     border: #ffa5a5 solid 1px; }
-    .dui-tip-error-arrow.dui-tip-error-left:before, .dui-tip-error-arrow.dui-tip-error-left:after {
+    .dui-tip-error-arrow.dui-tip-left-arrow:before, .dui-tip-error-arrow.dui-tip-left-arrow:after {
       right: 100%;
       top: 50%;
       border: solid transparent;
@@ -482,19 +482,19 @@ button {
       width: 0;
       position: absolute;
       pointer-events: none; }
-    .dui-tip-error-arrow.dui-tip-error-left:after {
+    .dui-tip-error-arrow.dui-tip-left-arrow:after {
       border-width: 5px;
       border-right-color: #ffa5a5;
       margin-top: -5px; }
-    .dui-tip-error-arrow.dui-tip-error-left:before {
+    .dui-tip-error-arrow.dui-tip-left-arrow:before {
       border-width: 6px;
       border-right-color: #ffa5a5;
       margin-top: -6px; }
-  .dui-tip-error-arrow.dui-tip-error-right {
+  .dui-tip-error-arrow.dui-tip-right-arrow {
     position: relative;
     background: #ffa5a5;
     border: #ffa5a5 solid 1px; }
-    .dui-tip-error-arrow.dui-tip-error-right:before, .dui-tip-error-arrow.dui-tip-error-right:after {
+    .dui-tip-error-arrow.dui-tip-right-arrow:before, .dui-tip-error-arrow.dui-tip-right-arrow:after {
       left: 100%;
       top: 50%;
       border: solid transparent;
@@ -503,19 +503,19 @@ button {
       width: 0;
       position: absolute;
       pointer-events: none; }
-    .dui-tip-error-arrow.dui-tip-error-right:after {
+    .dui-tip-error-arrow.dui-tip-right-arrow:after {
       border-width: 5px;
       border-left-color: #ffa5a5;
       margin-top: -5px; }
-    .dui-tip-error-arrow.dui-tip-error-right:before {
+    .dui-tip-error-arrow.dui-tip-right-arrow:before {
       border-width: 6px;
       border-left-color: #ffa5a5;
       margin-top: -6px; }
-  .dui-tip-error-arrow.dui-tip-error-top {
+  .dui-tip-error-arrow.dui-tip-top-arrow {
     position: relative;
     background: #ffa5a5;
     border: #ffa5a5 solid 1px; }
-    .dui-tip-error-arrow.dui-tip-error-top:before, .dui-tip-error-arrow.dui-tip-error-top:after {
+    .dui-tip-error-arrow.dui-tip-top-arrow:before, .dui-tip-error-arrow.dui-tip-top-arrow:after {
       bottom: 100%;
       left: 50%;
       border: solid transparent;
@@ -524,19 +524,19 @@ button {
       width: 0;
       position: absolute;
       pointer-events: none; }
-    .dui-tip-error-arrow.dui-tip-error-top:after {
+    .dui-tip-error-arrow.dui-tip-top-arrow:after {
       border-width: 5px;
       border-bottom-color: #ffa5a5;
       margin-left: -5px; }
-    .dui-tip-error-arrow.dui-tip-error-top:before {
+    .dui-tip-error-arrow.dui-tip-top-arrow:before {
       border-width: 6px;
       border-bottom-color: #ffa5a5;
       margin-left: -6px; }
-  .dui-tip-error-arrow.dui-tip-error-bottom {
+  .dui-tip-error-arrow.dui-tip-bottom-arrow {
     position: relative;
     background: #ffa5a5;
     border: #ffa5a5 solid 1px; }
-    .dui-tip-error-arrow.dui-tip-error-bottom:before, .dui-tip-error-arrow.dui-tip-error-bottom:after {
+    .dui-tip-error-arrow.dui-tip-bottom-arrow:before, .dui-tip-error-arrow.dui-tip-bottom-arrow:after {
       top: 100%;
       left: 50%;
       border: solid transparent;
@@ -545,19 +545,19 @@ button {
       width: 0;
       position: absolute;
       pointer-events: none; }
-    .dui-tip-error-arrow.dui-tip-error-bottom:after {
+    .dui-tip-error-arrow.dui-tip-bottom-arrow:after {
       border-width: 5px;
       border-top-color: #ffa5a5;
       margin-left: -5px; }
-    .dui-tip-error-arrow.dui-tip-error-bottom:before {
+    .dui-tip-error-arrow.dui-tip-bottom-arrow:before {
       border-width: 6px;
       border-top-color: #ffa5a5;
       margin-left: -6px; }
-  .dui-tip-error-arrow.dui-tip-error-top-left {
+  .dui-tip-error-arrow.dui-tip-top-left-arrow {
     position: relative;
     background: #ffa5a5;
     border: #ffa5a5 solid 1px; }
-    .dui-tip-error-arrow.dui-tip-error-top-left:before, .dui-tip-error-arrow.dui-tip-error-top-left:after {
+    .dui-tip-error-arrow.dui-tip-top-left-arrow:before, .dui-tip-error-arrow.dui-tip-top-left-arrow:after {
       bottom: 100%;
       left: 50%;
       left: 11px;
@@ -567,19 +567,19 @@ button {
       width: 0;
       position: absolute;
       pointer-events: none; }
-    .dui-tip-error-arrow.dui-tip-error-top-left:after {
+    .dui-tip-error-arrow.dui-tip-top-left-arrow:after {
       border-width: 5px;
       border-bottom-color: #ffa5a5;
       margin-left: -5px; }
-    .dui-tip-error-arrow.dui-tip-error-top-left:before {
+    .dui-tip-error-arrow.dui-tip-top-left-arrow:before {
       border-width: 6px;
       border-bottom-color: #ffa5a5;
       margin-left: -6px; }
-  .dui-tip-error-arrow.dui-tip-error-top-right {
+  .dui-tip-error-arrow.dui-tip-top-right-arrow {
     position: relative;
     background: #ffa5a5;
     border: #ffa5a5 solid 1px; }
-    .dui-tip-error-arrow.dui-tip-error-top-right:before, .dui-tip-error-arrow.dui-tip-error-top-right:after {
+    .dui-tip-error-arrow.dui-tip-top-right-arrow:before, .dui-tip-error-arrow.dui-tip-top-right-arrow:after {
       bottom: 100%;
       left: 50%;
       left: calc( 100% - 6px - 5px );
@@ -589,11 +589,11 @@ button {
       width: 0;
       position: absolute;
       pointer-events: none; }
-    .dui-tip-error-arrow.dui-tip-error-top-right:after {
+    .dui-tip-error-arrow.dui-tip-top-right-arrow:after {
       border-width: 5px;
       border-bottom-color: #ffa5a5;
       margin-left: -5px; }
-    .dui-tip-error-arrow.dui-tip-error-top-right:before {
+    .dui-tip-error-arrow.dui-tip-top-right-arrow:before {
       border-width: 6px;
       border-bottom-color: #ffa5a5;
       margin-left: -6px; }

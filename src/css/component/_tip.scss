@@ -196,27 +196,27 @@ $typeList: (success: #31c37c, info: #2db7f5, warning: #ffb745, error: #ff424f);
     padding: 0 5px;
     display: inline-block;
     border: #ffa5a5 solid 1px;
-    &.dui-tip-error-left {
+    &.dui-tip-left-arrow {
         @include tip-arrow(#ffa5a5, #ffa5a5, 5px, left);
     }
 
-    &.dui-tip-error-right {
+    &.dui-tip-right-arrow {
         @include tip-arrow(#ffa5a5, #ffa5a5, 5px, right);
     }
 
-    &.dui-tip-error-top {
+    &.dui-tip-top-arrow {
         @include tip-arrow(#ffa5a5, #ffa5a5, 5px, top);
     }
 
-    &.dui-tip-error-bottom {
+    &.dui-tip-bottom-arrow {
         @include tip-arrow(#ffa5a5, #ffa5a5, 5px, bottom);
     }
 
-    &.dui-tip-error-top-left {
+    &.dui-tip-top-left-arrow {
         @include tip-arrow(#ffa5a5, #ffa5a5, 5px, top 5px);
     }
 
-    &.dui-tip-error-top-right {
+    &.dui-tip-top-right-arrow {
         @include tip-arrow(#ffa5a5, #ffa5a5, 5px, top -5px);
     }
 
