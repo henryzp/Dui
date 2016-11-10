@@ -29,7 +29,7 @@ export default (function(){
     ];
 
     const tipArrow = [
-        '<div style="position: fixed; display: none;" class="dui-tip-arrow <%= tipClass %>">',
+        '<div style="position: fixed; opacity: 0;" class="dui-tip-arrow <%= tipClass %>">',
             '<%= msg %>',
         '</div>',
     ];
@@ -58,15 +58,20 @@ export default (function(){
         }
 
         show() {
-            this.tipDom = DOM.appendHTML(document.body, this.option.tipContent);
+            if(this.tipDom) {
+                this.tipDom.style.display = "block";
+            }else {
+                this.tipDom = DOM.appendHTML(document.body, this.option.tipContent);
+            }
         }
 
         hide() {
-
+            this.tipDom.style.display = "none";
         }
 
         destroy() {
             DOM.remove(this.tipDom);
+            this.tipDom = null;
         }
 
     }
@@ -177,6 +182,7 @@ export default (function(){
             var elem = DOM.find(dom, "button");
             elem.onclick = function() {
                 Dui.Animate.startMove(dom, {opacity: 0}, 400, function() {
+                    elem.onclick = null; //事件解绑
                     DOM.remove(dom);
                     let updateMessageDom = DOM.find(".dui-update-message");
                     if(DOM.has(updateMessageDom, ".dui-tip-text").length == 0) {
@@ -220,7 +226,11 @@ export default (function(){
 
     Tip.showArrowTip = function(option) {
 
-        //pos: l\r\t\b\bl\br
+        let defaultOption = {
+            spacing: 5
+        }
+
+        option = Extend({}, defaultOption, option);
 
         if(!option.pos) {
             console.error("必须传pos字段，来表明箭头的位置");
@@ -243,22 +253,49 @@ export default (function(){
 
         console.log(tipContent);
 
-        new Tip({
+        return new Tip({
             tipContent,
             init() {
                 let tipAttr = DOM.getAttr(this.tipDom),
                     alignAttr = DOM.getAttr(option.alignElem);
 
+                let styleText = "position: fixed";
+
                 switch (option.pos) {
                     case "l":
-                        console.log(alignAttr.top);
-                        this.tipDom.style.top = alignAttr.top + "px";
-                        this.tipDom.style.left = 0;
+                        styleText += "; top: " + alignAttr.top + "px";
+                        styleText += "; left: " + (alignAttr.left - tipAttr.width - Config.arrowSize - option.spacing) + "px";
+                        break;
+                    case "r":
+                        styleText += "; top: " + alignAttr.top + "px";
+                        styleText += "; left: " + (alignAttr.left + alignAttr.width + Config.arrowSize + option.spacing) + "px";
+                        break;
+                    case "t":
+                        styleText += "; top: " + (alignAttr.top - tipAttr.height - Config.arrowSize - option.spacing) + "px";
+                        styleText += "; left: " + (alignAttr.left + alignAttr.width/2 - tipAttr.width/2) + "px";
+                        break;
+                    case "b":
+                        styleText += "; top: " + (alignAttr.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
+                        styleText += "; left: " + (alignAttr.left + alignAttr.width/2 - tipAttr.width/2) + "px";
+                        break;
+                    case "bl":
+                        styleText += "; top: " + (alignAttr.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
+                        styleText += "; left: " + alignAttr.left + "px";
+                        break;
+                    case "br":
+                        styleText += "; top: " + (alignAttr.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
+                        styleText += "; left: " + (alignAttr.left + alignAttr.width - tipAttr.width) + "px";
                         break;
                 }
-                this.tipDom.style.display = "block";
+
+                styleText += "; opacity: 1";
+
+                console.log(styleText);
+
+                this.tipDom.style.cssText = styleText;
             }
         })
+
     }
 
     return Tip;

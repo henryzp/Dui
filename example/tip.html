@@ -92,12 +92,25 @@
 
     //Dui.Tip.showHint("success", "111111", "middle");
 
+    var myTip;
+
     document.querySelector(".J_tip").addEventListener("mouseover", function() {
-        Dui.Tip.showArrowTip({
-            msg: "123",
-            pos: "l",
-            alignElem: ".J_tip"
+
+        if(myTip) {
+            myTip.show();
+            return;
+        }
+
+        myTip = Dui.Tip.showArrowTip({
+            msg: "这是一个弹出框信息",
+            pos: "br",
+            alignElem: this,
+            spacing: 5
         });
+
+    })
+    document.querySelector(".J_tip").addEventListener("mouseout", function() {
+        myTip && myTip.hide();
     })
 
 </script>

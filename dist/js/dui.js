@@ -3564,7 +3564,7 @@
 
 	    var tipText = ['<div class="dui-tip-text" style="opacity: 0;">', '<p><%= msg %></p>', '<div class="close-box">', '<button class="dui-btn-warning-bordered dui-btn-special dui-btn-small">我知道了</button>', '</div>', '</div>'];
 
-	    var tipArrow = ['<div style="position: fixed; display: none;" class="dui-tip-arrow <%= tipClass %>">', '<%= msg %>', '</div>'];
+	    var tipArrow = ['<div style="position: fixed; opacity: 0;" class="dui-tip-arrow <%= tipClass %>">', '<%= msg %>', '</div>'];
 
 	    var Tip = function (_Event) {
 	        _inherits(Tip, _Event);
@@ -3596,15 +3596,22 @@
 	        }, {
 	            key: "show",
 	            value: function show() {
-	                this.tipDom = _dom2.default.appendHTML(document.body, this.option.tipContent);
+	                if (this.tipDom) {
+	                    this.tipDom.style.display = "block";
+	                } else {
+	                    this.tipDom = _dom2.default.appendHTML(document.body, this.option.tipContent);
+	                }
 	            }
 	        }, {
 	            key: "hide",
-	            value: function hide() {}
+	            value: function hide() {
+	                this.tipDom.style.display = "none";
+	            }
 	        }, {
 	            key: "destroy",
 	            value: function destroy() {
 	                _dom2.default.remove(this.tipDom);
+	                this.tipDom = null;
 	            }
 	        }]);
 
@@ -3748,6 +3755,7 @@
 	            var elem = _dom2.default.find(dom, "button");
 	            elem.onclick = function () {
 	                Dui.Animate.startMove(dom, { opacity: 0 }, 400, function () {
+	                    elem.onclick = null; //事件解绑
 	                    _dom2.default.remove(dom);
 	                    var updateMessageDom = _dom2.default.find(".dui-update-message");
 	                    if (_dom2.default.has(updateMessageDom, ".dui-tip-text").length == 0) {
@@ -3791,7 +3799,11 @@
 
 	    Tip.showArrowTip = function (option) {
 
-	        //pos: l\r\t\b\bl\br
+	        var defaultOption = {
+	            spacing: 5
+	        };
+
+	        option = (0, _extend2.default)({}, defaultOption, option);
 
 	        if (!option.pos) {
 	            console.error("必须传pos字段，来表明箭头的位置");
@@ -3814,20 +3826,46 @@
 
 	        console.log(tipContent);
 
-	        new Tip({
+	        return new Tip({
 	            tipContent: tipContent,
 	            init: function init() {
 	                var tipAttr = _dom2.default.getAttr(this.tipDom),
 	                    alignAttr = _dom2.default.getAttr(option.alignElem);
 
+	                var styleText = "position: fixed";
+
 	                switch (option.pos) {
 	                    case "l":
-	                        console.log(alignAttr.top);
-	                        this.tipDom.style.top = alignAttr.top + "px";
-	                        this.tipDom.style.left = 0;
+	                        styleText += "; top: " + alignAttr.top + "px";
+	                        styleText += "; left: " + (alignAttr.left - tipAttr.width - _tip_config2.default.arrowSize - option.spacing) + "px";
+	                        break;
+	                    case "r":
+	                        styleText += "; top: " + alignAttr.top + "px";
+	                        styleText += "; left: " + (alignAttr.left + alignAttr.width + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        break;
+	                    case "t":
+	                        styleText += "; top: " + (alignAttr.top - tipAttr.height - _tip_config2.default.arrowSize - option.spacing) + "px";
+	                        styleText += "; left: " + (alignAttr.left + alignAttr.width / 2 - tipAttr.width / 2) + "px";
+	                        break;
+	                    case "b":
+	                        styleText += "; top: " + (alignAttr.top + alignAttr.height + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        styleText += "; left: " + (alignAttr.left + alignAttr.width / 2 - tipAttr.width / 2) + "px";
+	                        break;
+	                    case "bl":
+	                        styleText += "; top: " + (alignAttr.top + alignAttr.height + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        styleText += "; left: " + alignAttr.left + "px";
+	                        break;
+	                    case "br":
+	                        styleText += "; top: " + (alignAttr.top + alignAttr.height + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        styleText += "; left: " + (alignAttr.left + alignAttr.width - tipAttr.width) + "px";
 	                        break;
 	                }
-	                this.tipDom.style.display = "block";
+
+	                styleText += "; opacity: 1";
+
+	                console.log(styleText);
+
+	                this.tipDom.style.cssText = styleText;
 	            }
 	        });
 	    };
