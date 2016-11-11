@@ -72,7 +72,11 @@
     </div>
 
     <div style="width: 400px; height: 42px;background: #eeeeee; text-align: right;" class="mt10">
-        <a style="margin-top: 5px; margin-right: 5px;" class="J_tip dui-btn-warning" href="javascript:;">复制历史数据</a>
+        <a style="margin-top: 5px; margin-right: 5px;" class="J_tip1 dui-btn-warning" href="javascript:;">复制历史数据</a>
+    </div>
+
+    <div style="width: 400px; height: 42px;background: #eeeeee; text-align: right;" class="mt10">
+        <a style="margin-top: 5px; margin-right: 5px;" class="J_tip2 dui-btn-warning" href="javascript:;">复制历史数据</a>
     </div>
 
     <h2>出错提示</h2>
@@ -82,6 +86,11 @@
     <div class="dui-tip-error-arrow dui-tip-bottom-arrow ml10">您填写的税号有误</div>
     <div class="dui-tip-error-arrow dui-tip-top-left-arrow ml10">您填写的税号有误</div>
     <div class="dui-tip-error-arrow dui-tip-top-right-arrow ml10">您填写的税号有误</div>
+
+    <div style="margin-bottom: 30px;" class="mt10">
+        出错提示：<input class="J_input" style="padding: 3px;" type="text" value="123" />
+    </div>
+
 </div>
 
 <script src="js/modJS.js" data-loader="true"></script>
@@ -92,26 +101,34 @@
 
     //Dui.Tip.showHint("success", "111111", "middle");
 
-    var myTip;
 
-    document.querySelector(".J_tip").addEventListener("mouseover", function() {
+    var t1 = Dui.Tip.tooltip({
+        el: ".J_tip1",
+        msg: "这是一个弹出层信息",
+        pos: "l"
+    });
 
-        if(myTip) {
-            myTip.show();
-            return;
-        }
+    var t2 = Dui.Tip.tooltip({
+        el: ".J_tip2",
+        msg: "这是一个弹出层信息",
+        pos: "bl"
+    });
 
-        myTip = Dui.Tip.showArrowTip({
-            msg: "这是一个弹出框信息<br />123",
-            pos: "t",
-            alignElem: this,
-            spacing: 5
-        });
+    setTimeout(function(){
 
+        t1.destroy();
+
+    }, 5000);
+
+
+    var t3 = Dui.Tip.showFormError({
+        el: ".J_input",
+        msg: "这是一个出错信息",
+        pos: "bl"
     })
-    document.querySelector(".J_tip").addEventListener("mouseout", function() {
-        myTip && myTip.hide();
-    })
+
+    t3.show();
+
 
 </script>
 

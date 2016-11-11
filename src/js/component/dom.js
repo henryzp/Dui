@@ -10,8 +10,24 @@ export default {
         elem.classList.add(className);
     },
 
+    //获取边界属性
     getAttr(dom) {
         return dom.getBoundingClientRect();
+    },
+
+    //获取某元素以浏览器左上角为原点的坐标
+    getPoint(dom) {
+        var t = dom.offsetTop;
+        var l = dom.offsetLeft;
+        //判断是否有父容器，如果存在则累加其边距
+        while (dom = dom.offsetParent) {
+            t += dom.offsetTop;
+            l += dom.offsetLeft;
+        }
+        return {
+            top: t,
+            left: l
+        }
     },
 
     has(elem, selector) {

@@ -29,7 +29,7 @@ export default (function(){
     ];
 
     const tipArrow = [
-        '<div style="position: fixed; opacity: 0;" class="dui-tip-arrow <%= tipClass %>">',
+        '<div style="position: absolute; opacity: 0" class="<%= tipType %> <%= tipClass %>">',
             '<%= msg %>',
         '</div>',
     ];
@@ -70,6 +70,7 @@ export default (function(){
         }
 
         destroy() {
+            this.$emit("destroy");
             DOM.remove(this.tipDom);
             this.tipDom = null;
         }
@@ -107,7 +108,7 @@ export default (function(){
 
         let tipContent = compiled(option);
 
-        new Tip({
+        return new Tip({
             tipContent,
             init() {
                 var _this = this;
@@ -224,13 +225,7 @@ export default (function(){
 
     }
 
-    Tip.showArrowTip = function(option) {
-
-        let defaultOption = {
-            spacing: 5
-        }
-
-        option = Extend({}, defaultOption, option);
+    Tip._showBasicArrow = function(option) {
 
         if(!option.pos) {
             console.error("必须传pos字段，来表明箭头的位置");
@@ -244,9 +239,9 @@ export default (function(){
 
         option.tipClass = Config.tipArrowClassMap[option.pos];
 
-        if(typeof option.alignElem == "string") {
-            option.alignElem = DOM.find(option.alignElem);
-        }
+        option.type = option.type || "default";
+
+        option.tipType = option.type == "error" ? "dui-tip-error-arrow" : "dui-tip-arrow";
 
         let compiled = Template(tipArrow.join("")),
             tipContent = compiled(option);
@@ -257,44 +252,110 @@ export default (function(){
             tipContent,
             init() {
                 let tipAttr = DOM.getAttr(this.tipDom),
-                    alignAttr = DOM.getAttr(option.alignElem);
+                    alignAttr = DOM.getAttr(option.alignElem),
+                    alignPoint = DOM.getPoint(option.alignElem);
 
-                let styleText = "position: fixed";
+                let styleText = "position: absolute";
 
                 switch (option.pos) {
                     case "l":
-                        styleText += "; top: " + alignAttr.top + "px";
-                        styleText += "; left: " + (alignAttr.left - tipAttr.width - Config.arrowSize - option.spacing) + "px";
+                        styleText += "; top: " + alignPoint.top + "px";
+                        styleText += "; left: " + (alignPoint.left - tipAttr.width - Config.arrowSize - option.spacing) + "px";
                         break;
                     case "r":
-                        styleText += "; top: " + alignAttr.top + "px";
-                        styleText += "; left: " + (alignAttr.left + alignAttr.width + Config.arrowSize + option.spacing) + "px";
+                        styleText += "; top: " + alignPoint.top + "px";
+                        styleText += "; left: " + (alignPoint.left + alignAttr.width + Config.arrowSize + option.spacing) + "px";
                         break;
                     case "t":
-                        styleText += "; top: " + (alignAttr.top - tipAttr.height - Config.arrowSize - option.spacing) + "px";
-                        styleText += "; left: " + (alignAttr.left + alignAttr.width/2 - tipAttr.width/2) + "px";
+                        styleText += "; top: " + (alignPoint.top - tipAttr.height - Config.arrowSize - option.spacing) + "px";
+                        styleText += "; left: " + (alignPoint.left + alignAttr.width/2 - tipAttr.width/2) + "px";
                         break;
                     case "b":
-                        styleText += "; top: " + (alignAttr.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
+                        styleText += "; top: " + (alignPoint.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
                         styleText += "; left: " + (alignAttr.left + alignAttr.width/2 - tipAttr.width/2) + "px";
                         break;
                     case "bl":
-                        styleText += "; top: " + (alignAttr.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
-                        styleText += "; left: " + alignAttr.left + "px";
+                        styleText += "; top: " + (alignPoint.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
+                        styleText += "; left: " + alignPoint.left + "px";
                         break;
                     case "br":
-                        styleText += "; top: " + (alignAttr.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
-                        styleText += "; left: " + (alignAttr.left + alignAttr.width - tipAttr.width) + "px";
+                        styleText += "; top: " + (alignPoint.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
+                        styleText += "; left: " + (alignPoint.left + alignAttr.width - tipAttr.width) + "px";
                         break;
                 }
 
-                styleText += "; opacity: 1";
-
-                console.log(styleText);
+                styleText += "; display: none; opacity: 1";
 
                 this.tipDom.style.cssText = styleText;
             }
         })
+
+    }
+
+    Tip.tooltip = function(option) {
+
+        if(!option.el) {
+            console.error("必须传入el");
+            return;
+        }
+
+        if(!option.msg) {
+            console.error("必须传msg");
+            return;
+        }
+
+        let currentTip,
+            el = typeof option.el == "string" ? DOM.find(option.el) : option.el;
+
+        currentTip = Dui.Tip._showBasicArrow({
+            msg: option.msg,
+            pos: option.pos,
+            alignElem: el,
+            spacing: option.spacing || 5
+        }).$on("destroy", function() {
+            el.removeEventListener("mouseover", showTip);
+            el.removeEventListener("mouseout", hideTip);
+        })
+
+        el.addEventListener("mouseover", showTip);
+        el.addEventListener("mouseout", hideTip);
+
+        function showTip() {
+            currentTip && currentTip.show();
+        }
+
+        function hideTip() {
+            currentTip && currentTip.hide();
+        }
+
+        return currentTip;
+
+    }
+
+    Tip.showFormError = function(option) {
+
+        if(!option.el) {
+            console.error("必须传入el");
+            return;
+        }
+
+        if(!option.msg) {
+            console.error("必须传msg");
+            return;
+        }
+
+        let currentTip,
+            el = typeof option.el == "string" ? DOM.find(option.el) : option.el;
+
+        currentTip = Dui.Tip._showBasicArrow({
+            type: "error",
+            msg: option.msg,
+            pos: option.pos,
+            alignElem: el,
+            spacing: option.spacing || 5
+        })
+
+        return currentTip;
 
     }
 
