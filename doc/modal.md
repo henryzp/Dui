@@ -84,6 +84,7 @@ dialog.$on("事件名", function(){})
 | close | 点击右上角关闭时触发的事件 |
 | ok | 点击`确定`触发的事件 |
 | cancel | 点击`取消`触发的事件 |
+| destroy | 弹窗被销毁的时候，比如esc关闭、取消关闭、右上角关闭，触发该事件，通常用来解绑弹窗Content里面的事件 |
 | dragStart | 当draggable为true时，开始拖拽的事件 |
 | dragEnd | 当draggable为true时，结束拖拽的事件 |
 

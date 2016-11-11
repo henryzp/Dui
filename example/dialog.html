@@ -88,6 +88,10 @@
             console.log("结束拖动");
         })
 
+        dialog.$on("destroy", function() {
+            console.log("我被销毁了");
+        });
+
 
     }, false);
 

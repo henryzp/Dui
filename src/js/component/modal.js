@@ -258,6 +258,7 @@ export default (function(){
 
         //隐藏弹窗
         hide() {
+            this.$emit("destroy");
             this.destroy();
         }
 
