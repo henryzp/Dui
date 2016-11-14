@@ -79,6 +79,15 @@
         <a style="margin-top: 5px; margin-right: 5px;" class="J_tip2 dui-btn-warning" href="javascript:;">复制历史数据</a>
     </div>
 
+    <div style="margin-top: 50px; width: 400px; height: 42px;background: #eeeeee; text-align: right;">
+        <a style="margin-top: 5px; margin-right: 5px;" class="J_tip3 dui-btn-warning" href="javascript:;">复制历史数据</a>
+    </div>
+
+    <div style="margin-top: 30px; width: 400px; height: 42px;background: #eeeeee; text-align: right;">
+        <a style="margin-top: 5px; margin-right: 5px;" class="J_tip4 dui-btn-warning" href="javascript:;">复制历史数据</a>
+    </div>
+
+
     <h2>出错提示</h2>
     <div class="dui-tip-error-arrow dui-tip-left-arrow">您填写的税号有误</div>
     <div class="dui-tip-error-arrow dui-tip-right-arrow ml10">您填写的税号有误</div>
@@ -114,12 +123,44 @@
         pos: "bl"
     });
 
+    var t4 = Dui.Tip.poptip({
+        el: ".J_tip3",
+        msg: '这是一个弹出层信息<button>点我</button>',
+        pos: "bl",
+        trigger: "hover"
+    })
+
+    t4.tipDom.querySelector("button").onclick = function() {
+        console.log(456);
+    }
+
+    var t5 = Dui.Tip.poptip({
+        el: ".J_tip4",
+        msg: '这是一个弹出层信息<button class="myButton">点我</button>',
+        pos: "l",
+        trigger: "click"
+    })
+
+    t5.tipDom.querySelector("button").onclick = function() {
+        console.log(789);
+        t5.hide();
+    }
+
+    setTimeout(function(){
+
+        t5.destroy(function() {
+            t5.tipDom.querySelector("button").onclick = null;
+        })
+
+    }, 3000);
+
+    /*
     setTimeout(function(){
 
         t1.destroy();
 
     }, 5000);
-
+    */
 
     var t3 = Dui.Tip.showFormError({
         el: ".J_input",

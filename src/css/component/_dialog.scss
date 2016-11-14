@@ -18,7 +18,6 @@ $posList: left center right;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 9999;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     touch-action: cross-slide-y pinch-zoom double-tap-zoom;
@@ -53,9 +52,6 @@ $posList: left center right;
     .dui-dialog-hd {
         height: 44px;
         border-bottom: #e5e5e5 solid 1px;
-        h3{
-            font-size: 16px;
-        }
         &.z-draggable {
             cursor: move;
             cursor: -webkit-grab;
@@ -76,8 +72,12 @@ $posList: left center right;
         margin: 0 0 0 $dialogPadding;
         font-weight: normal;
         line-height: 44px;
+        font-size: 16px;
+        &.has-icon {
+            font-size: 14px;
+        }
         i {
-            font-size: inherit;
+            font-size: 16px;
             margin-right: 10px;
         }
     }

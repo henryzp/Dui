@@ -45,6 +45,7 @@
             width: "200",  //宽度，可选
             height: "300", //高度，可选
             title: "呵呵",
+            zIndex:  1000,
             className: "xxx", //新加class，绑定在dui-dialog上
             content: "...", //内容，可选
             //btnPos: "right", //按钮方向，left|center|right，默认right
@@ -98,8 +99,8 @@
     document.querySelector(".J_icon").addEventListener("click", function() {
 
         new Dui.Modal({
-            title: '<i class="iconfont icon-sousuo1"></i>我是图标啊',
-
+            title: '我是图标啊',
+            titleIconClass: "iconfont icon-sousuo1",
             okFn: function() {
 
             },

@@ -14,13 +14,17 @@ export default (function(){
 
     //TODO 未来希望是通过webpack loader 来引入html模板
     const modalTemplate = [
-        '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px">',
+        '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px; z-index: <%= zIndex %>">',
             '<% if(close) { %>',
                 '<i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>',
             '<% } %>',
             '<% if(title != "" && type == "default") { %>',
                 '<div class="dui-dialog-hd">',
+                    '<% if(titleIconClass == "") { %>',
                     '<h3 class="dui-dialog-title"><%= title %></h3>',
+                    '<% }else { %>',
+                    '<h3 class="dui-dialog-title has-icon"><i class="<%= titleIconClass %>"></i><%= title %></h3>',
+                    '<% } %>',
                 '</div>',
             '<% } %>',
             '<% if(type == "custom") { %>',
@@ -63,6 +67,8 @@ export default (function(){
                 okValue: "确定",
                 cancelValue: "取消",
                 className: "",
+                zIndex: 9999,
+                titleIconClass: "",
                 closeClass: Config.closeIconClass,
                 mask: true,
                 close: true,
@@ -239,7 +245,7 @@ export default (function(){
 
             if(len == 0 && this.option.mask) {
 
-                let wrap = '<div class="dui-dialog-wrap"></div>';
+                let wrap = '<div class="dui-dialog-wrap" style="z-index: '+ this.option.zIndex +'"></div>';
 
                 DOM.appendHTML(document.body, wrap);
 

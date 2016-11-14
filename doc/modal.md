@@ -38,22 +38,24 @@ option为json对象
 
 | 参数        | 类型   |  默认值  |  描述 |
 | ------   | --------  | ----  | -------- |
-| type | string |   default  | 弹框类型，默认为标准弹窗。当需要支持非标准弹框，值为：custom  |
-| className | string | 空 | 挂载到弹框上的类，通过它来自定义自己的class |
-| mask | boolean | true | 是否显示蒙板 |
-| closeClass | string | iconfont icon-shanchu5 | 关闭按钮的class，必须使用webIcon的类 |
-| width | int/string |   420     |  弹框宽度，写法支持：160px 或者 160，当宽超过920时，会取920的宽度   |
-| height | int/string  |   170   |  弹框高度，写法支持：160px 或者 160，当要求高度自适应时，值为auto，但它和宽度一样，有一个最大高度：580 |
-| title   | string |  提示  | 弹框标题，目前允许传入html字符串，即当图标标题时，写法：`<i class="font-icon"></i>标题`，未来可能会做控制，建议传单纯的文字。当值为空时，整个title不存在  |
-| content | string | 内容 | 弹框内容，支持HTML |
-| btnPos | string |   right     |  弹框底部按钮对齐方式，默认靠右对齐，取值：left/center/right  |
-| ok | boolean/string |  false  |  当值为boolean时，表示是否显示确认按钮；当值为字符串时，显示确认按钮，并将它的按钮文本修改成该字符串   |
-| cancel | boolean/string |  false  |  当值为boolean时，表示是否显示取消按钮；当值为字符串时，显示取消按钮，并将它的按钮文本修改成该字符串  |
-| okFn | function |   无      |  显示确认按钮，触发确认的事件   |
-| canceFn | function |   无     |  显示确认按钮，触发确认的事件  |
-| close | boolean | true |  是否显示右上角的关闭按钮 |
-| init | function |   无     |  弹框渲染完可能要做一些处理的事件，在事件中可以通过`this.dialogDom`取到弹框容器   |
-| draggable | boolean | false | 是否可以拖拽对话框，默认为false |
+| option.type | string |   default  | 弹框类型，默认为标准弹窗。当需要支持非标准弹框，值为：custom  |
+| option.className | string | 空 | 挂载到弹框上的类，通过它来自定义自己的class |
+| option.mask | boolean | true | 是否显示蒙板 |
+| option.closeClass | string | iconfont icon-shanchu5 | 关闭按钮的class，必须使用webIcon的类 |
+| option.zIndex | int | 9999 | 最外层容器的z-index属性 |
+| option.width | int/string |   420     |  弹框宽度，写法支持：160px 或者 160，当宽超过920时，会取920的宽度   |
+| option.height | int/string  |   170   |  弹框高度，写法支持：160px 或者 160，当要求高度自适应时，值为auto，但它和宽度一样，有一个最大高度：580 |
+| option.title | string |  提示  | 弹框标题，建议传单纯的文字。当值为空时，整个title不存在  |
+| option.titleIconClass | string | 无 | 弹框标题图标的class，当有该class时，如`iconfont icon-sousuo1`，它就会显示在title中 |
+| option.content | string | 内容 | 弹框内容，支持HTML |
+| option.btnPos | string |   right     |  弹框底部按钮对齐方式，默认靠右对齐，取值：left/center/right  |
+| option.ok | boolean/string |  false  |  当值为boolean时，表示是否显示确认按钮；当值为字符串时，显示确认按钮，并将它的按钮文本修改成该字符串   |
+| option.cancel | boolean/string |  false  |  当值为boolean时，表示是否显示取消按钮；当值为字符串时，显示取消按钮，并将它的按钮文本修改成该字符串  |
+| option.okFn | function |   无      |  显示确认按钮，触发确认的事件   |
+| option.canceFn | function |   无     |  显示确认按钮，触发确认的事件  |
+| option.close | boolean | true |  是否显示右上角的关闭按钮 |
+| option.init | function |   无     |  弹框渲染完可能要做一些处理的事件，在事件中可以通过`this.dialogDom`取到弹框容器   |
+| option.draggable | boolean | false | 是否可以拖拽对话框，默认为false |
 
 支持的方法：
 
@@ -90,7 +92,7 @@ dialog.$on("事件名", function(){})
 
 ------
 
-高级用法（静态方法）
+### 高级用法（静态方法）
 
 - Dui.Modal.alert(content[, title])
 
