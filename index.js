@@ -1,3 +1,3 @@
-import Dui from "src/js/dui";
+import Dui from "./src/js/dui";
 
-export default Dui;
+module.exports = Dui;
