@@ -554,7 +554,6 @@ button {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 9999;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   touch-action: cross-slide-y pinch-zoom double-tap-zoom;
@@ -587,8 +586,6 @@ button {
   .dui-dialog .dui-dialog-hd {
     height: 44px;
     border-bottom: #e5e5e5 solid 1px; }
-    .dui-dialog .dui-dialog-hd h3 {
-      font-size: 16px; }
     .dui-dialog .dui-dialog-hd.z-draggable {
       cursor: move;
       cursor: -webkit-grab; }
@@ -604,9 +601,12 @@ button {
   .dui-dialog .dui-dialog-title {
     margin: 0 0 0 16px;
     font-weight: normal;
-    line-height: 44px; }
+    line-height: 44px;
+    font-size: 16px; }
+    .dui-dialog .dui-dialog-title.has-icon {
+      font-size: 14px; }
     .dui-dialog .dui-dialog-title i {
-      font-size: inherit;
+      font-size: 16px;
       margin-right: 10px; }
   .dui-dialog .dui-dialog-bd {
     padding: 0 16px;

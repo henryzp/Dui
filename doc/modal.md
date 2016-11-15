@@ -94,7 +94,7 @@ dialog.$on("事件名", function(){})
 
 ### 高级用法（静态方法）
 
-- Dui.Modal.alert(content[, title])
+- Dui.Modal.alert(content[, title, close])
 
 弹出一个alert对话框。
 

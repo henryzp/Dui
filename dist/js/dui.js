@@ -113,7 +113,7 @@
 	exports.default = function () {
 
 	    //TODO 未来希望是通过webpack loader 来引入html模板
-	    var modalTemplate = ['<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px">', '<% if(close) { %>', '<i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>', '<% } %>', '<% if(title != "" && type == "default") { %>', '<div class="dui-dialog-hd">', '<h3 class="dui-dialog-title"><%= title %></h3>', '</div>', '<% } %>', '<% if(type == "custom") { %>', '<div class="dui-dialog-custom-bd"><%= content %></div>', '<% } %>', '<% if(type == "default") { %>', '<% if(contentHeight != "auto"){ %>', '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">', '<% }else { %>', '<div style="height: <%= contentHeight %>;max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">', '<% } %>', '<%= content %>', '</div>', '<% if(ok || cancel) { %>', '<div class="dui-dialog-ft <%= btnPosClass %>">', '<div class="dui-btn-list-g10">', '<% if(ok) { %>', '<a class="dui-btn-info J_dialog-ok" href="javascript:;"><%= okValue %></a>', '<% } %>', '<% if(cancel) { %>', '<a class="dui-btn J_dialog-cancel" href="javascript:;"><%= cancelValue %></a>', '<% } %>', '</div>', '</div>', '<% }  %>', '<% }  %>', '</div>'];
+	    var modalTemplate = ['<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px; z-index: <%= zIndex %>">', '<% if(close) { %>', '<i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>', '<% } %>', '<% if(title != "" && type == "default") { %>', '<div class="dui-dialog-hd">', '<% if(titleIconClass == "") { %>', '<h3 class="dui-dialog-title"><%= title %></h3>', '<% }else { %>', '<h3 class="dui-dialog-title has-icon"><i class="<%= titleIconClass %>"></i><%= title %></h3>', '<% } %>', '</div>', '<% } %>', '<% if(title == "" && type == "default") { %>', '<div style="height: 14px;"></div>', '<% } %>', '<% if(type == "custom") { %>', '<div class="dui-dialog-custom-bd"><%= content %></div>', '<% } %>', '<% if(type == "default") { %>', '<% if(contentHeight != "auto"){ %>', '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">', '<% }else { %>', '<div style="height: <%= contentHeight %>;max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">', '<% } %>', '<%= content %>', '</div>', '<% if(ok || cancel) { %>', '<div class="dui-dialog-ft <%= btnPosClass %>">', '<div class="dui-btn-list-g10">', '<% if(ok) { %>', '<a class="dui-btn-info J_dialog-ok" href="javascript:;"><%= okValue %></a>', '<% } %>', '<% if(cancel) { %>', '<a class="dui-btn J_dialog-cancel" href="javascript:;"><%= cancelValue %></a>', '<% } %>', '</div>', '</div>', '<% }  %>', '<% }  %>', '</div>'];
 
 	    var Modal = function (_Event) {
 	        _inherits(Modal, _Event);
@@ -130,6 +130,8 @@
 	                okValue: "确定",
 	                cancelValue: "取消",
 	                className: "",
+	                zIndex: 9999,
+	                titleIconClass: "",
 	                closeClass: _modal_config2.default.closeIconClass,
 	                mask: true,
 	                close: true,
@@ -256,7 +258,7 @@
 	                }
 
 	                if (this.option.title == "") {
-	                    hdHeight = 0;
+	                    hdHeight = 14;
 	                }
 
 	                if (height == "auto") {
@@ -319,7 +321,7 @@
 
 	                if (len == 0 && this.option.mask) {
 
-	                    var wrap = '<div class="dui-dialog-wrap"></div>';
+	                    var wrap = '<div class="dui-dialog-wrap" style="z-index: ' + this.option.zIndex + '"></div>';
 
 	                    _dom2.default.appendHTML(document.body, wrap);
 	                }
@@ -476,11 +478,13 @@
 
 	    Modal.alert = function (text) {
 	        var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "提示";
+	        var close = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 
 	        return new Modal({
 	            title: title,
 	            content: text,
+	            close: close,
 	            okFn: function okFn() {
 	                this.hide();
 	            }
@@ -3627,10 +3631,17 @@
 	            value: function hide() {
 	                this.tipDom.style.display = "none";
 	            }
+
+	            /**
+	             * 销毁
+	             * @param fn 可选参数，函数中可以对事件解绑
+	             */
+
 	        }, {
 	            key: "destroy",
-	            value: function destroy() {
+	            value: function destroy(fn) {
 	                this.$emit("destroy");
+	                fn && fn();
 	                _dom2.default.remove(this.tipDom);
 	                this.tipDom = null;
 	            }
@@ -3817,7 +3828,15 @@
 	            })();
 	        }
 	    };
-
+	    /**
+	     * 创建有箭头的tip对象
+	     * @param option
+	     * @param option.msg
+	     * @param option.pos
+	     * @param option.alignElem
+	     * @param option.type
+	     * @private
+	     */
 	    Tip._showBasicArrow = function (option) {
 
 	        if (!option.pos) {
@@ -3838,8 +3857,6 @@
 
 	        var compiled = (0, _template2.default)(tipArrow.join("")),
 	            tipContent = compiled(option);
-
-	        console.log(tipContent);
 
 	        return new Tip({
 	            tipContent: tipContent,
@@ -3884,6 +3901,15 @@
 	        });
 	    };
 
+	    /**
+	     * 简单的tip提示，即鼠标移入时，根据传入的位置显示信息
+	     * @param option
+	     * @param option.el
+	     * @param option.msg
+	     * @param option.pos
+	     * @param option.spacing
+	     * @returns {*}
+	     */
 	    Tip.tooltip = function (option) {
 
 	        if (!option.el) {
@@ -3923,6 +3949,86 @@
 	        return currentTip;
 	    };
 
+	    /**
+	     * 复杂的tip提示，如提示内容有一些操作
+	     * @param option
+	     * @param option.el
+	     * @param option.pos
+	     * @param option.msg
+	     * @param option.spacing
+	     * @param option.trigger
+	     * @returns {*}
+	     */
+	    Tip.poptip = function (option) {
+	        if (!option.el) {
+	            console.error("必须传入el");
+	            return;
+	        }
+
+	        if (!option.msg) {
+	            console.error("必须传msg");
+	            return;
+	        }
+
+	        var _this = this;
+
+	        var currentTip = void 0,
+	            el = typeof option.el == "string" ? _dom2.default.find(option.el) : option.el,
+	            trigger = option.trigger ? option.trigger : "hover";
+
+	        currentTip = Dui.Tip._showBasicArrow({
+	            msg: option.msg,
+	            pos: option.pos,
+	            alignElem: el,
+	            spacing: option.spacing || 5
+	        }).$on("destroy", function () {
+	            switch (trigger) {
+	                case "hover":
+	                    el.removeEventListener("mouseover", showTip);
+	                    el.removeEventListener("mouseout", hideTip);
+	                    this.tipDom.removeEventListener("mouseenter", enterTip);
+	                    this.tipDom.removeEventListener("mouseleave", leaveTip);
+	                    break;
+	                case "click":
+	                    el.removeEventListener("click", showTip);
+	                    break;
+	            }
+	        });
+
+	        switch (trigger) {
+	            case "hover":
+	                el.addEventListener("mouseover", showTip);
+	                el.addEventListener("mouseout", hideTip);
+	                //关于低版本webkit不支持mouseenter和mouseleave的做法：https://www.web-tinker.com/article/20073.html
+	                currentTip.tipDom.addEventListener("mouseenter", enterTip);
+	                currentTip.tipDom.addEventListener("mouseleave", leaveTip);
+	                break;
+	            case "click":
+	                el.addEventListener("click", showTip);
+	                break;
+	        }
+
+	        function showTip() {
+	            currentTip && currentTip.show();
+	        }
+
+	        function hideTip() {
+	            _this.timer = setTimeout(function () {
+	                currentTip && currentTip.hide();
+	            }, 300);
+	        }
+
+	        function enterTip() {
+	            clearTimeout(_this.timer);
+	        }
+
+	        function leaveTip() {
+	            currentTip && currentTip.hide();
+	        }
+
+	        return currentTip;
+	    };
+
 	    Tip.showFormError = function (option) {
 
 	        if (!option.el) {
@@ -3943,7 +4049,7 @@
 	            msg: option.msg,
 	            pos: option.pos,
 	            alignElem: el,
-	            spacing: option.spacing || 5
+	            spacing: option.spacing || 0
 	        });
 
 	        return currentTip;

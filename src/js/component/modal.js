@@ -27,6 +27,9 @@ export default (function(){
                     '<% } %>',
                 '</div>',
             '<% } %>',
+            '<% if(title == "" && type == "default") { %>',
+                '<div style="height: 14px;"></div>',
+            '<% } %>',
             '<% if(type == "custom") { %>',
                 '<div class="dui-dialog-custom-bd"><%= content %></div>',
             '<% } %>',
@@ -184,7 +187,7 @@ export default (function(){
             }
 
             if(this.option.title == "") {
-                hdHeight = 0;
+                hdHeight = 14;
             }
 
             if(height == "auto") {
@@ -384,11 +387,12 @@ export default (function(){
 
     }
 
-    Modal.alert = function(text, title = "提示"){
+    Modal.alert = function(text, title = "提示", close = true){
 
        return new Modal({
             title: title,
             content: text,
+            close: close,
             okFn: function() {
                 this.hide();
             }
