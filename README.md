@@ -7,6 +7,7 @@
 - [button](./doc/button.md)
 - [modal](./doc/modal.md)
 - [tip](./doc/tip.md)
+- [select] (./doc/select.md)
 
 ### 环境
 

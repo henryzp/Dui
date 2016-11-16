@@ -53,20 +53,20 @@ export default (function(){
         }
 
         init() {
-            this.show();
+            this.render();
             this.option.init && this.option.init.apply(this);
         }
 
+        render() {
+            this.tipDom = DOM.appendHTML(document.body, this.option.tipContent);
+        }
+
         show() {
-            if(this.tipDom) {
-                this.tipDom.style.display = "block";
-            }else {
-                this.tipDom = DOM.appendHTML(document.body, this.option.tipContent);
-            }
+            DOM.show(this.tipDom);
         }
 
         hide() {
-            this.tipDom.style.display = "none";
+            DOM.hide(this.tipDom);
         }
 
         /**
@@ -118,7 +118,7 @@ export default (function(){
             init() {
                 var _this = this;
 
-                this.tipDom.style.display = "block";
+                DOM.show(this.tipDom);
 
                 setTimeout(function () {
 
@@ -128,7 +128,7 @@ export default (function(){
 
                             Dui.Animate.startMove(_this.tipDom, { top: initialTop }, function() {
                                 callback &&  callback.apply(_this);
-                                _this.tipDom.style.display = "none";
+                                DOM.hide(_this.tipDom);
                                 _this.destroy();
                             })
 
@@ -262,8 +262,8 @@ export default (function(){
         return new Tip({
             tipContent,
             init() {
-                let tipAttr = DOM.getAttr(this.tipDom),
-                    alignAttr = DOM.getAttr(option.alignElem),
+                let tipRect = DOM.getRect(this.tipDom),
+                    alignRect = DOM.getRect(option.alignElem),
                     alignPoint = DOM.getPoint(option.alignElem);
 
                 let styleText = "position: absolute";
@@ -271,27 +271,27 @@ export default (function(){
                 switch (option.pos) {
                     case "l":
                         styleText += "; top: " + alignPoint.top + "px";
-                        styleText += "; left: " + (alignPoint.left - tipAttr.width - Config.arrowSize - option.spacing) + "px";
+                        styleText += "; left: " + (alignPoint.left - tipRect.width - Config.arrowSize - option.spacing) + "px";
                         break;
                     case "r":
                         styleText += "; top: " + alignPoint.top + "px";
-                        styleText += "; left: " + (alignPoint.left + alignAttr.width + Config.arrowSize + option.spacing) + "px";
+                        styleText += "; left: " + (alignPoint.left + alignRect.width + Config.arrowSize + option.spacing) + "px";
                         break;
                     case "t":
-                        styleText += "; top: " + (alignPoint.top - tipAttr.height - Config.arrowSize - option.spacing) + "px";
-                        styleText += "; left: " + (alignPoint.left + alignAttr.width/2 - tipAttr.width/2) + "px";
+                        styleText += "; top: " + (alignPoint.top - tipRect.height - Config.arrowSize - option.spacing) + "px";
+                        styleText += "; left: " + (alignPoint.left + alignRect.width/2 - tipRect.width/2) + "px";
                         break;
                     case "b":
-                        styleText += "; top: " + (alignPoint.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
-                        styleText += "; left: " + (alignAttr.left + alignAttr.width/2 - tipAttr.width/2) + "px";
+                        styleText += "; top: " + (alignPoint.top + alignRect.height + Config.arrowSize + option.spacing) + "px";
+                        styleText += "; left: " + (alignRect.left + alignRect.width/2 - tipRect.width/2) + "px";
                         break;
                     case "bl":
-                        styleText += "; top: " + (alignPoint.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
+                        styleText += "; top: " + (alignPoint.top + alignRect.height + Config.arrowSize + option.spacing) + "px";
                         styleText += "; left: " + alignPoint.left + "px";
                         break;
                     case "br":
-                        styleText += "; top: " + (alignPoint.top + alignAttr.height + Config.arrowSize + option.spacing) + "px";
-                        styleText += "; left: " + (alignPoint.left + alignAttr.width - tipAttr.width) + "px";
+                        styleText += "; top: " + (alignPoint.top + alignRect.height + Config.arrowSize + option.spacing) + "px";
+                        styleText += "; left: " + (alignPoint.left + alignRect.width - tipRect.width) + "px";
                         break;
                 }
 

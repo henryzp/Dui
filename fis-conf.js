@@ -205,3 +205,10 @@ fis.unhook('components');
 fis.hook('node_modules', {
     shimBuffer: false
 });
+
+/*
+//关闭资源定位
+fis.match('youfolder/*.{css,js,html}',  {
+    standard: false
+});
+*/

@@ -93,7 +93,7 @@ export default (function(){
 
             this.handleOption();
 
-            this.show();
+            this.render();
 
             this.bindEvent();
 
@@ -243,7 +243,7 @@ export default (function(){
         }
 
         //显示弹窗
-        show() {
+        render() {
             let len = DOM.has(".dui-dialog-wrap").length;
 
             if(len == 0 && this.option.mask) {

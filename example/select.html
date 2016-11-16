@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select组件</title>
+    <link rel="stylesheet" href="../src/css/dui.scss"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1475922891_4469836.css">
+    <link rel="stylesheet" href="css/page.css"/>
+</head>
+<body>
+
+<div class="layout">
+
+    123
+    <select class="testSelect">
+        <option value="1">测试1</option>
+        <option value="2">测试2</option>
+        <option value="3">测试3</option>
+    </select>
+
+</div>
+
+<script src="js/modJS.js" data-loader="true"></script>
+
+<script>
+
+    require("../src/js/dui");
+
+    var picker = new Dui.Selectpicker({
+        el: ".testSelect"
+    });
+
+    //options.forEach(function(option) { console.log(option.selected) })
+
+</script>
+
+</body>
+</html>

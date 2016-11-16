@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["Dui"] = factory();
+	else
+		root["Dui"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -58,12 +68,17 @@
 
 	var _tip2 = _interopRequireDefault(_tip);
 
+	var _select = __webpack_require__(79);
+
+	var _select2 = _interopRequireDefault(_select);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	window["Dui"] = module.exports = {
+	window['Dui'] = module.exports = {
 	    Modal: _modal2.default,
 	    Animate: _animate2.default,
-	    Tip: _tip2.default
+	    Tip: _tip2.default,
+	    Selectpicker: _select2.default
 	};
 
 /***/ },
@@ -156,7 +171,7 @@
 
 	                this.handleOption();
 
-	                this.show();
+	                this.render();
 
 	                this.bindEvent();
 
@@ -315,8 +330,8 @@
 	            //显示弹窗
 
 	        }, {
-	            key: "show",
-	            value: function show() {
+	            key: "render",
+	            value: function render() {
 	                var len = _dom2.default.has(".dui-dialog-wrap").length;
 
 	                if (len == 0 && this.option.mask) {
@@ -3042,10 +3057,22 @@
 	    addClass: function addClass(elem, className) {
 	        elem.classList.add(className);
 	    },
+	    removeClass: function removeClass(elem, className) {
+	        elem.classList.remove(className);
+	    },
+	    isHide: function isHide(elem) {
+	        return this.getCss(elem, "display") == "none";
+	    },
+	    show: function show(elem) {
+	        elem.style.display = "block";
+	    },
+	    hide: function hide(elem) {
+	        elem.style.display = "none";
+	    },
 
 
 	    //获取边界属性
-	    getAttr: function getAttr(dom) {
+	    getRect: function getRect(dom) {
 	        return dom.getBoundingClientRect();
 	    },
 
@@ -3063,6 +3090,12 @@
 	            top: t,
 	            left: l
 	        };
+	    },
+	    getDataAttr: function getDataAttr(dom, prop) {
+	        return dom.getAttribute("data-" + prop);
+	    },
+	    html: function html(dom, text) {
+	        dom.innerHTML = text;
 	    },
 	    has: function has(elem, selector) {
 
@@ -3086,11 +3119,20 @@
 
 	        return elem.querySelector(selector);
 	    },
+	    findAll: function findAll(elem, selector) {
+
+	        if (arguments.length == 1) {
+	            elem = document;
+	            selector = arguments[0];
+	        }
+
+	        return elem.querySelectorAll(selector);
+	    },
 	    appendHTML: function appendHTML(elem, html) {
 
 	        var divTemp = document.createElement("div");
 
-	        divTemp.innerHTML = html;
+	        this.html(divTemp, html);
 
 	        var dom = divTemp.childNodes[0];
 
@@ -3102,11 +3144,22 @@
 
 	        var divTemp = document.createElement("div");
 
-	        divTemp.innerHTML = html;
+	        this.html(divTemp, html);
 
 	        var dom = divTemp.childNodes[0];
 
 	        elem.insertBefore(dom, elem.firstChild);
+
+	        return dom;
+	    },
+	    beforeHTML: function beforeHTML(elem, html) {
+	        var divTemp = document.createElement("div");
+
+	        this.html(divTemp, html);
+
+	        var dom = divTemp.childNodes[0];
+
+	        elem.parentNode.insertBefore(dom, elem);
 
 	        return dom;
 	    },
@@ -3614,22 +3667,23 @@
 	        _createClass(Tip, [{
 	            key: "init",
 	            value: function init() {
-	                this.show();
+	                this.render();
 	                this.option.init && this.option.init.apply(this);
+	            }
+	        }, {
+	            key: "render",
+	            value: function render() {
+	                this.tipDom = _dom2.default.appendHTML(document.body, this.option.tipContent);
 	            }
 	        }, {
 	            key: "show",
 	            value: function show() {
-	                if (this.tipDom) {
-	                    this.tipDom.style.display = "block";
-	                } else {
-	                    this.tipDom = _dom2.default.appendHTML(document.body, this.option.tipContent);
-	                }
+	                _dom2.default.show(this.tipDom);
 	            }
 	        }, {
 	            key: "hide",
 	            value: function hide() {
-	                this.tipDom.style.display = "none";
+	                _dom2.default.hide(this.tipDom);
 	            }
 
 	            /**
@@ -3690,7 +3744,7 @@
 	            init: function init() {
 	                var _this = this;
 
-	                this.tipDom.style.display = "block";
+	                _dom2.default.show(this.tipDom);
 
 	                setTimeout(function () {
 
@@ -3700,7 +3754,7 @@
 
 	                            Dui.Animate.startMove(_this.tipDom, { top: initialTop }, function () {
 	                                callback && callback.apply(_this);
-	                                _this.tipDom.style.display = "none";
+	                                _dom2.default.hide(_this.tipDom);
 	                                _this.destroy();
 	                            });
 	                        }, time * 1000);
@@ -3861,8 +3915,8 @@
 	        return new Tip({
 	            tipContent: tipContent,
 	            init: function init() {
-	                var tipAttr = _dom2.default.getAttr(this.tipDom),
-	                    alignAttr = _dom2.default.getAttr(option.alignElem),
+	                var tipRect = _dom2.default.getRect(this.tipDom),
+	                    alignRect = _dom2.default.getRect(option.alignElem),
 	                    alignPoint = _dom2.default.getPoint(option.alignElem);
 
 	                var styleText = "position: absolute";
@@ -3870,27 +3924,27 @@
 	                switch (option.pos) {
 	                    case "l":
 	                        styleText += "; top: " + alignPoint.top + "px";
-	                        styleText += "; left: " + (alignPoint.left - tipAttr.width - _tip_config2.default.arrowSize - option.spacing) + "px";
+	                        styleText += "; left: " + (alignPoint.left - tipRect.width - _tip_config2.default.arrowSize - option.spacing) + "px";
 	                        break;
 	                    case "r":
 	                        styleText += "; top: " + alignPoint.top + "px";
-	                        styleText += "; left: " + (alignPoint.left + alignAttr.width + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        styleText += "; left: " + (alignPoint.left + alignRect.width + _tip_config2.default.arrowSize + option.spacing) + "px";
 	                        break;
 	                    case "t":
-	                        styleText += "; top: " + (alignPoint.top - tipAttr.height - _tip_config2.default.arrowSize - option.spacing) + "px";
-	                        styleText += "; left: " + (alignPoint.left + alignAttr.width / 2 - tipAttr.width / 2) + "px";
+	                        styleText += "; top: " + (alignPoint.top - tipRect.height - _tip_config2.default.arrowSize - option.spacing) + "px";
+	                        styleText += "; left: " + (alignPoint.left + alignRect.width / 2 - tipRect.width / 2) + "px";
 	                        break;
 	                    case "b":
-	                        styleText += "; top: " + (alignPoint.top + alignAttr.height + _tip_config2.default.arrowSize + option.spacing) + "px";
-	                        styleText += "; left: " + (alignAttr.left + alignAttr.width / 2 - tipAttr.width / 2) + "px";
+	                        styleText += "; top: " + (alignPoint.top + alignRect.height + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        styleText += "; left: " + (alignRect.left + alignRect.width / 2 - tipRect.width / 2) + "px";
 	                        break;
 	                    case "bl":
-	                        styleText += "; top: " + (alignPoint.top + alignAttr.height + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        styleText += "; top: " + (alignPoint.top + alignRect.height + _tip_config2.default.arrowSize + option.spacing) + "px";
 	                        styleText += "; left: " + alignPoint.left + "px";
 	                        break;
 	                    case "br":
-	                        styleText += "; top: " + (alignPoint.top + alignAttr.height + _tip_config2.default.arrowSize + option.spacing) + "px";
-	                        styleText += "; left: " + (alignPoint.left + alignAttr.width - tipAttr.width) + "px";
+	                        styleText += "; top: " + (alignPoint.top + alignRect.height + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        styleText += "; left: " + (alignPoint.left + alignRect.width - tipRect.width) + "px";
 	                        break;
 	                }
 
@@ -4107,5 +4161,209 @@
 	    }
 	};
 
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _template = __webpack_require__(2);
+
+	var _template2 = _interopRequireDefault(_template);
+
+	var _extend = __webpack_require__(70);
+
+	var _extend2 = _interopRequireDefault(_extend);
+
+	var _event = __webpack_require__(74);
+
+	var _event2 = _interopRequireDefault(_event);
+
+	var _dom = __webpack_require__(73);
+
+	var _dom2 = _interopRequireDefault(_dom);
+
+	var _select_confg = __webpack_require__(80);
+
+	var _select_confg2 = _interopRequireDefault(_select_confg);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	exports.default = function () {
+
+	    var selectTemplate = ['<div class="dui-select <%= className %>">', '<div class="dropdown_hd" title="<%= title %>">', '<i class="<%= arrowIconClass %>"></i>', '<span><%= title %></span>', '</div>', '<div class="dropdown_bd">', '<div class="dropdown_menu">', '<ul>', '<% for(var i = 0, len = selectOptions.length; i < len; i ++) { %>', '<li class="item <% if(currentValue == selectOptions[i].value){ %>current<% } %>" data-value="<%= selectOptions[i].value %>" data-text="<%= selectOptions[i].text %>"><%= selectOptions[i].text %></li>', '<% } %>', '</ul>', '</div>', '</div>', '<div>'];
+
+	    var Selectpicker = function (_Event) {
+	        _inherits(Selectpicker, _Event);
+
+	        function Selectpicker(option) {
+	            _classCallCheck(this, Selectpicker);
+
+	            var _this2 = _possibleConstructorReturn(this, (Selectpicker.__proto__ || Object.getPrototypeOf(Selectpicker)).call(this));
+
+	            var defaultOption = {
+	                className: "",
+	                arrowIconClass: _select_confg2.default.arrowIconClass
+	            };
+
+	            _this2.option = (0, _extend2.default)({}, defaultOption, option);
+
+	            _this2.init();
+
+	            return _this2;
+	        }
+
+	        _createClass(Selectpicker, [{
+	            key: "init",
+	            value: function init() {
+
+	                this.el = typeof this.option.el == "string" ? _dom2.default.find(this.option.el) : this.option.el;
+
+	                this.render();
+	            }
+	        }, {
+	            key: "getSelectItem",
+	            value: function getSelectItem(options) {
+	                var _this = this;
+	                options.forEach(function (option) {
+	                    if (option.selected) {
+	                        _this.value = option.value;
+	                        _this.text = option.text;
+	                    }
+	                });
+	                return {
+	                    value: _this.value,
+	                    text: _this.text
+	                };
+	            }
+	        }, {
+	            key: "getSelectOption",
+	            value: function getSelectOption(options) {
+	                var result = [];
+	                options.forEach(function (option) {
+	                    result.push({
+	                        value: option.value,
+	                        text: option.text
+	                    });
+	                });
+	                return result;
+	            }
+	        }, {
+	            key: "render",
+	            value: function render() {
+
+	                var options = Array.from(_dom2.default.findAll(this.el, "option"));
+
+	                var selectItem = this.getSelectItem(options);
+
+	                var selectOptions = this.getSelectOption(options);
+
+	                this.option.title = selectItem.text;
+
+	                this.option.currentValue = selectItem.value;
+
+	                this.option.selectOptions = selectOptions;
+
+	                var compiled = (0, _template2.default)(selectTemplate.join(""));
+
+	                var selectContent = compiled(this.option);
+
+	                this.selectDom = _dom2.default.beforeHTML(this.el, selectContent);
+
+	                _dom2.default.hide(this.el);
+
+	                this.bind();
+	            }
+	        }, {
+	            key: "bind",
+	            value: function bind() {
+
+	                var _this = this;
+
+	                var dropDown_hd = _dom2.default.find(this.selectDom, ".dropdown_hd"),
+	                    dropdown_bd = _dom2.default.find(this.selectDom, ".dropdown_bd"),
+	                    oUl = _dom2.default.find(this.selectDom, ".dropdown_menu ul"),
+	                    otitle = _dom2.default.find(this.selectDom, ".dropdown_hd span");
+
+	                var _titleClick = function _titleClick() {
+	                    if (_dom2.default.isHide(dropdown_bd)) {
+	                        _dom2.default.show(dropdown_bd);
+	                    }
+	                };
+
+	                var _menuClick = function _menuClick(ev) {
+	                    var oli = ev.target;
+	                    //实现事件委托
+	                    while (oli && oli.tagName.toUpperCase() != "LI") {
+	                        oli = oli.parentNode;
+	                    }
+
+	                    _this.value = _dom2.default.getDataAttr(oli, 'value');
+
+	                    _this.text = _dom2.default.getDataAttr(oli, "text");
+
+	                    _this.el.value = _this.value;
+
+	                    _dom2.default.html(otitle, _this.text);
+
+	                    var liList = Array.from(_dom2.default.findAll(oUl, "li"));
+
+	                    liList.forEach(function (item) {
+	                        _dom2.default.removeClass(item, "current");
+	                    });
+
+	                    _dom2.default.addClass(oli, "current");
+
+	                    _dom2.default.hide(dropdown_bd);
+	                };
+
+	                dropDown_hd.addEventListener("click", _titleClick);
+
+	                oUl.addEventListener("click", _menuClick);
+	            }
+	        }, {
+	            key: "update",
+	            value: function update() {}
+	        }, {
+	            key: "disable",
+	            value: function disable() {}
+	        }, {
+	            key: "destroy",
+	            value: function destroy() {}
+	        }]);
+
+	        return Selectpicker;
+	    }(_event2.default);
+
+	    return Selectpicker;
+	}();
+
+/***/ },
+/* 80 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = {
+	    arrowIconClass: "iconfont icon-appxiugaiicon20"
+	};
+
 /***/ }
-/******/ ]);
+/******/ ])
+});
+;

@@ -4,8 +4,11 @@ import Animate from "./component/animate";
 
 import Tip from "./component/tip";
 
-window["Dui"] = module.exports = {
+import Selectpicker from "./component/select.js";
+
+window['Dui'] = module.exports = {
     Modal,
     Animate,
-    Tip
+    Tip,
+    Selectpicker
 }

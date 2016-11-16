@@ -10,8 +10,24 @@ export default {
         elem.classList.add(className);
     },
 
+    removeClass(elem, className) {
+        elem.classList.remove(className);
+    },
+
+    isHide(elem) {
+        return this.getCss(elem, "display") == "none";
+    },
+
+    show(elem) {
+        elem.style.display = "block";
+    },
+
+    hide(elem) {
+        elem.style.display = "none";
+    },
+
     //获取边界属性
-    getAttr(dom) {
+    getRect(dom) {
         return dom.getBoundingClientRect();
     },
 
@@ -28,6 +44,14 @@ export default {
             top: t,
             left: l
         }
+    },
+
+    getDataAttr(dom, prop) {
+        return dom.getAttribute("data-" + prop);
+    },
+
+    html(dom, text) {
+        dom.innerHTML = text;
     },
 
     has(elem, selector) {
@@ -56,11 +80,22 @@ export default {
 
     },
 
+    findAll(elem, selector) {
+
+        if(arguments.length == 1) {
+            elem = document;
+            selector = arguments[0];
+        }
+
+        return elem.querySelectorAll(selector);
+
+    },
+
     appendHTML(elem, html) {
 
         var divTemp = document.createElement("div");
 
-        divTemp.innerHTML = html;
+        this.html(divTemp, html);
 
         var dom = divTemp.childNodes[0];
 
@@ -73,7 +108,7 @@ export default {
 
         var divTemp = document.createElement("div");
 
-        divTemp.innerHTML = html;
+        this.html(divTemp, html);
 
         var dom = divTemp.childNodes[0];
 
@@ -81,6 +116,18 @@ export default {
 
         return dom;
 
+    },
+
+    beforeHTML(elem, html) {
+        var divTemp = document.createElement("div");
+
+        this.html(divTemp, html);
+
+        var dom = divTemp.childNodes[0];
+
+        elem.parentNode.insertBefore(dom, elem);
+
+        return dom;
     },
 
     remove(elem) {
