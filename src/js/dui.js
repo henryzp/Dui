@@ -6,7 +6,7 @@ import Tip from "./component/tip";
 
 import Selectpicker from "./component/select.js";
 
-window['Dui'] = module.exports = {
+module.exports = {
     Modal,
     Animate,
     Tip,

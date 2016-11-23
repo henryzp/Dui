@@ -1,13 +1,12 @@
+//引入css
+import "../../css/component/_btn.scss";
+import "../../css/component/_dialog.scss";
+
 import Template from "lodash/template";
-
 import Extend from "lodash/extend";
-
 import Config from "../config/modal_config";
-
 import DOM from "./dom";
-
 import Event from "./event";
-
 import Drag from "./drag";
 
 export default (function(){

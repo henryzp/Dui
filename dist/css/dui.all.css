@@ -1032,6 +1032,6 @@ button {
       cursor: pointer; }
       .dui-select .dropdown_menu li.item.current {
         color: #2dc3e8; }
-      .dui-select .dropdown_menu li.item:hover {
+      .dui-select .dropdown_menu li.item:hover, .dui-select .dropdown_menu li.item.selected {
         background: #2dc3e8;
         color: #fff; }

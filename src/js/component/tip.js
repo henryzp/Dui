@@ -1,13 +1,12 @@
+//引入css
+import "../../css/component/_btn.scss";
+import "../../css/component/_tip.scss";
+
 import Template from "lodash/template";
-
 import Extend from "lodash/extend";
-
 import Config from "../config/tip_config";
-
 import DOM from "./dom";
-
 import Event from "./event";
-
 import Animate from "./animate";
 
 export default (function(){

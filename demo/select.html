@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Select组件</title>
-    <link rel="stylesheet" href="../src/css/dui.scss"/>
+    <link rel="stylesheet" href="dist/css/dui.css"/>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1475922891_4469836.css">
     <link rel="stylesheet" href="css/page.css"/>
 </head>
@@ -20,15 +20,20 @@
 
 </div>
 
-<script src="js/modJS.js" data-loader="true"></script>
+<script src="dist/js/dui.js"></script>
 
 <script>
-
-    require("../src/js/dui");
 
     var picker = new Dui.Selectpicker({
         el: ".testSelect"
     });
+
+    setTimeout(function() {
+
+        var oSelect = document.querySelector(".testSelect");
+        oSelect.options.add(new Option("测试4","4"));
+
+    }, 1000);
 
     //options.forEach(function(option) { console.log(option.selected) })
 

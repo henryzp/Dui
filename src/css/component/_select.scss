@@ -66,7 +66,7 @@
             &.current {
                 color: #2dc3e8;
             }
-            &:hover {
+            &:hover, &.selected {
                 background: #2dc3e8;
                 color: #fff;
             }

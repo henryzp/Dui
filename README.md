@@ -18,10 +18,8 @@
 ### 项目运行
 
 - npm install
-- fis3 server clean
-- fis3 server start
-- fis3 release -wL 
-- 访问`http://localhost:8080/example`
+- npm run demo
+- 访问`http://localhost:8090/`
 
 ### 打包
 

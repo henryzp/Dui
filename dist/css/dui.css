@@ -1,7 +1,4 @@
 @charset "UTF-8";
-html {
-  height: 100%; }
-
 button {
   outline: none; }
 
@@ -22,7 +19,7 @@ button {
   padding: 0 1em;
   white-space: nowrap;
   text-decoration: none;
-  font-family: "微软雅黑"; }
+  font-family: "\5FAE\8F6F\96C5\9ED1"; }
 
 .dui-btn,
 .dui-btn-info,
@@ -173,7 +170,7 @@ button {
 
 .dui-btn-w100 {
   width: 100px; }
-
+@charset "UTF-8";
 .dui-dialog-wrap {
   position: fixed;
   top: 0;
@@ -207,7 +204,7 @@ button {
   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
   border-radius: 3px;
-  font-family: '微软雅黑';
+  font-family: '\5FAE\8F6F\96C5\9ED1';
   font-size: 14px; }
   .dui-dialog .dui-dialog-hd {
     height: 44px;
@@ -246,10 +243,10 @@ button {
       text-align: center; }
     .dui-dialog .dui-dialog-ft.dui-dialog-ft-right .dui-btn-list-g10 {
       text-align: right; }
-
+@charset "UTF-8";
 .dui-tip, .dui-tip-success, .dui-tip-info, .dui-tip-warning, .dui-tip-error {
   padding: 8px 15px;
-  font-family: "微软雅黑";
+  font-family: "\5FAE\8F6F\96C5\9ED1";
   font-size: 12px;
   color: #666;
   position: relative; }
@@ -311,7 +308,7 @@ button {
   margin-bottom: 14px;
   border: solid #f9d08f 1px;
   background: #fff9eb;
-  font-family: "微软雅黑";
+  font-family: "\5FAE\8F6F\96C5\9ED1";
   font-size: 14px;
   color: #666;
   width: 556px; }
@@ -597,7 +594,6 @@ button {
       border-width: 6px;
       border-bottom-color: #ffa5a5;
       margin-left: -6px; }
-
 .dui-select {
   display: inline-block;
   position: relative;
@@ -658,6 +654,6 @@ button {
       cursor: pointer; }
       .dui-select .dropdown_menu li.item.current {
         color: #2dc3e8; }
-      .dui-select .dropdown_menu li.item:hover {
+      .dui-select .dropdown_menu li.item:hover, .dui-select .dropdown_menu li.item.selected {
         background: #2dc3e8;
         color: #fff; }
