@@ -1,8 +1,7 @@
 //引入css
 import "../../css/component/_select.scss";
 
-import Template from "lodash/template";
-import Extend from "lodash/extend";
+import Util from "./util";
 import Event from "./event";
 import DOM from "./dom";
 import Config from "../config/select_confg";
@@ -44,7 +43,7 @@ export default (function(){
                 arrowIconClass: Config.arrowIconClass
             }
 
-            this.option = Extend({}, defaultOption, option);
+            this.option = Util.Extend({}, defaultOption, option);
 
             this.init();
 
@@ -115,7 +114,7 @@ export default (function(){
 
         render() {
 
-            let compiled = Template(selectTemplate.join(""));
+            let compiled = Util.Template(selectTemplate.join(""));
 
             let selectContent = compiled(this.option);
 

@@ -2,8 +2,8 @@
 import "../../css/component/_btn.scss";
 import "../../css/component/_dialog.scss";
 
-import Template from "lodash/template";
-import Extend from "lodash/extend";
+
+import Util from "./util";
 import Config from "../config/modal_config";
 import DOM from "./dom";
 import Event from "./event";
@@ -82,7 +82,7 @@ export default (function(){
 
             this.option = option;
 
-            this.option = Extend({}, defaultOption, this.option);
+            this.option = Util.Extend({}, defaultOption, this.option);
 
             this.init();
 
@@ -253,7 +253,7 @@ export default (function(){
 
             }
 
-            let compiled = Template(modalTemplate.join(""));
+            let compiled = Util.Template(modalTemplate.join(""));
 
             let result = compiled(this.option);
 

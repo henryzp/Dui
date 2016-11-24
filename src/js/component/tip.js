@@ -2,8 +2,7 @@
 import "../../css/component/_btn.scss";
 import "../../css/component/_tip.scss";
 
-import Template from "lodash/template";
-import Extend from "lodash/extend";
+import Util from "./util";
 import Config from "../config/tip_config";
 import DOM from "./dom";
 import Event from "./event";
@@ -45,7 +44,7 @@ export default (function(){
 
             this.option = option;
 
-            this.option = Extend({}, defaultOption, this.option);
+            this.option = Util.Extend({}, defaultOption, this.option);
 
             this.init();
 
@@ -108,7 +107,7 @@ export default (function(){
         initialTop = finalTop - Config.hint.pos.dis;
         option.top = initialTop;
 
-        let compiled = Template(tipHint.join(""));
+        let compiled = Util.Template(tipHint.join(""));
 
         let tipContent = compiled(option);
 
@@ -201,7 +200,7 @@ export default (function(){
             msg: msg
         };
 
-        let compiled = Template(tipText.join("")),
+        let compiled = Util.Template(tipText.join("")),
             tipContent = compiled(option);
 
         if(DOM.has(".dui-update-message").length == 0) {
@@ -255,7 +254,7 @@ export default (function(){
 
         option.tipType = option.type == "error" ? "dui-tip-error-arrow" : "dui-tip-arrow";
 
-        let compiled = Template(tipArrow.join("")),
+        let compiled = Util.Template(tipArrow.join("")),
             tipContent = compiled(option);
 
         return new Tip({
