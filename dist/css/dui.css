@@ -171,6 +171,9 @@ button {
 .dui-btn-w100 {
   width: 100px; }
 @charset "UTF-8";
+.dui-dialog-lock-test {
+  overflow-y: hidden !important; }
+
 .dui-dialog-wrap {
   position: fixed;
   top: 0;
@@ -190,7 +193,7 @@ button {
     height: 100%; }
 
 .dui-dialog {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

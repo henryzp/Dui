@@ -60,15 +60,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _modal2 = _interopRequireDefault(_modal);
 
-	var _animate = __webpack_require__(88);
+	var _animate = __webpack_require__(89);
 
 	var _animate2 = _interopRequireDefault(_animate);
 
-	var _tip = __webpack_require__(89);
+	var _tip = __webpack_require__(90);
 
 	var _tip2 = _interopRequireDefault(_tip);
 
-	var _select = __webpack_require__(93);
+	var _select = __webpack_require__(94);
 
 	var _select2 = _interopRequireDefault(_select);
 
@@ -116,6 +116,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _drag = __webpack_require__(87);
 
 	var _drag2 = _interopRequireDefault(_drag);
+
+	var _scrollHanlder = __webpack_require__(88);
+
+	var _scrollHanlder2 = _interopRequireDefault(_scrollHanlder);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -336,10 +340,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var len = _dom2.default.has(".dui-dialog-wrap").length;
 
 	                if (len == 0 && this.option.mask) {
-
 	                    var wrap = '<div class="dui-dialog-wrap" style="z-index: ' + this.option.zIndex + '"></div>';
-
 	                    _dom2.default.appendHTML(document.body, wrap);
+	                    _scrollHanlder2.default.disableScroll();
 	                }
 
 	                var result = _util2.default.renderTemp(modalTemplate.join(""), this.option);
@@ -380,6 +383,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                if (len == 1 && this.option.mask) {
 	                    _dom2.default.remove(_dom2.default.find(".dui-dialog-wrap"));
+	                    _scrollHanlder2.default.enableScroll();
 	                }
 
 	                this.dialogDom = null;
@@ -436,6 +440,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 	        }, {
+	            key: "_stopPropagation",
+	            value: function _stopPropagation(ev) {
+	                ev.stopPropagation();
+	            }
+	        }, {
 	            key: "handleDrag",
 	            value: function handleDrag() {
 
@@ -461,11 +470,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                var closeBtn = this.closeBtn = _dom2.default.find(this.dialogDom, ".J_dialog-close");
 
+	                var dialogBd = this.dialogBd = _dom2.default.find(this.dialogDom, ".dui-dialog-bd") || _dom2.default.find(this.dialogDom, ".dui-dialog-custom-bd");
+
 	                okBtn && okBtn.addEventListener("click", this.bindOkClick = this._okFn.bind(this), false);
 
 	                cancelBtn && cancelBtn.addEventListener("click", this.bindCancelClick = this._cancelFn.bind(this), false);
 
 	                closeBtn && closeBtn.addEventListener("click", this.bindCloseClick = this._closeFn.bind(this), false);
+
+	                dialogBd && dialogBd.addEventListener("mousewheel", this._stopPropagation, false);
+
+	                dialogBd && dialogBd.addEventListener("touchmove", this._stopPropagation, false);
 
 	                document.addEventListener("keydown", this.bindEscClick = this._escFn.bind(this), false);
 	            }
@@ -475,13 +490,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                var okBtn = this.okBtn,
 	                    cancelBtn = this.cancelBtn,
-	                    closeBtn = this.closeBtn;
+	                    closeBtn = this.closeBtn,
+	                    dialogBd = this.dialogBd;
 
 	                okBtn && okBtn.removeEventListener("click", this.bindOkClick, false);
 
 	                cancelBtn && cancelBtn.removeEventListener("click", this.bindCancelClick, false);
 
 	                closeBtn && closeBtn.removeEventListener("click", this.bindCloseClick, false);
+
+	                dialogBd && dialogBd.removeEventListener("mousewheel", this._stopPropagation, false);
+	                dialogBd && dialogBd.removeEventListener("touchmove", this._stopPropagation, false);
 
 	                document.removeEventListener("keydown", this.bindEscClick, false);
 	            }
@@ -3251,6 +3270,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	//dom简单操作
 
 	exports.default = {
+
+	    //简单粗暴地将元素的style整个替换掉
+	    addCssText: function addCssText(elem, cssText) {
+	        if (Array.isArray(elem)) {
+	            elem.forEach(function (item) {
+	                item.style.cssText = cssText;
+	            });
+	        } else {
+	            elem.style.cssText = cssText;
+	        }
+	    },
 	    getCss: function getCss(elem, key) {
 	        return elem.currentStyle ? elem.currentStyle[key] : document.defaultView.getComputedStyle(elem, false)[key];
 	    },
@@ -3561,6 +3591,84 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dom = __webpack_require__(85);
+
+	var _dom2 = _interopRequireDefault(_dom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var keys = { 37: 1, 38: 1, 39: 1, 40: 1 };
+
+	function preventDefault(e) {
+	    e.preventDefault();
+	}
+
+	function preventDefaultForScrollKeys(e) {
+	    if (keys[e.keyCode]) {
+	        preventDefault(e);
+	        return false;
+	    }
+	}
+
+	function getScrollWidth() {
+	    var dom = document.documentElement;
+	    var w1 = dom.clientWidth;
+	    _dom2.default.addClass(dom, "dui-dialog-lock-test");
+	    var w2 = dom.clientWidth;
+	    _dom2.default.removeClass(dom, "dui-dialog-lock-test");
+	    return w2 - w1;
+	}
+
+	var oldonwheel = void 0,
+	    oldontouchmove = void 0,
+	    oldonkeydown = void 0,
+	    isDisabled = void 0;
+
+	function disableScroll() {
+
+	    var scrollWidth = getScrollWidth();
+
+	    oldonwheel = window.onwheel;
+	    window.onwheel = preventDefault; // modern standard
+
+	    oldontouchmove = window.ontouchmove;
+	    window.ontouchmove = preventDefault; // mobile
+
+	    oldonkeydown = document.onkeydown;
+	    document.onkeydown = preventDefaultForScrollKeys;
+	    isDisabled = true;
+
+	    _dom2.default.addCssText([document.body, document.documentElement], "overflow-y: hidden; padding-right: " + scrollWidth + "px");
+	}
+
+	function enableScroll() {
+	    if (!isDisabled) return;
+
+	    window.onwheel = oldonwheel; // modern standard
+
+	    window.ontouchmove = oldontouchmove; // mobile
+
+	    document.onkeydown = oldonkeydown;
+	    isDisabled = false;
+
+	    _dom2.default.addCssText([document.body, document.documentElement], "overflow-y: visible; padding-right: 0;");
+	}
+
+	exports.default = {
+	    disableScroll: disableScroll,
+	    enableScroll: enableScroll
+	};
+
+/***/ },
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -3792,7 +3900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3805,13 +3913,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	__webpack_require__(2);
 
-	__webpack_require__(90);
+	__webpack_require__(91);
 
 	var _util = __webpack_require__(8);
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _tip_config = __webpack_require__(92);
+	var _tip_config = __webpack_require__(93);
 
 	var _tip_config2 = _interopRequireDefault(_tip_config);
 
@@ -3823,7 +3931,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _animate = __webpack_require__(88);
+	var _animate = __webpack_require__(89);
 
 	var _animate2 = _interopRequireDefault(_animate);
 
@@ -4310,14 +4418,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 91 */,
-/* 92 */
+/* 92 */,
+/* 93 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4366,7 +4474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 93 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4377,7 +4485,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(94);
+	__webpack_require__(95);
 
 	var _util = __webpack_require__(8);
 
@@ -4391,7 +4499,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _dom2 = _interopRequireDefault(_dom);
 
-	var _select_confg = __webpack_require__(96);
+	var _select_confg = __webpack_require__(97);
 
 	var _select_confg2 = _interopRequireDefault(_select_confg);
 
@@ -4686,14 +4794,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 
 /***/ },
-/* 94 */
+/* 95 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 95 */,
-/* 96 */
+/* 96 */,
+/* 97 */
 /***/ function(module, exports) {
 
 	"use strict";
