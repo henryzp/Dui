@@ -82,7 +82,7 @@ export default (function(){
 
             this.option = option;
 
-            this.option = Util.Extend({}, defaultOption, this.option);
+            this.option = Util.extend({}, defaultOption, this.option);
 
             this.init();
 
@@ -253,9 +253,7 @@ export default (function(){
 
             }
 
-            let compiled = Util.Template(modalTemplate.join(""));
-
-            let result = compiled(this.option);
+            let result = Util.renderTemp(modalTemplate.join(""), this.option);
 
             if(this.option.mask){
                 this.dialogDom = DOM.appendHTML(DOM.find(".dui-dialog-wrap"), result);

@@ -43,7 +43,7 @@ export default (function(){
                 arrowIconClass: Config.arrowIconClass
             }
 
-            this.option = Util.Extend({}, defaultOption, option);
+            this.option = Util.extend({}, defaultOption, option);
 
             this.init();
 
@@ -114,9 +114,7 @@ export default (function(){
 
         render() {
 
-            let compiled = Util.Template(selectTemplate.join(""));
-
-            let selectContent = compiled(this.option);
+            let selectContent = Util.renderTemp(selectTemplate.join(""), this.option);
 
             this.selectDom = DOM.beforeHTML(this.el, selectContent);
 
@@ -277,9 +275,7 @@ export default (function(){
 
             let option = {selectOptions, value};
 
-            let compiled = Template(selectLiTemplate.join(""));
-
-            let content = compiled(option);
+            let content = Util.renderTemp(selectLiTemplate.join(""), option);
 
             DOM.html(DOM.find(this.selectDom, ".dropdown_bd ul"), content);
 

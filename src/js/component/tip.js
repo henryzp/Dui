@@ -44,7 +44,7 @@ export default (function(){
 
             this.option = option;
 
-            this.option = Util.Extend({}, defaultOption, this.option);
+            this.option = Util.extend({}, defaultOption, this.option);
 
             this.init();
 
@@ -107,9 +107,7 @@ export default (function(){
         initialTop = finalTop - Config.hint.pos.dis;
         option.top = initialTop;
 
-        let compiled = Util.Template(tipHint.join(""));
-
-        let tipContent = compiled(option);
+        let tipContent = Util.renderTemp(tipHint.join(""), option);
 
         return new Tip({
             tipContent,
@@ -200,8 +198,7 @@ export default (function(){
             msg: msg
         };
 
-        let compiled = Util.Template(tipText.join("")),
-            tipContent = compiled(option);
+        let tipContent = Util.renderTemp(tipText.join(""), option);
 
         if(DOM.has(".dui-update-message").length == 0) {
 
@@ -254,8 +251,7 @@ export default (function(){
 
         option.tipType = option.type == "error" ? "dui-tip-error-arrow" : "dui-tip-arrow";
 
-        let compiled = Util.Template(tipArrow.join("")),
-            tipContent = compiled(option);
+        let tipContent = Util.renderTemp(tipArrow.join(""), option);
 
         return new Tip({
             tipContent,

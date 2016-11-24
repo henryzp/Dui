@@ -159,7 +159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            _this.option = option;
 
-	            _this.option = _util2.default.Extend({}, defaultOption, _this.option);
+	            _this.option = _util2.default.extend({}, defaultOption, _this.option);
 
 	            _this.init();
 
@@ -342,9 +342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _dom2.default.appendHTML(document.body, wrap);
 	                }
 
-	                var compiled = _util2.default.Template(modalTemplate.join(""));
-
-	                var result = compiled(this.option);
+	                var result = _util2.default.renderTemp(modalTemplate.join(""), this.option);
 
 	                if (this.option.mask) {
 	                    this.dialogDom = _dom2.default.appendHTML(_dom2.default.find(".dui-dialog-wrap"), result);
@@ -565,8 +563,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    Template: _template2.default,
-	    Extend: _extend2.default
+	    extend: _extend2.default,
+	    renderTemp: function renderTemp(str, json) {
+	        var compiled = (0, _template2.default)(str);
+	        return compiled(json);
+	    }
 	};
 
 /***/ },
@@ -3857,7 +3858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            _this2.option = option;
 
-	            _this2.option = _util2.default.Extend({}, defaultOption, _this2.option);
+	            _this2.option = _util2.default.extend({}, defaultOption, _this2.option);
 
 	            _this2.init();
 
@@ -3935,9 +3936,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        initialTop = finalTop - _tip_config2.default.hint.pos.dis;
 	        option.top = initialTop;
 
-	        var compiled = _util2.default.Template(tipHint.join(""));
-
-	        var tipContent = compiled(option);
+	        var tipContent = _util2.default.renderTemp(tipHint.join(""), option);
 
 	        return new Tip({
 	            tipContent: tipContent,
@@ -4055,8 +4054,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            msg: msg
 	        };
 
-	        var compiled = _util2.default.Template(tipText.join("")),
-	            tipContent = compiled(option);
+	        var tipContent = _util2.default.renderTemp(tipText.join(""), option);
 
 	        if (_dom2.default.has(".dui-update-message").length == 0) {
 
@@ -4109,8 +4107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        option.tipType = option.type == "error" ? "dui-tip-error-arrow" : "dui-tip-arrow";
 
-	        var compiled = _util2.default.Template(tipArrow.join("")),
-	            tipContent = compiled(option);
+	        var tipContent = _util2.default.renderTemp(tipArrow.join(""), option);
 
 	        return new Tip({
 	            tipContent: tipContent,
@@ -4428,7 +4425,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                arrowIconClass: _select_confg2.default.arrowIconClass
 	            };
 
-	            _this2.option = _util2.default.Extend({}, defaultOption, option);
+	            _this2.option = _util2.default.extend({}, defaultOption, option);
 
 	            _this2.init();
 
@@ -4507,9 +4504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            key: "render",
 	            value: function render() {
 
-	                var compiled = _util2.default.Template(selectTemplate.join(""));
-
-	                var selectContent = compiled(this.option);
+	                var selectContent = _util2.default.renderTemp(selectTemplate.join(""), this.option);
 
 	                this.selectDom = _dom2.default.beforeHTML(this.el, selectContent);
 
@@ -4672,9 +4667,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                var option = { selectOptions: selectOptions, value: value };
 
-	                var compiled = Template(selectLiTemplate.join(""));
-
-	                var content = compiled(option);
+	                var content = _util2.default.renderTemp(selectLiTemplate.join(""), option);
 
 	                _dom2.default.html(_dom2.default.find(this.selectDom, ".dropdown_bd ul"), content);
 	            }
