@@ -12,6 +12,10 @@ $dialogPadding: 16px !default; //默认间距大小
 
 $posList: left center right;
 
+.dui-dialog-lock-test {
+    overflow-y: hidden !important;
+}
+
 .dui-dialog-wrap {
     position: fixed;
     top: 0;
@@ -33,7 +37,7 @@ $posList: left center right;
 }
 
 .dui-dialog {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

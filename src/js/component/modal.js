@@ -9,6 +9,8 @@ import DOM from "./dom";
 import Event from "./event";
 import Drag from "./drag";
 
+import ScrollHanlder from "./scrollHanlder";
+
 export default (function(){
 
     //TODO 未来希望是通过webpack loader 来引入html模板
@@ -246,11 +248,9 @@ export default (function(){
             let len = DOM.has(".dui-dialog-wrap").length;
 
             if(len == 0 && this.option.mask) {
-
                 let wrap = '<div class="dui-dialog-wrap" style="z-index: '+ this.option.zIndex +'"></div>';
-
                 DOM.appendHTML(document.body, wrap);
-
+                ScrollHanlder.disableScroll();
             }
 
             let result = Util.renderTemp(modalTemplate.join(""), this.option);
@@ -260,6 +260,7 @@ export default (function(){
             }else {
                 this.dialogDom = DOM.appendHTML(document.body, result);
             }
+
         }
 
         //隐藏弹窗
@@ -285,6 +286,7 @@ export default (function(){
 
             if(len == 1 && this.option.mask){
                 DOM.remove(DOM.find(".dui-dialog-wrap"));
+                ScrollHanlder.enableScroll();
             }
 
             this.dialogDom = null;
@@ -334,6 +336,10 @@ export default (function(){
 
         }
 
+        _stopPropagation(ev) {
+            ev.stopPropagation();
+        }
+
         handleDrag() {
 
             if(this.option.draggable) {
@@ -356,11 +362,17 @@ export default (function(){
 
             let closeBtn =  this.closeBtn = DOM.find(this.dialogDom, ".J_dialog-close");
 
+            let dialogBd = this.dialogBd = DOM.find(this.dialogDom, ".dui-dialog-bd") || DOM.find(this.dialogDom, ".dui-dialog-custom-bd");
+
             okBtn && okBtn.addEventListener("click", this.bindOkClick=this._okFn.bind(this), false);
 
             cancelBtn && cancelBtn.addEventListener("click", this.bindCancelClick = this._cancelFn.bind(this), false);
 
             closeBtn && closeBtn.addEventListener("click", this.bindCloseClick = this._closeFn.bind(this), false);
+
+            dialogBd && dialogBd.addEventListener("mousewheel", this._stopPropagation, false)
+
+            dialogBd && dialogBd.addEventListener("touchmove", this._stopPropagation, false);
 
             document.addEventListener("keydown", this.bindEscClick = this._escFn.bind(this), false);
 
@@ -370,13 +382,17 @@ export default (function(){
 
             let okBtn = this.okBtn,
                 cancelBtn = this.cancelBtn,
-                closeBtn =  this.closeBtn;
+                closeBtn =  this.closeBtn,
+                dialogBd = this.dialogBd;
 
             okBtn && okBtn.removeEventListener("click", this.bindOkClick, false);
 
             cancelBtn && cancelBtn.removeEventListener("click", this.bindCancelClick, false);
 
             closeBtn && closeBtn.removeEventListener("click", this.bindCloseClick, false);
+
+            dialogBd && dialogBd.removeEventListener("mousewheel", this._stopPropagation, false);
+            dialogBd && dialogBd.removeEventListener("touchmove", this._stopPropagation, false);
 
             document.removeEventListener("keydown", this.bindEscClick, false);
 

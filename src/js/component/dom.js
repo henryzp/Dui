@@ -2,8 +2,19 @@
 
 export default {
 
+    //简单粗暴地将元素的style整个替换掉
+    addCssText(elem, cssText) {
+        if(Array.isArray(elem)) {
+            elem.forEach(function(item){
+                item.style.cssText = cssText;
+            })
+        }else {
+            elem.style.cssText = cssText;
+        }
+    },
+
     getCss(elem, key) {
-        return elem.currentStyle? elem.currentStyle[key] : document.defaultView.getComputedStyle(elem,false)[key];
+        return elem.currentStyle ? elem.currentStyle[key] : document.defaultView.getComputedStyle(elem,false)[key];
     },
 
     addClass(elem, className) {

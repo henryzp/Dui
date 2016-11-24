@@ -6,10 +6,15 @@
     <link rel="stylesheet" href="dist/css/dui.css"/>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1475922891_4469836.css">
     <link rel="stylesheet" href="css/page.css" />
+    <style>
+        body {
+            height: 2000px;
+        }
+    </style>
 </head>
 <body>
 
-<div>
+<div style="margin-top: 600px;">
     <h3>常规弹窗</h3>
     <a class="J_modal dui-btn" href="javascript:;">普通Modal</a>
     <a class="J_icon dui-btn" href="javascript:;">带图标标题Modal</a>
@@ -35,7 +40,7 @@
 
 <script>
 
-    Dui.Modal.alert("123");
+    Dui.Modal.alert("这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊");
 
     document.querySelector(".J_modal").addEventListener("click", function() {
 
@@ -98,6 +103,7 @@
 
         new Dui.Modal({
             title: '我是图标啊',
+            content: "我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊我是内容啊。",
             titleIconClass: "iconfont icon-sousuo1",
             okFn: function() {
 
