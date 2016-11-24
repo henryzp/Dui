@@ -32,7 +32,6 @@ module.exports = {
         progress: true,
         "display-error-details": true
     },
-
     plugins: [
         new ExtractTextPlugin("css/dui.css"),
         new openBrowserWebpackPlugin({ url: 'http://localhost:8090' })
