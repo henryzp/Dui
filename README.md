@@ -57,7 +57,6 @@ webpack的配置如下：
 在js中只要这样写就行：
 
 ```
-import "Dui/src/css/dui.scss";
 import { Modal } from 'Dui';
 
 Modal.alert(123);
