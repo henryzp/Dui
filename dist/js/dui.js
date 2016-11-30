@@ -133,7 +133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = function () {
 
 	    //TODO 未来希望是通过webpack loader 来引入html模板
-	    var modalTemplate = ['<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px; z-index: <%= zIndex %>">', '<% if(close) { %>', '<i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>', '<% } %>', '<% if(title != "" && type == "default") { %>', '<div class="dui-dialog-hd">', '<% if(titleIconClass == "") { %>', '<h3 class="dui-dialog-title"><%= title %></h3>', '<% }else { %>', '<h3 class="dui-dialog-title has-icon"><i class="<%= titleIconClass %>"></i><%= title %></h3>', '<% } %>', '</div>', '<% } %>', '<% if(title == "" && type == "default") { %>', '<div style="height: 14px;"></div>', '<% } %>', '<% if(type == "custom") { %>', '<div class="dui-dialog-custom-bd"><%= content %></div>', '<% } %>', '<% if(type == "default") { %>', '<% if(contentHeight != "auto"){ %>', '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">', '<% }else { %>', '<div style="height: <%= contentHeight %>;max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">', '<% } %>', '<%= content %>', '</div>', '<% if(ok || cancel) { %>', '<div class="dui-dialog-ft <%= btnPosClass %>">', '<div class="dui-btn-list-g10">', '<% if(ok) { %>', '<a class="dui-btn-info J_dialog-ok" href="javascript:;"><%= okValue %></a>', '<% } %>', '<% if(cancel) { %>', '<a class="dui-btn J_dialog-cancel" href="javascript:;"><%= cancelValue %></a>', '<% } %>', '</div>', '</div>', '<% }  %>', '<% }  %>', '</div>'];
+	    var modalTemplate = ['<%if(height != "auto"){  %>', '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px; z-index: <%= zIndex %>">', '<% }else { %>', '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>; z-index: <%= zIndex %>">', '<% } %>', '<% if(close) { %>', '<i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>', '<% } %>', '<% if(title != "" && type == "default") { %>', '<div class="dui-dialog-hd">', '<% if(titleIconClass == "") { %>', '<h3 class="dui-dialog-title"><%= title %></h3>', '<% }else { %>', '<h3 class="dui-dialog-title has-icon"><i class="<%= titleIconClass %>"></i><%= title %></h3>', '<% } %>', '</div>', '<% } %>', '<% if(title == "" && type == "default") { %>', '<div style="height: 14px;"></div>', '<% } %>', '<% if(type == "custom") { %>', '<div class="dui-dialog-custom-bd"><%= content %></div>', '<% } %>', '<% if(type == "default") { %>', '<% if(contentHeight != "auto"){ %>', '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">', '<% }else { %>', '<div style="height: <%= contentHeight %>; min-height: <%= contentMinHeight %>px; max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">', '<% } %>', '<%= content %>', '</div>', '<% if(ok || cancel) { %>', '<div class="dui-dialog-ft <%= btnPosClass %>">', '<div class="dui-btn-list-g10">', '<% if(ok) { %>', '<a class="dui-btn-info J_dialog-ok" href="javascript:;"><%= okValue %></a>', '<% } %>', '<% if(cancel) { %>', '<a class="dui-btn J_dialog-cancel" href="javascript:;"><%= cancelValue %></a>', '<% } %>', '</div>', '</div>', '<% }  %>', '<% }  %>', '</div>'];
 
 	    var Modal = function (_Event) {
 	        _inherits(Modal, _Event);
@@ -266,6 +266,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    hdHeight = _modal_config2.default.hdHeight,
 	                    ftHeight = _modal_config2.default.ftHeight,
 	                    padding = _modal_config2.default.padding,
+	                    minHeight = _modal_config2.default.minHeight,
 	                    maxHeight = _modal_config2.default.maxHeight;
 
 	                var spacing = void 0;
@@ -285,9 +286,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    this.option.contentHeight = "auto";
 
+	                    var contentMinHeight = minHeight - hdHeight - ftHeight - spacing;
+
 	                    var contentMaxHeight = maxHeight - hdHeight - ftHeight - spacing;
 
 	                    this.option.contentMaxHeight = contentMaxHeight;
+
+	                    this.option.contentMinHeight = contentMinHeight;
 	                } else {
 
 	                    var contentHeight = height - hdHeight - ftHeight - spacing;

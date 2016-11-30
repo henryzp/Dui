@@ -91,7 +91,7 @@ $posList: left center right;
         overflow: auto;
     }
     .dui-dialog-ft {
-        margin: 0 $dialogPadding;
+        margin: 0 $dialogPadding $dialogPadding;
         @each $pos in $posList {
             &.dui-dialog-ft-#{$pos} {
                 .dui-btn-list-g10 {

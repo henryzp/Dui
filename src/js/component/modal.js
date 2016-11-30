@@ -15,7 +15,11 @@ export default (function(){
 
     //TODO 未来希望是通过webpack loader 来引入html模板
     const modalTemplate = [
+        '<%if(height != "auto"){  %>',
         '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px; z-index: <%= zIndex %>">',
+        '<% }else { %>',
+        '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>; z-index: <%= zIndex %>">',
+        '<% } %>',
             '<% if(close) { %>',
                 '<i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>',
             '<% } %>',
@@ -38,7 +42,7 @@ export default (function(){
                 '<% if(contentHeight != "auto"){ %>',
                 '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">',
                 '<% }else { %>',
-                '<div style="height: <%= contentHeight %>;max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">',
+                '<div style="height: <%= contentHeight %>; min-height: <%= contentMinHeight %>px; max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">',
                 '<% } %>',
                     '<%= content %>',
                 '</div>',
@@ -176,6 +180,7 @@ export default (function(){
                 hdHeight = Config.hdHeight,
                 ftHeight = Config.ftHeight,
                 padding = Config.padding,
+                minHeight = Config.minHeight,
                 maxHeight = Config.maxHeight;
 
             let spacing;
@@ -195,9 +200,13 @@ export default (function(){
 
                 this.option.contentHeight = "auto";
 
+                let contentMinHeight = minHeight - hdHeight - ftHeight - spacing;
+
                 let contentMaxHeight = maxHeight - hdHeight - ftHeight - spacing;
 
                 this.option.contentMaxHeight = contentMaxHeight;
+
+                this.option.contentMinHeight = contentMinHeight;
 
             }else {
 

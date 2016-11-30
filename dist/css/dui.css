@@ -239,7 +239,7 @@ button {
     margin: 16px 0;
     overflow: auto; }
   .dui-dialog .dui-dialog-ft {
-    margin: 0 16px; }
+    margin: 0 16px 16px; }
     .dui-dialog .dui-dialog-ft.dui-dialog-ft-left .dui-btn-list-g10 {
       text-align: left; }
     .dui-dialog .dui-dialog-ft.dui-dialog-ft-center .dui-btn-list-g10 {
