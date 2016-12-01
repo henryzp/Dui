@@ -103,7 +103,7 @@ dialog.$on("事件名", function(){})
 Dui.Modal.alert("xxxx");
 ```
 
-- Dui.Modal.confirm(content[, title])
+- Dui.Modal.confirm(content[, title, close])
 
 弹出一个confirm对话框。它会返回一个Promise对象，因此如果在非chrome下要引用promise库才行，不然会报错
 

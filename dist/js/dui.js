@@ -531,6 +531,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    Modal.confirm = function (text) {
 	        var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "提示";
+	        var close = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
 
 	        return new Promise(function (resolve) {
@@ -538,6 +539,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            new Modal({
 	                title: title,
 	                content: text,
+	                close: close,
 	                okFn: function okFn() {
 	                    resolve();
 	                    this.hide();

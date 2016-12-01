@@ -422,13 +422,14 @@ export default (function(){
 
     }
 
-    Modal.confirm = function(text, title = "提示") {
+    Modal.confirm = function(text, title = "提示", close = true) {
 
         return new Promise(function(resolve) {
 
             new Modal({
                 title: title,
                 content: text,
+                close: close,
                 okFn: function() {
                     resolve();
                     this.hide();
