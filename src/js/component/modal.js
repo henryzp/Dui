@@ -431,10 +431,13 @@ export default (function(){
                 content: text,
                 close: close,
                 okFn: function() {
-                    resolve();
+                    resolve(true);
                     this.hide();
                 },
-                cancel: true
+                cancel: true,
+                cancelFn: function() {
+                    resolve(false);
+                }
             })
 
         })

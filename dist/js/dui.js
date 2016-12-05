@@ -541,10 +541,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                content: text,
 	                close: close,
 	                okFn: function okFn() {
-	                    resolve();
+	                    resolve(true);
 	                    this.hide();
 	                },
-	                cancel: true
+	                cancel: true,
+	                cancelFn: function cancelFn() {
+	                    resolve(false);
+	                }
 	            });
 	        });
 	    };

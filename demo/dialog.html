@@ -121,8 +121,12 @@
 
     document.querySelector(".J_confirm").addEventListener("click", function() {
 
-        Dui.Modal.confirm("是否关闭窗口").then(function(){
-            alert("我点了确定");
+        Dui.Modal.confirm("是否关闭窗口").then(function(isOk){
+            if(isOk) {
+                alert("我点了确定");
+            }else {
+                alert("我点了取消");
+            }
         })
 
     });
