@@ -415,6 +415,7 @@ export default (function(){
             title: title,
             content: text,
             close: close,
+            height: "auto",
             okFn: function() {
                 this.hide();
             }
@@ -430,6 +431,7 @@ export default (function(){
                 title: title,
                 content: text,
                 close: close,
+                height: "auto",
                 okFn: function() {
                     resolve(true);
                     this.hide();

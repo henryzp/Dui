@@ -523,6 +523,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            title: title,
 	            content: text,
 	            close: close,
+	            height: "auto",
 	            okFn: function okFn() {
 	                this.hide();
 	            }
@@ -540,6 +541,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                title: title,
 	                content: text,
 	                close: close,
+	                height: "auto",
 	                okFn: function okFn() {
 	                    resolve(true);
 	                    this.hide();
