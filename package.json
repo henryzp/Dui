@@ -8,7 +8,7 @@
     "example": "demo"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "",
     "demo": "./node_modules/.bin/webpack-dev-server --inline --hot",
     "build": "gulp",
     "build-css": "gulp build-css",
