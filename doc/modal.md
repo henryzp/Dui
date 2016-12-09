@@ -56,7 +56,8 @@ option为json对象
 | option.close | boolean | true |  是否显示右上角的关闭按钮 |
 | option.init | function |   无     |  弹框渲染完可能要做一些处理的事件，在事件中可以通过`this.dialogDom`取到弹框容器   |
 | option.draggable | boolean | false | 是否可以拖拽对话框，默认为false |
-
+| option.appendEl | string/dom | document.body | 弹窗插入到哪个容器下，但边界目前还未处理，还是以html整个为边界 |
+ 
 支持的方法：
 
 | 方法名   |  描述 |
