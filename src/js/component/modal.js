@@ -83,7 +83,8 @@ export default (function(){
                 ok: false,
                 cancel: false,
                 btnPos: "right",
-                draggable: false
+                draggable: false,
+                appendEl: document.body,
             }
 
             this.option = option;
@@ -267,7 +268,10 @@ export default (function(){
             if(this.option.mask){
                 this.dialogDom = DOM.appendHTML(DOM.find(".dui-dialog-wrap"), result);
             }else {
-                this.dialogDom = DOM.appendHTML(document.body, result);
+                if(typeof this.option.appendEl == "string") {
+                    this.option.appendEl = DOM.find(this.option.appendEl);
+                }
+                this.dialogDom = DOM.appendHTML(this.option.appendEl, result);
             }
 
         }
@@ -357,7 +361,7 @@ export default (function(){
 
                 DOM.addClass(bar, "z-draggable")
 
-                Drag.startDrag(bar, this.dialogDom, Config.boundary(this.dialogDom), this);
+                Drag.startDrag(bar, this.dialogDom, Config.boundary(this.dialogDom, this.option.appendEl), this);
             }
 
         }

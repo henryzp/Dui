@@ -8,7 +8,7 @@ export default {
     padding: 16,
     closeIconClass: "iconfont icon-shanchu5",
     //边界范围
-    boundary: function(elem) {
+    boundary: function(elem, parentElem) {
 
         let width = elem.offsetWidth,
             height = elem.offsetHeight;

@@ -28,6 +28,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.13",
+    "gulp-concat": "^2.6.1",
     "gulp-gzip": "^1.4.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",

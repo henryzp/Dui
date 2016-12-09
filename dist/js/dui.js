@@ -158,7 +158,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                ok: false,
 	                cancel: false,
 	                btnPos: "right",
-	                draggable: false
+	                draggable: false,
+	                appendEl: document.body
 	            };
 
 	            _this.option = option;
@@ -355,7 +356,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (this.option.mask) {
 	                    this.dialogDom = _dom2.default.appendHTML(_dom2.default.find(".dui-dialog-wrap"), result);
 	                } else {
-	                    this.dialogDom = _dom2.default.appendHTML(document.body, result);
+	                    if (typeof this.option.appendEl == "string") {
+	                        this.option.appendEl = _dom2.default.find(this.option.appendEl);
+	                    }
+	                    this.dialogDom = _dom2.default.appendHTML(this.option.appendEl, result);
 	                }
 	            }
 
@@ -459,7 +463,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    _dom2.default.addClass(bar, "z-draggable");
 
-	                    _drag2.default.startDrag(bar, this.dialogDom, _modal_config2.default.boundary(this.dialogDom), this);
+	                    _drag2.default.startDrag(bar, this.dialogDom, _modal_config2.default.boundary(this.dialogDom, this.option.appendEl), this);
 	                }
 	            }
 
@@ -3232,7 +3236,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    padding: 16,
 	    closeIconClass: "iconfont icon-shanchu5",
 	    //边界范围
-	    boundary: function boundary(elem) {
+	    boundary: function boundary(elem, parentElem) {
 
 	        var width = elem.offsetWidth,
 	            height = elem.offsetHeight;
