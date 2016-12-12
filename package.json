@@ -8,11 +8,12 @@
     "example": "demo"
   },
   "scripts": {
-    "test": "",
     "demo": "./node_modules/.bin/webpack-dev-server --inline --hot",
     "build": "gulp",
     "build-css": "gulp build-css",
-    "build-js": "gulp build-js"
+    "build-js": "gulp build-js",
+    "test": "node ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --colors ./configs/mocha/**/*.test.js",
+    "coverage": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,8 @@
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.7",
     "babel-preset-es2015": "^6.18.0",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.15",
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "gulp": "^3.9.1",
@@ -34,6 +37,8 @@
     "gulp-sass": "^2.3.2",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
     "open-browser-webpack-plugin": "0.0.3",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
