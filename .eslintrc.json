@@ -1,0 +1,18 @@
+{
+    "extends": "airbnb-base",
+    "globals": {
+        "document": true
+    },
+    "rules": {
+        "quotes": [1, "double"],
+        "indent": [2,4, {"SwitchCase":1}],
+        "spaced-comment": ["error", "always"],
+        "comma-dangle": ["error", {
+            "exports": "never"
+        }],
+        "semi": ["error", "never"],
+        "eol-last": ["error", "never"],
+        "spaced-comment": ["error", "never"],
+        "no-mixed-operators": ["errors", "never"]
+    }
+}
