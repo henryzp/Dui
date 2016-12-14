@@ -4,11 +4,11 @@ export default {
         minWidth: 250,
         maxWidth: 362,
         iconClass: {
-            warn: "iconfont icon-tishi-20160921",
+            warn: "iconfont icon-tanhao",
             info: "iconfont icon-yunxingyichangtishi-20150921",
             error: "iconfont icon-cuowu-20160921",
-            success: "iconfont icon-right-2016-0921",
-            other: "iconfont icon-tishi-20160921"
+            success: "iconfont icon-zhengque1",
+            other: "iconfont icon-tanhao"
         },
         pos: {
             rel: document.documentElement,

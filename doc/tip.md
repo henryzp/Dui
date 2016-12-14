@@ -15,7 +15,7 @@
 因为全局提示带icon的，用到了webIcon，所以需要依赖下面文件，这一块后期做优化处理
 
 ```
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1475922891_4469836.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_rh9ogim4kcd0wwmi.css">
 ```
 
 ### 全局提示（带icon）
@@ -32,7 +32,7 @@ HTML的结构分别对应如下：
 
 ```
 <div class="dui-tip-success">
-     <i class="iconfont icon-right-2016-0921"></i>
+     <i class="iconfont icon-zhengque1"></i>
      <p>这是一段Success的提示</p>
 </div>
 ```
@@ -46,7 +46,7 @@ HTML的结构分别对应如下：
 
 ```
 <div class="dui-tip-warning">
-    <i class="iconfont icon-tishi-20160921"></i>
+    <i class="iconfont icon-tanhao"></i>
     <p>这是一段Waning的提示</p>
 </div>
 ```
@@ -60,7 +60,7 @@ HTML的结构分别对应如下：
 
 ```
 <div class="dui-tip">
-    <i class="iconfont icon-tishi-20160921"></i>
+    <i class="iconfont icon-tanhao"></i>
     <p>这是其他文案提示这是其他文案提示这是其他文案提示这是其他文案提示这是其他文案提示这是其他文案提示这是其他文案提示这是其他文案提示这是其他文案提示这是其他文案提示这是其他文案提示这是其他文案提示这是其他文案提示这是其他文案提示</p>
 </div>
 ```

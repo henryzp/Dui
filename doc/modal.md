@@ -23,7 +23,7 @@
 因为右上角的关闭图标用到了webIcon，所以会依赖下面的css文件，这一块在将来会做处理。
 
 ```
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1475922891_4469836.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_rh9ogim4kcd0wwmi.css">
 ```
 
 ### API
