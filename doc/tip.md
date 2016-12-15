@@ -39,7 +39,7 @@ HTML的结构分别对应如下：
 
 ```
 <div class="dui-tip-info">
-     <i class="iconfont icon-yunxingyichangtishi-20150921"></i>
+     <i class="iconfont icon-jingshi"></i>
      <p>这是一段Info的提示</p>
 </div>
 ```

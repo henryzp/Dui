@@ -4460,7 +4460,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        maxWidth: 362,
 	        iconClass: {
 	            warn: "iconfont icon-tanhao",
-	            info: "iconfont icon-yunxingyichangtishi-20150921",
+	            info: "iconfont icon-jingshi",
 	            error: "iconfont icon-cuowu-20160921",
 	            success: "iconfont icon-zhengque1",
 	            other: "iconfont icon-tanhao"
