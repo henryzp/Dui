@@ -104,7 +104,9 @@ dialog.$on("事件名", function(){})
 Dui.Modal.alert("xxxx");
 ```
 
-- Dui.Modal.confirm(content[, title, close])
+- Dui.Modal.confirm(content[, title, close, align])
+
+align为确定取消按钮的显示位置，默认为居右。
 
 弹出一个confirm对话框。它会返回一个Promise对象，因此如果在非chrome下要引用promise库才行，不然会报错
 

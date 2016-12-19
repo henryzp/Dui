@@ -307,17 +307,20 @@ export default (function(){
         }
 
         //确定事件处理
-        _okFn() {
+        _okFn(ev) {
 
             this.$emit("ok");
 
             //TODO 判断是否是函数
             this.option.okFn && this.option.okFn.apply(this);
 
+            ev.preventDefault();
+            ev.stopPropagation();
+
         }
 
         //取消事件处理
-        _cancelFn() {
+        _cancelFn(ev) {
 
             this.$emit("cancel");
 
@@ -326,26 +329,33 @@ export default (function(){
 
             this.hide();
 
+            ev.preventDefault();
+            ev.stopPropagation();
+
         }
 
         //关闭事件处理
-        _closeFn() {
+        _closeFn(ev) {
 
             this.$emit("close");
 
             this.hide();
 
+            ev.preventDefault();
+            ev.stopPropagation();
+
         }
 
         //按ESC让弹窗消失
-        _escFn(event) {
-
-            event = event || window.event;
+        _escFn(ev) {
 
             //ESC键
             if(event.keyCode == "27") {
                 this.hide();
             }
+
+            ev.preventDefault();
+            ev.stopPropagation();
 
         }
 
@@ -427,7 +437,7 @@ export default (function(){
 
     }
 
-    Modal.confirm = function(text, title = "提示", close = true) {
+    Modal.confirm = function(text, title = "提示", close = true, align = "right") {
 
         return new Promise(function(resolve) {
 
@@ -436,6 +446,7 @@ export default (function(){
                 content: text,
                 close: close,
                 height: "auto",
+                btnPos: align,
                 okFn: function() {
                     resolve(true);
                     this.hide();

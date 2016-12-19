@@ -402,19 +402,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        }, {
 	            key: "_okFn",
-	            value: function _okFn() {
+	            value: function _okFn(ev) {
 
 	                this.$emit("ok");
 
 	                //TODO 判断是否是函数
 	                this.option.okFn && this.option.okFn.apply(this);
+
+	                ev.preventDefault();
+	                ev.stopPropagation();
 	            }
 
 	            //取消事件处理
 
 	        }, {
 	            key: "_cancelFn",
-	            value: function _cancelFn() {
+	            value: function _cancelFn(ev) {
 
 	                this.$emit("cancel");
 
@@ -422,31 +425,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.option.cancelFn && this.option.cancelFn.apply(this);
 
 	                this.hide();
+
+	                ev.preventDefault();
+	                ev.stopPropagation();
 	            }
 
 	            //关闭事件处理
 
 	        }, {
 	            key: "_closeFn",
-	            value: function _closeFn() {
+	            value: function _closeFn(ev) {
 
 	                this.$emit("close");
 
 	                this.hide();
+
+	                ev.preventDefault();
+	                ev.stopPropagation();
 	            }
 
 	            //按ESC让弹窗消失
 
 	        }, {
 	            key: "_escFn",
-	            value: function _escFn(event) {
-
-	                event = event || window.event;
+	            value: function _escFn(ev) {
 
 	                //ESC键
 	                if (event.keyCode == "27") {
 	                    this.hide();
 	                }
+
+	                ev.preventDefault();
+	                ev.stopPropagation();
 	            }
 	        }, {
 	            key: "_stopPropagation",
@@ -537,6 +547,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Modal.confirm = function (text) {
 	        var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "提示";
 	        var close = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+	        var align = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "right";
 
 
 	        return new Promise(function (resolve) {
@@ -546,6 +557,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                content: text,
 	                close: close,
 	                height: "auto",
+	                btnPos: align,
 	                okFn: function okFn() {
 	                    resolve(true);
 	                    this.hide();
