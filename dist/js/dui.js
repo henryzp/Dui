@@ -468,12 +468,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            value: function _escFn(ev) {
 
 	                //ESC键
-	                if (event.keyCode == "27") {
+	                if (ev.keyCode == "27") {
+	                    ev.preventDefault();
+	                    ev.stopPropagation();
 	                    this.hide();
 	                }
-
-	                ev.preventDefault();
-	                ev.stopPropagation();
 	            }
 	        }, {
 	            key: "_stopPropagation",

@@ -366,12 +366,11 @@ export default (function(){
         _escFn(ev) {
 
             //ESC键
-            if(event.keyCode == "27") {
+            if(ev.keyCode == "27") {
+                ev.preventDefault();
+                ev.stopPropagation();
                 this.hide();
             }
-
-            ev.preventDefault();
-            ev.stopPropagation();
 
         }
 
