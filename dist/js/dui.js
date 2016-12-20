@@ -200,6 +200,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                //初始化content的高度，它会取决于有没有下面的按钮
 	                this.handleOptionContentHeight();
+
+	                this.handleOptionContent();
 	            }
 
 	            //处理弹窗宽度
@@ -336,6 +338,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 
 	                this.option.btnPosClass = "dui-dialog-ft-" + this.option.btnPos;
+	            }
+	        }, {
+	            key: "handleOptionContent",
+	            value: function handleOptionContent() {
+	                var content = this.option.content;
+	                var firstCode = content.charAt(0);
+	                if (firstCode == "#") {
+	                    var contentDom = _dom2.default.findById(content.slice(1));
+	                    if (contentDom != null) {
+	                        this.option.content = _dom2.default.getHtml(contentDom);
+	                        if (contentDom.tagName.toLowerCase() != "script") {
+	                            _dom2.default.remove(contentDom);
+	                        }
+	                    }
+	                }
 	            }
 
 	            //显示弹窗
@@ -3359,6 +3376,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    html: function html(dom, text) {
 	        dom.innerHTML = text;
 	    },
+	    getHtml: function getHtml(dom) {
+	        return dom.innerHTML;
+	    },
 	    has: function has(elem, selector) {
 
 	        if (arguments.length == 1) {
@@ -3380,6 +3400,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        return elem.querySelector(selector);
+	    },
+	    findById: function findById(selector) {
+	        return document.getElementById(selector);
 	    },
 	    findAll: function findAll(elem, selector) {
 

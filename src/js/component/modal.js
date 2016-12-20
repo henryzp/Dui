@@ -121,6 +121,8 @@ export default (function(){
             //初始化content的高度，它会取决于有没有下面的按钮
             this.handleOptionContentHeight();
 
+            this.handleOptionContent();
+
         }
 
         //处理弹窗宽度
@@ -251,6 +253,20 @@ export default (function(){
 
             this.option.btnPosClass = "dui-dialog-ft-" + this.option.btnPos;
 
+        }
+
+        handleOptionContent() {
+            let content = this.option.content;
+            let firstCode = content.charAt(0);
+            if (firstCode == "#") {
+                let contentDom = DOM.findById(content.slice(1));
+                if(contentDom != null) {
+                    this.option.content = DOM.getHtml(contentDom);
+                    if (contentDom.tagName.toLowerCase() != "script") {
+                        DOM.remove(contentDom);
+                    }
+                }
+            }
         }
 
         //显示弹窗

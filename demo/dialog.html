@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="dist/css/dui.css"/>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_rh9ogim4kcd0wwmi.css">
     <link rel="stylesheet" href="css/page.css" />
+    <script src="js/jquery.js"></script>
     <style>
         body {
             height: 2000px;
@@ -14,8 +15,21 @@
 </head>
 <body>
 
-<div class="test22" style="position: absolute;left: 10px; top: 20px; width: 1000px; height: 500px; background: yellow;">
+<!--<div class="test22" style="position: absolute;left: 10px; top: 20px; width: 1000px; height: 500px; background: yellow;">-->
 
+<!--</div>-->
+
+<script id="test1_tpl" type="text/html">
+    这里是script的内容<p class="test1_p">123</p>
+</script>
+
+
+<div id="div_temp1" style="display: none">
+    这里是script的内容<p id="div1_p">123</p>
+</div>
+
+<div id="div_temp2" style="display: none">
+    这里是script的内容<p id="div1_p">123</p>
 </div>
 
 <div style="margin-top: 600px;">
@@ -33,6 +47,8 @@
     <a class="J_custom dui-btn" href="javascript:;">自定义弹窗</a>
     <a class="J_autoHeight dui-btn" href="javascript:;">自适应高度</a>
     <a class="J_noMask dui-btn" href="javascript:;">拖拽无蒙板</a>
+    <a class="J_getScript dui-btn" href="javascript:;">获取script里面的内容</a>
+    <a class="J_getDiv dui-btn" href="javascript:;">获取div里面的内容</a>
 </div>
 
 <div>
@@ -43,6 +59,14 @@
 <script src="dist/js/dui.js"></script>
 
 <script>
+
+    $(document).on("click", ".test1_p", function() {
+        alert(1234);
+    });
+
+    $(document).on("click", "#div1_p", function() {
+        alert(789);
+    })
 
     //Dui.Modal.alert("这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊");
 
@@ -199,6 +223,20 @@
         new Dui.Modal({
             draggable: true,
             mask: false
+        })
+    });
+
+
+    document.querySelector(".J_getScript").addEventListener("click", function() {
+        new Dui.Modal({
+            content: "#test1_tpl"
+        })
+    });
+
+
+    document.querySelector(".J_getDiv").addEventListener("click", function() {
+        new Dui.Modal({
+            content: "#div_temp1"
         })
     });
 

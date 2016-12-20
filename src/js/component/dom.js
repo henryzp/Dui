@@ -65,6 +65,10 @@ export default {
         dom.innerHTML = text;
     },
 
+    getHtml(dom) {
+        return dom.innerHTML;
+    },
+
     has(elem, selector) {
 
         if(arguments.length == 1) {
@@ -89,6 +93,10 @@ export default {
 
         return elem.querySelector(selector);
 
+    },
+
+    findById(selector) {
+        return document.getElementById(selector);
     },
 
     findAll(elem, selector) {
