@@ -57,6 +57,34 @@ option为json对象
 | option.init | function |   无     |  弹框渲染完可能要做一些处理的事件，在事件中可以通过`this.dialogDom`取到弹框容器   |
 | option.draggable | boolean | false | 是否可以拖拽对话框，默认为false |
 | option.appendEl | string/dom | document.body | 弹窗插入到哪个容器下，但边界目前还未处理，还是以html整个为边界 |
+
+---
+
+content的说明：
+
+当它以`#`开头时，会去找ID为”#“后面的内容的DOM元素，然后取到它里面的innerHTML。往往会有以下两种情况：
+
+- script，譬如：
+
+```
+<script type="text/html">
+    这里是内容啊
+</script>
+```
+
+- 隐藏的DIV容器，譬如：
+
+```
+<div style="display: none">
+    这里是内容
+</div>
+```
+
+两者的区别在于，`script`里面的内容可以被多次利用，而隐藏的DIV容器则不会，在程序中有一个判断，如果是DIV容器，取到它的innerHTML后，将其从document上移除。
+
+理由在于隐藏的div容器也是真实存在的DOM，将其内容挂载到弹窗上时，要将这个外面的DOM给删除掉，以确保事件的唯一性。
+
+---
  
 支持的方法：
 
