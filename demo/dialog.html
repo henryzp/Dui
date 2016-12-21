@@ -60,6 +60,10 @@
 
 <script>
 
+//    $(document).on("click", function() {
+//        alert("我点击document了！");
+//    })
+
     $(document).on("click", ".test1_p", function() {
         alert(1234);
     });
@@ -70,7 +74,9 @@
 
     //Dui.Modal.alert("这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊这是一个测试啊");
 
-    document.querySelector(".J_modal").addEventListener("click", function() {
+    document.querySelector(".J_modal").addEventListener("click", function(ev) {
+
+        ev.stopPropagation();
 
         var dialog = new Dui.Modal({
             width: "200",  //宽度，可选

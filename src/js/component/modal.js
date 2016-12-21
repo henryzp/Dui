@@ -322,21 +322,23 @@ export default (function(){
 
         }
 
+        bindDialogClick(ev) {
+            //ev.preventDefault();
+            ev.stopPropagation();
+        }
+
         //确定事件处理
-        _okFn(ev) {
+        _okFn() {
 
             this.$emit("ok");
 
             //TODO 判断是否是函数
             this.option.okFn && this.option.okFn.apply(this);
 
-            ev.preventDefault();
-            ev.stopPropagation();
-
         }
 
         //取消事件处理
-        _cancelFn(ev) {
+        _cancelFn() {
 
             this.$emit("cancel");
 
@@ -345,20 +347,14 @@ export default (function(){
 
             this.hide();
 
-            ev.preventDefault();
-            ev.stopPropagation();
-
         }
 
         //关闭事件处理
-        _closeFn(ev) {
+        _closeFn() {
 
             this.$emit("close");
 
             this.hide();
-
-            ev.preventDefault();
-            ev.stopPropagation();
 
         }
 
@@ -367,8 +363,6 @@ export default (function(){
 
             //ESC键
             if(ev.keyCode == "27") {
-                ev.preventDefault();
-                ev.stopPropagation();
                 this.hide();
             }
 
@@ -401,6 +395,9 @@ export default (function(){
             let closeBtn =  this.closeBtn = DOM.find(this.dialogDom, ".J_dialog-close");
 
             let dialogBd = this.dialogBd = DOM.find(this.dialogDom, ".dui-dialog-bd") || DOM.find(this.dialogDom, ".dui-dialog-custom-bd");
+
+            //在弹窗内的点击阻止冒泡，防止触发document的事件。
+            this.dialogDom.addEventListener("click", this._stopPropagation, false);
 
             okBtn && okBtn.addEventListener("click", this.bindOkClick=this._okFn.bind(this), false);
 

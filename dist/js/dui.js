@@ -414,27 +414,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                this.dialogDom = null;
 	            }
+	        }, {
+	            key: "bindDialogClick",
+	            value: function bindDialogClick(ev) {
+	                //ev.preventDefault();
+	                ev.stopPropagation();
+	            }
 
 	            //确定事件处理
 
 	        }, {
 	            key: "_okFn",
-	            value: function _okFn(ev) {
+	            value: function _okFn() {
 
 	                this.$emit("ok");
 
 	                //TODO 判断是否是函数
 	                this.option.okFn && this.option.okFn.apply(this);
-
-	                ev.preventDefault();
-	                ev.stopPropagation();
 	            }
 
 	            //取消事件处理
 
 	        }, {
 	            key: "_cancelFn",
-	            value: function _cancelFn(ev) {
+	            value: function _cancelFn() {
 
 	                this.$emit("cancel");
 
@@ -442,23 +445,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.option.cancelFn && this.option.cancelFn.apply(this);
 
 	                this.hide();
-
-	                ev.preventDefault();
-	                ev.stopPropagation();
 	            }
 
 	            //关闭事件处理
 
 	        }, {
 	            key: "_closeFn",
-	            value: function _closeFn(ev) {
+	            value: function _closeFn() {
 
 	                this.$emit("close");
 
 	                this.hide();
-
-	                ev.preventDefault();
-	                ev.stopPropagation();
 	            }
 
 	            //按ESC让弹窗消失
@@ -469,8 +466,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                //ESC键
 	                if (ev.keyCode == "27") {
-	                    ev.preventDefault();
-	                    ev.stopPropagation();
 	                    this.hide();
 	                }
 	            }
@@ -506,6 +501,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var closeBtn = this.closeBtn = _dom2.default.find(this.dialogDom, ".J_dialog-close");
 
 	                var dialogBd = this.dialogBd = _dom2.default.find(this.dialogDom, ".dui-dialog-bd") || _dom2.default.find(this.dialogDom, ".dui-dialog-custom-bd");
+
+	                //在弹窗内的点击阻止冒泡，防止触发document的事件。
+	                this.dialogDom.addEventListener("click", this._stopPropagation, false);
 
 	                okBtn && okBtn.addEventListener("click", this.bindOkClick = this._okFn.bind(this), false);
 
