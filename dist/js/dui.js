@@ -322,9 +322,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 
 	                if (cancel == null) {
-	                    this.option.ok = false;
+	                    this.option.cancel = false;
 	                } else {
-	                    var isBool = typeof ok === "boolean";
+	                    var isBool = typeof cancel === "boolean";
 	                    this.option.cancel = !!cancel ? true : false;
 	                    this.option.cancelValue = isBool ? this.option.cancelValue : cancel;
 	                }
