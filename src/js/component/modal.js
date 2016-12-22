@@ -1,7 +1,6 @@
 //引入css
 import "../../css/component/_btn.scss";
-import "../../css/component/_dialog.scss";
-
+import style from "../../css/component/_dialog.scss";
 
 import Util from "./util";
 import Config from "../config/modal_config";
@@ -61,6 +60,9 @@ export default (function(){
             '<% }  %>',
         '</div>'
     ]
+
+    //将style里面的变量赋值给Config
+    Util.extend(Config, style);
 
     class Modal extends Event {
 

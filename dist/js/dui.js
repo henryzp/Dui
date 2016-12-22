@@ -95,7 +95,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	__webpack_require__(2);
 
-	__webpack_require__(6);
+	var _dialog = __webpack_require__(6);
+
+	var _dialog2 = _interopRequireDefault(_dialog);
 
 	var _util = __webpack_require__(8);
 
@@ -134,6 +136,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    //TODO 未来希望是通过webpack loader 来引入html模板
 	    var modalTemplate = ['<%if(height != "auto"){  %>', '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px; z-index: <%= zIndex %>">', '<% }else { %>', '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>; z-index: <%= zIndex %>">', '<% } %>', '<% if(close) { %>', '<i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>', '<% } %>', '<% if(title != "" && type == "default") { %>', '<div class="dui-dialog-hd">', '<% if(titleIconClass == "") { %>', '<h3 class="dui-dialog-title"><%= title %></h3>', '<% }else { %>', '<h3 class="dui-dialog-title has-icon"><i class="<%= titleIconClass %>"></i><%= title %></h3>', '<% } %>', '</div>', '<% } %>', '<% if(title == "" && type == "default") { %>', '<div style="height: 14px;"></div>', '<% } %>', '<% if(type == "custom") { %>', '<div class="dui-dialog-custom-bd"><%= content %></div>', '<% } %>', '<% if(type == "default") { %>', '<% if(contentHeight != "auto"){ %>', '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">', '<% }else { %>', '<div style="height: <%= contentHeight %>; min-height: <%= contentMinHeight %>px; max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">', '<% } %>', '<%= content %>', '</div>', '<% if(ok || cancel) { %>', '<div class="dui-dialog-ft <%= btnPosClass %>">', '<div class="dui-btn-list-g10">', '<% if(ok) { %>', '<a class="dui-btn-info J_dialog-ok" href="javascript:;"><%= okValue %></a>', '<% } %>', '<% if(cancel) { %>', '<a class="dui-btn J_dialog-cancel" href="javascript:;"><%= cancelValue %></a>', '<% } %>', '</div>', '</div>', '<% }  %>', '<% }  %>', '</div>'];
+
+	    //将style里面的变量赋值给Config
+	    _util2.default.extend(_modal_config2.default, _dialog2.default);
 
 	    var Modal = function (_Event) {
 	        _inherits(Modal, _Event);
@@ -601,6 +606,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
+	module.exports = {"minWidth":"420","minHeight":"170","maxWidth":"920","maxHeight":"580","hdHeight":"45","ftHeight":"30","padding":"16"};
 
 /***/ },
 /* 7 */,
@@ -3253,13 +3259,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	exports.default = {
-	    minWidth: 420,
-	    minHeight: 170,
-	    maxWidth: 920,
-	    maxHeight: 580,
-	    hdHeight: 45, //44 + 1 (下边框)
-	    ftHeight: 30,
-	    padding: 16,
 	    closeIconClass: "iconfont icon-shanchu5",
 	    //边界范围
 	    boundary: function boundary(elem, parentElem) {

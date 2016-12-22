@@ -1,14 +1,14 @@
 @charset "UTF-8";
 
-$dialogMinWidth: 420px !default; //弹窗最小宽度
-$dialogMinHeight: 170px !default; //弹窗最小高度
+$dialogMinWidth: 420 !default; //弹窗最小宽度
+$dialogMinHeight: 170 !default; //弹窗最小高度
 
-$dialogMaxWidth: 920px !default; //弹窗最小宽度
-$dialogMaxHeight: 580px !default; //弹窗最小高度
+$dialogMaxWidth: 920 !default; //弹窗最小宽度
+$dialogMaxHeight: 580 !default; //弹窗最小高度
 
-$dialogHdHeight: 44px !default; //弹窗标题高度
+$dialogHdHeight: 44 !default; //弹窗标题高度
 
-$dialogPadding: 16px !default; //默认间距大小
+$dialogPadding: 16 !default; //默认间距大小
 
 $posList: left center right;
 
@@ -42,10 +42,10 @@ $posList: left center right;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: left;
-    min-width: $dialogMinWidth;
-    min-height: $dialogMinHeight;
-    max-width: $dialogMaxWidth;
-    max-height: $dialogMaxHeight;
+    min-width: $dialogMinWidth + px;
+    min-height: $dialogMinHeight + px;
+    max-width: $dialogMaxWidth + px;
+    max-height: $dialogMaxHeight + px;
     background: #fff;
     border: rgba(0, 0, 0, .3) solid 1px;
     -webkit-box-shadow: 0 2px 3px rgba(0,0,0,.125);
@@ -64,7 +64,7 @@ $posList: left center right;
     .dui-dialog-close {
         position: absolute;
         top: 10px;
-        right: $dialogPadding;
+        right: $dialogPadding + px;
         color: #a6a6a6;
         font-size: 18px;
         cursor: pointer;
@@ -73,7 +73,7 @@ $posList: left center right;
         }
     }
     .dui-dialog-title {
-        margin: 0 0 0 $dialogPadding;
+        margin: 0 0 0 $dialogPadding + px;
         font-weight: normal;
         line-height: 44px;
         font-size: 14px;
@@ -86,12 +86,12 @@ $posList: left center right;
         }
     }
     .dui-dialog-bd {
-        padding: 0 $dialogPadding;
-        margin: $dialogPadding 0;
+        padding: 0 $dialogPadding + px;
+        margin: $dialogPadding + px 0;
         overflow: auto;
     }
     .dui-dialog-ft {
-        margin: 0 $dialogPadding $dialogPadding;
+        margin: 0 $dialogPadding + px $dialogPadding + px;
         @each $pos in $posList {
             &.dui-dialog-ft-#{$pos} {
                 .dui-btn-list-g10 {
@@ -103,3 +103,12 @@ $posList: left center right;
 
 }
 
+:export {
+    minWidth: $dialogMinWidth;
+    minHeight: $dialogMinHeight;
+    maxWidth: $dialogMaxWidth;
+    maxHeight: $dialogMaxHeight;
+    hdHeight: $dialogHdHeight + 1; //44 + 1 (下边框)
+    ftHeight: 30;
+    padding: $dialogPadding;
+}

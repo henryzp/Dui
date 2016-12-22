@@ -624,6 +624,15 @@ button {
     .dui-dialog .dui-dialog-ft.dui-dialog-ft-right .dui-btn-list-g10 {
       text-align: right; }
 
+:export {
+  minWidth: 420;
+  minHeight: 170;
+  maxWidth: 920;
+  maxHeight: 580;
+  hdHeight: 45;
+  ftHeight: 30;
+  padding: 16; }
+
 .dui-tip, .dui-tip-success, .dui-tip-info, .dui-tip-warning, .dui-tip-error {
   padding: 8px 15px;
   font-family: "微软雅黑";
