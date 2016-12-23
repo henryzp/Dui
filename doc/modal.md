@@ -44,7 +44,7 @@ option为json对象
 | option.closeClass | string | iconfont icon-shanchu5 | 关闭按钮的class，必须使用webIcon的类 |
 | option.zIndex | int | 9999 | 最外层容器的z-index属性 |
 | option.width | int/string |   420     |  弹框宽度，写法支持：160px 或者 160，当宽超过920时，会取920的宽度   |
-| option.height | int/string  |   170   |  弹框高度，写法支持：160px 或者 160，当要求高度自适应时，值为auto，但它和宽度一样，有一个最大高度：580 |
+| option.height | int/string  |   auto   |  弹框高度，写法支持：160px 或者 160，当要求高度自适应时，值为auto，但它和宽度一样，有一个最大高度：580 |
 | option.title | string |  提示  | 弹框标题，建议传单纯的文字。当值为空时，整个title不存在  |
 | option.titleIconClass | string | 无 | 弹框标题图标的class，当有该class时，如`iconfont icon-sousuo1`，它就会显示在title中 |
 | option.content | string | 内容 | 弹框内容，支持HTML |
@@ -52,7 +52,7 @@ option为json对象
 | option.ok | boolean/string |  false  |  当值为boolean时，表示是否显示确认按钮；当值为字符串时，显示确认按钮，并将它的按钮文本修改成该字符串   |
 | option.cancel | boolean/string |  false  |  当值为boolean时，表示是否显示取消按钮；当值为字符串时，显示取消按钮，并将它的按钮文本修改成该字符串  |
 | option.okFn | function |   无      |  显示确认按钮，触发确认的事件   |
-| option.canceFn | function |   无     |  显示确认按钮，触发确认的事件  |
+| option.cancelFn | function |   无     |  显示确认按钮，触发确认的事件  |
 | option.close | boolean | true |  是否显示右上角的关闭按钮 |
 | option.init | function |   无     |  弹框渲染完可能要做一些处理的事件，在事件中可以通过`this.dialogDom`取到弹框容器   |
 | option.draggable | boolean | false | 是否可以拖拽对话框，默认为false |

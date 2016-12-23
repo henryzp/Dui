@@ -4,15 +4,26 @@
         "document": true
     },
     "rules": {
-        "quotes": [1, "double"],
+        "quotes": [1, "double", {"avoidEscape": true}],
+        "wrap-iife": [2, "inside"],
+        "no-unused-expressions": [2, {
+            "allowShortCircuit": true
+        }],
+        "one-var": ["error", "always"],
+        "no-extra-boolean-cast": 1,
+        "no-extra-semi": 1,
+        "semi": [
+            1, "always", { "omitLastInOneLineBlock": true }
+        ],
+        "no-new": "error",
+        "no-underscore-dangle": ["error", {
+            "allowAfterThis": true
+        }],
+        "no-new": [1],
         "indent": [2,4, {"SwitchCase":1}],
         "spaced-comment": ["error", "always"],
         "comma-dangle": ["error", {
             "exports": "never"
-        }],
-        "semi": ["error", "never"],
-        "eol-last": ["error", "never"],
-        "spaced-comment": ["error", "never"],
-        "no-mixed-operators": ["errors", "never"]
+        }]
     }
 }

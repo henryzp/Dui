@@ -1,5 +1,4 @@
-//dom简单操作
-
+// dom简单操作
 export default {
 
     //简单粗暴地将元素的style整个替换掉

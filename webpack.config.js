@@ -1,4 +1,5 @@
-var openBrowserWebpackPlugin = require('open-browser-webpack-plugin'),
+var path = require("path"),
+    openBrowserWebpackPlugin = require('open-browser-webpack-plugin'),
     ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
@@ -20,8 +21,15 @@ module.exports = {
             {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader", {publicPath: "../"})
+            },
+            {
+                test: /\.html$/,
+                loader: "html?minimize=true"
             }
         ]
+    },
+    htmlLoader: {
+        root: path.resolve(__dirname, 'src/js/component/template')
     },
     devServer: {
         stats: { colors: true },

@@ -8,9 +8,9 @@
     "example": "demo"
   },
   "scripts": {
-    "lint": "eslint src/js/config/*.js",
-    "lint-html": "eslint src/js/config/*.js -f html -o ./reports/lint-results.html",
-    "lint-fix": "eslint --fix src/js/config/*.js",
+    "lint": "eslint src/js/component/modal.js",
+    "lint-html": "eslint src/js/component/modal.js -f html -o ./reports/lint-results.html",
+    "lint-fix": "eslint --fix src/js/component/modal.js",
     "demo": "./node_modules/.bin/webpack-dev-server --inline --hot",
     "build": "gulp",
     "build-css": "gulp build-css",
@@ -43,6 +43,7 @@
     "gulp-sass": "^2.3.2",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
+    "html-loader": "^0.4.4",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "open-browser-webpack-plugin": "0.0.3",

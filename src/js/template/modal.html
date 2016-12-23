@@ -1,0 +1,45 @@
+<%if(height != "auto"){  %><!--
+--><div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px; z-index: <%= zIndex %>">
+<% }else { %><!--
+--><div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>; z-index: <%= zIndex %>">
+<% } %>
+    <% if(close) { %>
+    <i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>
+    <% } %>
+    <% if(title != "" && type == "default") { %>
+    <div class="dui-dialog-hd">
+        <% if(titleIconClass == "") { %>
+        <h3 class="dui-dialog-title"><%= title %></h3>
+        <% }else { %>
+        <h3 class="dui-dialog-title has-icon"><i class="<%= titleIconClass %>"></i><%= title %></h3>
+        <% } %>
+        </div>
+    <% } %>
+    <% if(title == "" && type == "default") { %>
+    <div style="height: 14px;"></div>
+    <% } %>
+    <% if(type == "custom") { %>
+    <div class="dui-dialog-custom-bd"><%= content %></div>
+    <% } %>
+    <% if(type == "default") { %>
+    <% if(contentHeight != "auto"){ %>
+    <div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">
+    <% }else { %>
+    <div style="height: <%= contentHeight %>; min-height: <%= contentMinHeight %>px; max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">
+    <% } %>
+        <%= content %>
+    </div>
+    <% if(ok || cancel) { %>
+    <div class="dui-dialog-ft <%= btnPosClass %>">
+        <div class="dui-btn-list-g10">
+            <% if(ok) { %>
+            <a class="dui-btn-info J_dialog-ok" href="javascript:;"><%= okValue %></a>
+            <% } %>
+            <% if(cancel) { %>
+            <a class="dui-btn J_dialog-cancel" href="javascript:;"><%= cancelValue %></a>
+            <% } %>
+        </div>
+    </div>
+    <% }  %>
+    <% }  %>
+</div>
