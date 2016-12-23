@@ -60,15 +60,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _modal2 = _interopRequireDefault(_modal);
 
-	var _animate = __webpack_require__(89);
+	var _animate = __webpack_require__(90);
 
 	var _animate2 = _interopRequireDefault(_animate);
 
-	var _tip = __webpack_require__(90);
+	var _tip = __webpack_require__(91);
 
 	var _tip2 = _interopRequireDefault(_tip);
 
-	var _select = __webpack_require__(94);
+	var _select = __webpack_require__(95);
 
 	var _select2 = _interopRequireDefault(_select);
 
@@ -123,21 +123,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _scrollHanlder2 = _interopRequireDefault(_scrollHanlder);
 
+	var _modal = __webpack_require__(89);
+
+	var _modal2 = _interopRequireDefault(_modal);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //引入css
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // 引入css
 
 
 	exports.default = function () {
-
-	    //TODO 未来希望是通过webpack loader 来引入html模板
-	    var modalTemplate = ['<%if(height != "auto"){  %>', '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px; z-index: <%= zIndex %>">', '<% }else { %>', '<div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>; z-index: <%= zIndex %>">', '<% } %>', '<% if(close) { %>', '<i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>', '<% } %>', '<% if(title != "" && type == "default") { %>', '<div class="dui-dialog-hd">', '<% if(titleIconClass == "") { %>', '<h3 class="dui-dialog-title"><%= title %></h3>', '<% }else { %>', '<h3 class="dui-dialog-title has-icon"><i class="<%= titleIconClass %>"></i><%= title %></h3>', '<% } %>', '</div>', '<% } %>', '<% if(title == "" && type == "default") { %>', '<div style="height: 14px;"></div>', '<% } %>', '<% if(type == "custom") { %>', '<div class="dui-dialog-custom-bd"><%= content %></div>', '<% } %>', '<% if(type == "default") { %>', '<% if(contentHeight != "auto"){ %>', '<div style="height: <%= contentHeight %>px;" class="dui-dialog-bd">', '<% }else { %>', '<div style="height: <%= contentHeight %>; min-height: <%= contentMinHeight %>px; max-height: <%= contentMaxHeight %>px" class="dui-dialog-bd">', '<% } %>', '<%= content %>', '</div>', '<% if(ok || cancel) { %>', '<div class="dui-dialog-ft <%= btnPosClass %>">', '<div class="dui-btn-list-g10">', '<% if(ok) { %>', '<a class="dui-btn-info J_dialog-ok" href="javascript:;"><%= okValue %></a>', '<% } %>', '<% if(cancel) { %>', '<a class="dui-btn J_dialog-cancel" href="javascript:;"><%= cancelValue %></a>', '<% } %>', '</div>', '</div>', '<% }  %>', '<% }  %>', '</div>'];
-
-	    //将style里面的变量赋值给Config
+	    // 将style里面的变量赋值给Config
 	    _util2.default.extend(_modal_config2.default, _dialog2.default);
 
 	    var Modal = function (_Event) {
@@ -152,6 +152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                type: "default",
 	                title: "提示",
 	                content: "内容",
+	                height: "auto",
 	                okValue: "确定",
 	                cancelValue: "取消",
 	                className: "",
@@ -172,14 +173,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _this.option = _util2.default.extend({}, defaultOption, _this.option);
 
 	            _this.init();
-
 	            return _this;
 	        }
 
 	        _createClass(Modal, [{
 	            key: "init",
 	            value: function init() {
-
 	                this.handleOption();
 
 	                this.render();
@@ -191,36 +190,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.option.init && this.option.init.apply(this);
 	            }
 
-	            //处理参数
+	            // 处理参数
 
 	        }, {
 	            key: "handleOption",
 	            value: function handleOption() {
-
 	                this.handleOptionWidth();
 
 	                this.handleOptionHeight();
 
 	                this.handleOptionButton();
 
-	                //初始化content的高度，它会取决于有没有下面的按钮
+	                // 初始化content的高度，它会取决于有没有下面的按钮
 	                this.handleOptionContentHeight();
 
 	                this.handleOptionContent();
 	            }
 
-	            //处理弹窗宽度
+	            // 处理弹窗宽度
 
 	        }, {
 	            key: "handleOptionWidth",
 	            value: function handleOptionWidth() {
-
 	                var width = this.option.width;
 
 	                if (!width) {
 	                    width = _modal_config2.default.minWidth;
 	                } else {
-	                    width = parseInt(width);
+	                    width = parseInt(width, 10);
 	                }
 
 	                if (_modal_config2.default.minWidth - width >= 0) {
@@ -234,23 +231,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.option.width = width;
 	            }
 
-	            //处理弹窗高度
+	            // 处理弹窗高度
 
 	        }, {
 	            key: "handleOptionHeight",
 	            value: function handleOptionHeight() {
-
 	                var height = this.option.height;
 
-	                //处理特殊的auto情况
-	                if (height == "auto") {
+	                // 处理特殊的auto情况
+	                if (height === "auto") {
 	                    return;
 	                }
 
 	                if (!height) {
 	                    height = _modal_config2.default.minHeight;
 	                } else {
-	                    height = parseInt(height);
+	                    height = parseInt(height, 10);
 	                }
 
 	                if (_modal_config2.default.minHeight - height >= 0) {
@@ -264,20 +260,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.option.height = height;
 	            }
 
-	            //处理内容高度
+	            // 处理内容高度
 
 	        }, {
 	            key: "handleOptionContentHeight",
 	            value: function handleOptionContentHeight() {
-
 	                var height = this.option.height,
-	                    hdHeight = _modal_config2.default.hdHeight,
-	                    ftHeight = _modal_config2.default.ftHeight,
 	                    padding = _modal_config2.default.padding,
 	                    minHeight = _modal_config2.default.minHeight,
 	                    maxHeight = _modal_config2.default.maxHeight;
 
-	                var spacing = void 0;
+	                var spacing = void 0,
+	                    hdHeight = _modal_config2.default.hdHeight,
+	                    ftHeight = _modal_config2.default.ftHeight;
 
 	                if (!this.option.ok && !this.option.cancel) {
 	                    spacing = 2 * padding;
@@ -286,51 +281,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    spacing = 3 * padding;
 	                }
 
-	                if (this.option.title == "") {
+	                if (this.option.title === "") {
 	                    hdHeight = 14;
 	                }
 
-	                if (height == "auto") {
-
+	                if (height === "auto") {
 	                    this.option.contentHeight = "auto";
 
-	                    var contentMinHeight = minHeight - hdHeight - ftHeight - spacing;
-
-	                    var contentMaxHeight = maxHeight - hdHeight - ftHeight - spacing;
+	                    var contentMinHeight = minHeight - hdHeight - ftHeight - spacing,
+	                        contentMaxHeight = maxHeight - hdHeight - ftHeight - spacing;
 
 	                    this.option.contentMaxHeight = contentMaxHeight;
 
 	                    this.option.contentMinHeight = contentMinHeight;
 	                } else {
-
 	                    var contentHeight = height - hdHeight - ftHeight - spacing;
 
 	                    this.option.contentHeight = contentHeight;
 	                }
 	            }
 
-	            //处理底部按钮
+	            // 处理底部按钮
 
 	        }, {
 	            key: "handleOptionButton",
 	            value: function handleOptionButton() {
-
 	                var ok = this.option.ok,
 	                    cancel = this.option.cancel;
+
+	                var isBool = void 0;
 
 	                if (ok == null) {
 	                    this.option.ok = false;
 	                } else {
-	                    var isBool = typeof ok === "boolean";
-	                    this.option.ok = !!ok ? true : false;
+	                    isBool = typeof ok === "boolean";
+	                    this.option.ok = !!ok;
 	                    this.option.okValue = isBool ? this.option.okValue : ok;
 	                }
 
 	                if (cancel == null) {
 	                    this.option.cancel = false;
 	                } else {
-	                    var isBool = typeof cancel === "boolean";
-	                    this.option.cancel = !!cancel ? true : false;
+	                    isBool = typeof cancel === "boolean";
+	                    this.option.cancel = !!cancel;
 	                    this.option.cancelValue = isBool ? this.option.cancelValue : cancel;
 	                }
 
@@ -347,45 +340,44 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }, {
 	            key: "handleOptionContent",
 	            value: function handleOptionContent() {
-	                var content = this.option.content;
-	                var firstCode = content.charAt(0);
-	                if (firstCode == "#") {
+	                var content = this.option.content,
+	                    firstCode = content.charAt(0);
+	                if (firstCode === "#") {
 	                    var contentDom = _dom2.default.findById(content.slice(1));
 	                    if (contentDom != null) {
 	                        this.option.content = _dom2.default.getHtml(contentDom);
-	                        if (contentDom.tagName.toLowerCase() != "script") {
+	                        if (contentDom.tagName.toLowerCase() !== "script") {
 	                            _dom2.default.remove(contentDom);
 	                        }
 	                    }
 	                }
 	            }
 
-	            //显示弹窗
+	            // 显示弹窗
 
 	        }, {
 	            key: "render",
 	            value: function render() {
-	                var len = _dom2.default.has(".dui-dialog-wrap").length;
+	                var len = _dom2.default.has(".dui-dialog-wrap").length,
+	                    result = _util2.default.renderTemp(_modal2.default, this.option);
 
-	                if (len == 0 && this.option.mask) {
-	                    var wrap = '<div class="dui-dialog-wrap" style="z-index: ' + this.option.zIndex + '"></div>';
+	                if (len === 0 && this.option.mask) {
+	                    var wrap = "<div class=\"dui-dialog-wrap\" style=\"z-index: " + this.option.zIndex + "\"></div>";
 	                    _dom2.default.appendHTML(document.body, wrap);
 	                    _scrollHanlder2.default.disableScroll();
 	                }
 
-	                var result = _util2.default.renderTemp(modalTemplate.join(""), this.option);
-
 	                if (this.option.mask) {
 	                    this.dialogDom = _dom2.default.appendHTML(_dom2.default.find(".dui-dialog-wrap"), result);
 	                } else {
-	                    if (typeof this.option.appendEl == "string") {
+	                    if (typeof this.option.appendEl === "string") {
 	                        this.option.appendEl = _dom2.default.find(this.option.appendEl);
 	                    }
 	                    this.dialogDom = _dom2.default.appendHTML(this.option.appendEl, result);
 	                }
 	            }
 
-	            //隐藏弹窗
+	            // 隐藏弹窗
 
 	        }, {
 	            key: "hide",
@@ -394,15 +386,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.destroy();
 	            }
 
-	            //销毁弹窗
+	            // 销毁弹窗
 
 	        }, {
 	            key: "destroy",
 	            value: function destroy() {
-
 	                this.unBindEvent();
 
-	                var len;
+	                var len = void 0;
 
 	                if (this.option.mask) {
 	                    len = _dom2.default.has(_dom2.default.find(".dui-dialog-wrap"), ".dui-dialog").length;
@@ -412,103 +403,76 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                _dom2.default.remove(this.dialogDom);
 
-	                if (len == 1 && this.option.mask) {
+	                if (len === 1 && this.option.mask) {
 	                    _dom2.default.remove(_dom2.default.find(".dui-dialog-wrap"));
 	                    _scrollHanlder2.default.enableScroll();
 	                }
 
 	                this.dialogDom = null;
 	            }
-	        }, {
-	            key: "bindDialogClick",
-	            value: function bindDialogClick(ev) {
-	                //ev.preventDefault();
-	                ev.stopPropagation();
-	            }
 
-	            //确定事件处理
+	            // 确定事件处理
 
 	        }, {
 	            key: "_okFn",
 	            value: function _okFn() {
-
 	                this.$emit("ok");
-
-	                //TODO 判断是否是函数
+	                // TODO 判断是否是函数
 	                this.option.okFn && this.option.okFn.apply(this);
 	            }
 
-	            //取消事件处理
+	            // 取消事件处理
 
 	        }, {
 	            key: "_cancelFn",
 	            value: function _cancelFn() {
-
 	                this.$emit("cancel");
-
-	                //TODO 判断是否是函数
+	                // TODO 判断是否是函数
 	                this.option.cancelFn && this.option.cancelFn.apply(this);
-
 	                this.hide();
 	            }
 
-	            //关闭事件处理
+	            // 关闭事件处理
 
 	        }, {
 	            key: "_closeFn",
 	            value: function _closeFn() {
-
 	                this.$emit("close");
-
 	                this.hide();
 	            }
 
-	            //按ESC让弹窗消失
+	            // 按ESC让弹窗消失
 
 	        }, {
 	            key: "_escFn",
 	            value: function _escFn(ev) {
-
-	                //ESC键
-	                if (ev.keyCode == "27") {
+	                // ESC键
+	                if (ev.keyCode === 27) {
 	                    this.hide();
 	                }
 	            }
 	        }, {
-	            key: "_stopPropagation",
-	            value: function _stopPropagation(ev) {
-	                ev.stopPropagation();
-	            }
-	        }, {
 	            key: "handleDrag",
 	            value: function handleDrag() {
-
 	                if (this.option.draggable) {
-
 	                    var bar = _dom2.default.find(this.dialogDom, ".dui-dialog-hd");
-
 	                    _dom2.default.addClass(bar, "z-draggable");
-
 	                    _drag2.default.startDrag(bar, this.dialogDom, _modal_config2.default.boundary(this.dialogDom, this.option.appendEl), this);
 	                }
 	            }
 
-	            //绑定按钮事件
+	            // 绑定按钮事件
 
 	        }, {
 	            key: "bindEvent",
 	            value: function bindEvent() {
+	                var okBtn = this.okBtn = _dom2.default.find(this.dialogDom, ".J_dialog-ok"),
+	                    cancelBtn = this.cancelBtn = _dom2.default.find(this.dialogDom, ".J_dialog-cancel"),
+	                    closeBtn = this.closeBtn = _dom2.default.find(this.dialogDom, ".J_dialog-close"),
+	                    dialogBd = this.dialogBd = _dom2.default.find(this.dialogDom, ".dui-dialog-bd") || _dom2.default.find(this.dialogDom, ".dui-dialog-custom-bd");
 
-	                var okBtn = this.okBtn = _dom2.default.find(this.dialogDom, ".J_dialog-ok");
-
-	                var cancelBtn = this.cancelBtn = _dom2.default.find(this.dialogDom, ".J_dialog-cancel");
-
-	                var closeBtn = this.closeBtn = _dom2.default.find(this.dialogDom, ".J_dialog-close");
-
-	                var dialogBd = this.dialogBd = _dom2.default.find(this.dialogDom, ".dui-dialog-bd") || _dom2.default.find(this.dialogDom, ".dui-dialog-custom-bd");
-
-	                //在弹窗内的点击阻止冒泡，防止触发document的事件。
-	                this.dialogDom.addEventListener("click", this._stopPropagation, false);
+	                // 在弹窗内的点击阻止冒泡，防止触发document的事件。
+	                // this.dialogDom.addEventListener("click", this._stopPropagation, false);
 
 	                okBtn && okBtn.addEventListener("click", this.bindOkClick = this._okFn.bind(this), false);
 
@@ -516,16 +480,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                closeBtn && closeBtn.addEventListener("click", this.bindCloseClick = this._closeFn.bind(this), false);
 
-	                dialogBd && dialogBd.addEventListener("mousewheel", this._stopPropagation, false);
+	                dialogBd && dialogBd.addEventListener("mousewheel", Modal.stopPropagation, false);
 
-	                dialogBd && dialogBd.addEventListener("touchmove", this._stopPropagation, false);
+	                dialogBd && dialogBd.addEventListener("touchmove", Modal.stopPropagation, false);
 
 	                document.addEventListener("keydown", this.bindEscClick = this._escFn.bind(this), false);
 	            }
 	        }, {
 	            key: "unBindEvent",
 	            value: function unBindEvent() {
-
 	                var okBtn = this.okBtn,
 	                    cancelBtn = this.cancelBtn,
 	                    closeBtn = this.closeBtn,
@@ -537,10 +500,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                closeBtn && closeBtn.removeEventListener("click", this.bindCloseClick, false);
 
-	                dialogBd && dialogBd.removeEventListener("mousewheel", this._stopPropagation, false);
-	                dialogBd && dialogBd.removeEventListener("touchmove", this._stopPropagation, false);
+	                dialogBd && dialogBd.removeEventListener("mousewheel", Modal.stopPropagation, false);
+	                dialogBd && dialogBd.removeEventListener("touchmove", Modal.stopPropagation, false);
 
 	                document.removeEventListener("keydown", this.bindEscClick, false);
+	            }
+	        }], [{
+	            key: "stopPropagation",
+	            value: function stopPropagation(ev) {
+	                ev.stopPropagation();
 	            }
 	        }]);
 
@@ -550,7 +518,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Modal.alert = function (text) {
 	        var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "提示";
 	        var close = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-
 
 	        return new Modal({
 	            title: title,
@@ -568,9 +535,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var close = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 	        var align = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "right";
 
-
 	        return new Promise(function (resolve) {
-
 	            new Modal({
 	                title: title,
 	                content: text,
@@ -581,7 +546,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    resolve(true);
 	                    this.hide();
 	                },
-	                cancel: true,
 	                cancelFn: function cancelFn() {
 	                    resolve(false);
 	                }
@@ -3312,8 +3276,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	//dom简单操作
-
+	// dom简单操作
 	exports.default = {
 
 	    //简单粗暴地将元素的style整个替换掉
@@ -3718,6 +3681,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 89 */
+/***/ function(module, exports) {
+
+	module.exports = "<%if(height != \"auto\"){  %><div class=\"dui-dialog <%= className %>\" style=\"width: <%= width %>px;height: <%= height %>px;z-index: <%= zIndex %>\"> <% }else { %><div class=\"dui-dialog <%= className %>\" style=\"width: <%= width %>px;height: <%= height %>;z-index: <%= zIndex %>\"> <% } %> <% if(close) { %> <i class=\"dui-dialog-close J_dialog-close <%=closeClass %>\" href=javascript:;></i> <% } %> <% if(title != \"\" && type == \"default\") { %> <div class=dui-dialog-hd> <% if(titleIconClass == \"\") { %> <h3 class=dui-dialog-title><%= title %></h3> <% }else { %> <h3 class=\"dui-dialog-title has-icon\"><i class=\"<%= titleIconClass %>\"></i><%= title %></h3> <% } %> </div> <% } %> <% if(title == \"\" && type == \"default\") { %> <div style=height:14px></div> <% } %> <% if(type == \"custom\") { %> <div class=dui-dialog-custom-bd><%= content %></div> <% } %> <% if(type == \"default\") { %> <% if(contentHeight != \"auto\"){ %> <div style=\"height: <%= contentHeight %>px\" class=dui-dialog-bd> <% }else { %> <div style=\"height: <%= contentHeight %>;min-height: <%= contentMinHeight %>px;max-height: <%= contentMaxHeight %>px\" class=dui-dialog-bd> <% } %> <%= content %> </div> <% if(ok || cancel) { %> <div class=\"dui-dialog-ft <%= btnPosClass %>\"> <div class=dui-btn-list-g10> <% if(ok) { %> <a class=\"dui-btn-info J_dialog-ok\" href=javascript:;><%= okValue %></a> <% } %> <% if(cancel) { %> <a class=\"dui-btn J_dialog-cancel\" href=javascript:;><%= cancelValue %></a> <% } %> </div> </div> <% }  %> <% }  %> </div></div></div>";
+
+/***/ },
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3951,7 +3920,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3964,13 +3933,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	__webpack_require__(2);
 
-	__webpack_require__(91);
+	__webpack_require__(92);
 
 	var _util = __webpack_require__(8);
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _tip_config = __webpack_require__(93);
+	var _tip_config = __webpack_require__(94);
 
 	var _tip_config2 = _interopRequireDefault(_tip_config);
 
@@ -3982,7 +3951,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _animate = __webpack_require__(89);
+	var _animate = __webpack_require__(90);
 
 	var _animate2 = _interopRequireDefault(_animate);
 
@@ -4469,14 +4438,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 
 /***/ },
-/* 91 */
+/* 92 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 92 */,
-/* 93 */
+/* 93 */,
+/* 94 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4525,7 +4494,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 94 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4536,7 +4505,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(95);
+	__webpack_require__(96);
 
 	var _util = __webpack_require__(8);
 
@@ -4550,7 +4519,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _dom2 = _interopRequireDefault(_dom);
 
-	var _select_confg = __webpack_require__(97);
+	var _select_confg = __webpack_require__(98);
 
 	var _select_confg2 = _interopRequireDefault(_select_confg);
 
@@ -4845,14 +4814,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 
 /***/ },
-/* 95 */
+/* 96 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 96 */,
-/* 97 */
+/* 97 */,
+/* 98 */
 /***/ function(module, exports) {
 
 	"use strict";
