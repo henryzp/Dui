@@ -60,25 +60,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _modal2 = _interopRequireDefault(_modal);
 
-	var _animate = __webpack_require__(90);
-
-	var _animate2 = _interopRequireDefault(_animate);
-
-	var _tip = __webpack_require__(91);
+	var _tip = __webpack_require__(90);
 
 	var _tip2 = _interopRequireDefault(_tip);
 
-	var _select = __webpack_require__(95);
-
-	var _select2 = _interopRequireDefault(_select);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// import Animate from "./component/animate";
+
+	// import Selectpicker from "./component/select";
 
 	module.exports = {
 	    Modal: _modal2.default,
-	    Animate: _animate2.default,
-	    Tip: _tip2.default,
-	    Selectpicker: _select2.default
+	    Tip: _tip2.default
 	};
 
 /***/ },
@@ -598,6 +592,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    renderTemp: function renderTemp(str, json) {
 	        var compiled = (0, _template2.default)(str);
 	        return compiled(json);
+	    },
+	    now: function now() {
+	        return new Date().getTime();
 	    }
 	};
 
@@ -3224,17 +3221,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.default = {
 	    closeIconClass: "iconfont icon-shanchu5",
-	    //边界范围
-	    boundary: function boundary(elem, parentElem) {
-
-	        var width = elem.offsetWidth;
-
-	        var height = elem.offsetHeight;
+	    // 边界范围, parentElem未来考虑
+	    boundary: function boundary(elem) {
+	        var width = elem.offsetWidth,
+	            height = elem.offsetHeight;
 
 	        return {
-
 	            getLeft: function getLeft(left) {
-
 	                var containerWidth = document.documentElement.clientWidth;
 
 	                if (left < width / 2) {
@@ -3247,9 +3240,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                return left;
 	            },
-
 	            getTop: function getTop(top) {
-
 	                var containerHeight = document.documentElement.clientHeight;
 
 	                if (top < height / 2) {
@@ -3262,7 +3253,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                return top;
 	            }
-
 	        };
 	    }
 	};
@@ -3278,8 +3268,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	// dom简单操作
 	exports.default = {
-
-	    //简单粗暴地将元素的style整个替换掉
+	    // 简单粗暴地将元素的style整个替换掉
 	    addCssText: function addCssText(elem, cssText) {
 	        if (Array.isArray(elem)) {
 	            elem.forEach(function (item) {
@@ -3299,7 +3288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        elem.classList.remove(className);
 	    },
 	    isHide: function isHide(elem) {
-	        return this.getCss(elem, "display") == "none";
+	        return this.getCss(elem, "display") === "none";
 	    },
 	    show: function show(elem) {
 	        elem.style.display = "block";
@@ -3309,24 +3298,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 
 
-	    //获取边界属性
+	    // 获取边界属性
 	    getRect: function getRect(dom) {
 	        return dom.getBoundingClientRect();
 	    },
 
 
-	    //获取某元素以浏览器左上角为原点的坐标
+	    // 获取某元素以浏览器左上角为原点的坐标
 	    getPoint: function getPoint(dom) {
-	        var t = dom.offsetTop;
-	        var l = dom.offsetLeft;
-	        //判断是否有父容器，如果存在则累加其边距
+	        var top = dom.offsetTop,
+	            left = dom.offsetLeft;
+	        // 判断是否有父容器，如果存在则累加其边距
 	        while (dom = dom.offsetParent) {
-	            t += dom.offsetTop;
-	            l += dom.offsetLeft;
+	            top += dom.offsetTop;
+	            left += dom.offsetLeft;
 	        }
 	        return {
-	            top: t,
-	            left: l
+	            top: top,
+	            left: left
 	        };
 	    },
 	    getDataAttr: function getDataAttr(dom, prop) {
@@ -3338,11 +3327,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    getHtml: function getHtml(dom) {
 	        return dom.innerHTML;
 	    },
-	    has: function has(elem, selector) {
-
-	        if (arguments.length == 1) {
+	    has: function has() {
+	        var elem = void 0,
+	            selector = void 0;
+	        if (arguments.length === 1) {
 	            elem = document;
-	            selector = arguments[0];
+	            selector = arguments.length <= 0 ? undefined : arguments[0];
+	        } else {
+	            elem = arguments.length <= 0 ? undefined : arguments[0];
+	            selector = arguments.length <= 1 ? undefined : arguments[1];
 	        }
 
 	        var domArr = elem.querySelectorAll(selector);
@@ -3351,60 +3344,55 @@ return /******/ (function(modules) { // webpackBootstrap
 	            length: domArr.length
 	        };
 	    },
-	    find: function find(elem, selector) {
-
-	        if (arguments.length == 1) {
+	    find: function find() {
+	        var elem = void 0,
+	            selector = void 0;
+	        if (arguments.length === 1) {
 	            elem = document;
-	            selector = arguments[0];
+	            selector = arguments.length <= 0 ? undefined : arguments[0];
+	        } else {
+	            elem = arguments.length <= 0 ? undefined : arguments[0];
+	            selector = arguments.length <= 1 ? undefined : arguments[1];
 	        }
-
 	        return elem.querySelector(selector);
 	    },
 	    findById: function findById(selector) {
 	        return document.getElementById(selector);
 	    },
-	    findAll: function findAll(elem, selector) {
-
-	        if (arguments.length == 1) {
+	    findAll: function findAll() {
+	        var elem = void 0,
+	            selector = void 0;
+	        if (arguments.length === 1) {
 	            elem = document;
-	            selector = arguments[0];
+	            selector = arguments.length <= 0 ? undefined : arguments[0];
+	        } else {
+	            elem = arguments.length <= 0 ? undefined : arguments[0];
+	            selector = arguments.length <= 1 ? undefined : arguments[1];
 	        }
-
 	        return elem.querySelectorAll(selector);
 	    },
 	    appendHTML: function appendHTML(elem, html) {
-
 	        var divTemp = document.createElement("div");
-
+	        var dom = null;
 	        this.html(divTemp, html);
-
-	        var dom = divTemp.childNodes[0];
-
+	        dom = divTemp.childNodes[0];
 	        elem.appendChild(dom);
-
 	        return dom;
 	    },
 	    prependHTML: function prependHTML(elem, html) {
-
 	        var divTemp = document.createElement("div");
-
+	        var dom = null;
 	        this.html(divTemp, html);
-
-	        var dom = divTemp.childNodes[0];
-
+	        dom = divTemp.childNodes[0];
 	        elem.insertBefore(dom, elem.firstChild);
-
 	        return dom;
 	    },
 	    beforeHTML: function beforeHTML(elem, html) {
 	        var divTemp = document.createElement("div");
-
+	        var dom = null;
 	        this.html(divTemp, html);
-
-	        var dom = divTemp.childNodes[0];
-
+	        dom = divTemp.childNodes[0];
 	        elem.parentNode.insertBefore(dom, elem);
-
 	        return dom;
 	    },
 	    remove: function remove(elem) {
@@ -3429,24 +3417,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var slice = [].slice;
-
 	var Event = function () {
 	    function Event() {
+	        // do something
+
 	        _classCallCheck(this, Event);
 	    }
 
 	    _createClass(Event, [{
 	        key: "$on",
 	        value: function $on(event, fn) {
+	            var i = void 0;
 	            if ((typeof event === "undefined" ? "undefined" : _typeof(event)) === "object") {
-	                for (var i in event) {
-	                    this.$on(i, event[i]);
+	                for (i in event) {
+	                    if ({}.hasOwnProperty.call(event, i)) {
+	                        this.$on(i, event[i]);
+	                    }
 	                }
 	            } else {
 	                // @patch: for list
-	                var context = this;
-	                var handles = context._handles || (context._handles = {}),
+	                var context = this,
+	                    handles = context._handles || (context._handles = {}),
 	                    calls = handles[event] || (handles[event] = []);
 	                calls.push(fn);
 	            }
@@ -3455,11 +3446,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: "$off",
 	        value: function $off(event, fn) {
-	            var context = this;
-	            if (!context._handles) return;
+	            var context = this,
+	                handles = context._handles;
+
+	            var calls = void 0;
+
+	            if (!context._handles) return context;
 	            if (!event) this._handles = {};
-	            var handles = context._handles,
-	                calls;
 
 	            if (calls = handles[event]) {
 	                if (!fn) {
@@ -3482,23 +3475,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: "$emit",
 	        value: function $emit(event) {
 	            // @patch: for list
-	            var context = this;
-	            var handles = context._handles,
-	                calls,
-	                args,
-	                type;
+	            var context = this,
+	                handles = context._handles,
+	                type = event;
+
+	            var calls = void 0,
+	                len = void 0,
+	                i = void 0,
+	                j = void 0;
+
 	            if (!event) return;
-	            var args = slice.call(arguments, 1);
-	            var type = event;
 
 	            if (!handles) return context;
+
+	            for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	                args[_key - 1] = arguments[_key];
+	            }
+
 	            if (calls = handles[type.slice(1)]) {
-	                for (var j = 0, len = calls.length; j < len; j++) {
+	                for (j = 0, len = calls.length; j < len; j++) {
 	                    calls[j].apply(context, args);
 	                }
 	            }
-	            if (!(calls = handles[type])) return context;
-	            for (var i = 0, len = calls.length; i < len; i++) {
+	            if (!(calls = handles[type])) return;
+	            for (i = 0, len = calls.length; i < len; i++) {
 	                calls[i].apply(context, args);
 	            }
 	            // if(calls.length) context.$update();
@@ -3527,9 +3527,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var getCss = _dom2.default.getCss;
-
-	var params = {
+	var getCss = _dom2.default.getCss,
+	    params = {
 	    left: 0,
 	    top: 0,
 	    currentX: 0,
@@ -3539,7 +3538,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = {
 	    startDrag: function startDrag(bar, target, boundary, $scope) {
-
 	        if (getCss(target, "left") !== "auto") {
 	            params.left = getCss(target, "left");
 	        }
@@ -3549,7 +3547,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        bar.onmousedown = function (event) {
-	            //触发dragStart事件
+	            // 触发dragStart事件
 	            $scope && $scope.$emit("dragStart");
 	            params.flag = true;
 	            if (!event) {
@@ -3558,9 +3556,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return false;
 	                };
 	            }
-	            var e = event;
-	            params.currentX = e.clientX;
-	            params.currentY = e.clientY;
+	            params.currentX = event.clientX;
+	            params.currentY = event.clientY;
 
 	            document.onmouseup = function () {
 	                params.flag = false;
@@ -3570,23 +3567,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (getCss(target, "top") !== "auto") {
 	                    params.top = getCss(target, "top");
 	                }
-	                //触发dragEnd事件
+	                // 触发dragEnd事件
 	                $scope && $scope.$emit("dragEnd");
 
 	                document.onmousemove = null;
 	                document.onmouseup = null;
 	            };
 
-	            document.onmousemove = function (event) {
-	                var e = event ? event : window.event;
+	            document.onmousemove = function (ev) {
 	                if (params.flag) {
-	                    var nowX = e.clientX,
-	                        nowY = e.clientY;
-	                    var disX = nowX - params.currentX,
+	                    var nowX = ev.clientX,
+	                        nowY = ev.clientY,
+	                        disX = nowX - params.currentX,
 	                        disY = nowY - params.currentY;
 
-	                    var left = parseInt(params.left) + disX,
-	                        top = parseInt(params.top) + disY;
+	                    var left = parseInt(params.left, 10) + disX,
+	                        top = parseInt(params.top, 10) + disY;
 
 	                    if (boundary) {
 	                        left = boundary.getLeft(left);
@@ -3617,7 +3613,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var keys = { 37: 1, 38: 1, 39: 1, 40: 1 };
+	var keys = {
+	    37: 1,
+	    38: 1,
+	    39: 1,
+	    40: 1
+	};
 
 	function preventDefault(e) {
 	    e.preventDefault();
@@ -3626,15 +3627,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	function preventDefaultForScrollKeys(e) {
 	    if (keys[e.keyCode]) {
 	        preventDefault(e);
-	        return false;
+	        // return false;
 	    }
+	    // no return statement
 	}
 
 	function getScrollWidth() {
+	    var w1 = void 0,
+	        w2 = void 0;
 	    var dom = document.documentElement;
-	    var w1 = dom.clientWidth;
+	    w1 = dom.clientWidth;
 	    _dom2.default.addClass(dom, "dui-dialog-lock-test");
-	    var w2 = dom.clientWidth;
+	    w2 = dom.clientWidth;
 	    _dom2.default.removeClass(dom, "dui-dialog-lock-test");
 	    return w2 - w1;
 	}
@@ -3645,7 +3649,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    isDisabled = void 0;
 
 	function disableScroll() {
-
 	    var scrollWidth = getScrollWidth();
 
 	    oldonwheel = window.onwheel;
@@ -3689,240 +3692,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _dom = __webpack_require__(85);
-
-	var _dom2 = _interopRequireDefault(_dom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var getCss = _dom2.default.getCss;
-
-	var Tween = {
-	    linear: function linear(t, b, c, d) {
-	        //匀速
-	        return c * t / d + b;
-	    },
-	    easeIn: function easeIn(t, b, c, d) {
-	        //加速曲线
-	        return c * (t /= d) * t + b;
-	    },
-	    easeOut: function easeOut(t, b, c, d) {
-	        //减速曲线
-	        return -c * (t /= d) * (t - 2) + b;
-	    },
-	    easeBoth: function easeBoth(t, b, c, d) {
-	        //加速减速曲线
-	        if ((t /= d / 2) < 1) {
-	            return c / 2 * t * t + b;
-	        }
-	        return -c / 2 * (--t * (t - 2) - 1) + b;
-	    },
-	    easeInStrong: function easeInStrong(t, b, c, d) {
-	        //加加速曲线
-	        return c * (t /= d) * t * t * t + b;
-	    },
-	    easeOutStrong: function easeOutStrong(t, b, c, d) {
-	        //减减速曲线
-	        return -c * ((t = t / d - 1) * t * t * t - 1) + b;
-	    },
-	    easeBothStrong: function easeBothStrong(t, b, c, d) {
-	        //加加速减减速曲线
-	        if ((t /= d / 2) < 1) {
-	            return c / 2 * t * t * t * t + b;
-	        }
-	        return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
-	    },
-	    elasticIn: function elasticIn(t, b, c, d, a, p) {
-	        //正弦衰减曲线（弹动渐入）
-	        if (t === 0) {
-	            return b;
-	        }
-	        if ((t /= d) == 1) {
-	            return b + c;
-	        }
-	        if (!p) {
-	            p = d * 0.3;
-	        }
-	        if (!a || a < Math.abs(c)) {
-	            a = c;
-	            var s = p / 4;
-	        } else {
-	            var s = p / (2 * Math.PI) * Math.asin(c / a);
-	        }
-	        return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-	    },
-	    elasticOut: function elasticOut(t, b, c, d, a, p) {
-	        //正弦增强曲线（弹动渐出）
-	        if (t === 0) {
-	            return b;
-	        }
-	        if ((t /= d) == 1) {
-	            return b + c;
-	        }
-	        if (!p) {
-	            p = d * 0.3;
-	        }
-	        if (!a || a < Math.abs(c)) {
-	            a = c;
-	            var s = p / 4;
-	        } else {
-	            var s = p / (2 * Math.PI) * Math.asin(c / a);
-	        }
-	        return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
-	    },
-	    elasticBoth: function elasticBoth(t, b, c, d, a, p) {
-	        if (t === 0) {
-	            return b;
-	        }
-	        if ((t /= d / 2) == 2) {
-	            return b + c;
-	        }
-	        if (!p) {
-	            p = d * (0.3 * 1.5);
-	        }
-	        if (!a || a < Math.abs(c)) {
-	            a = c;
-	            var s = p / 4;
-	        } else {
-	            var s = p / (2 * Math.PI) * Math.asin(c / a);
-	        }
-	        if (t < 1) {
-	            return -0.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-	        }
-	        return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * 0.5 + c + b;
-	    },
-	    backIn: function backIn(t, b, c, d, s) {
-	        //回退加速（回退渐入）
-	        if (typeof s == 'undefined') {
-	            s = 1.70158;
-	        }
-	        return c * (t /= d) * t * ((s + 1) * t - s) + b;
-	    },
-	    backOut: function backOut(t, b, c, d, s) {
-	        if (typeof s == 'undefined') {
-	            s = 3.70158; //回缩的距离
-	        }
-	        return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
-	    },
-	    backBoth: function backBoth(t, b, c, d, s) {
-	        if (typeof s == 'undefined') {
-	            s = 1.70158;
-	        }
-	        if ((t /= d / 2) < 1) {
-	            return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
-	        }
-	        return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
-	    },
-	    bounceIn: function bounceIn(t, b, c, d) {
-	        //弹球减振（弹球渐出）
-	        return c - Tween['bounceOut'](d - t, 0, c, d) + b;
-	    },
-	    bounceOut: function bounceOut(t, b, c, d) {
-	        if ((t /= d) < 1 / 2.75) {
-	            return c * (7.5625 * t * t) + b;
-	        } else if (t < 2 / 2.75) {
-	            return c * (7.5625 * (t -= 1.5 / 2.75) * t + 0.75) + b;
-	        } else if (t < 2.5 / 2.75) {
-	            return c * (7.5625 * (t -= 2.25 / 2.75) * t + 0.9375) + b;
-	        }
-	        return c * (7.5625 * (t -= 2.625 / 2.75) * t + 0.984375) + b;
-	    },
-	    bounceBoth: function bounceBoth(t, b, c, d) {
-	        if (t < d / 2) {
-	            return Tween['bounceIn'](t * 2, 0, c, d) * 0.5 + b;
-	        }
-	        return Tween['bounceOut'](t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
-	    }
-	};
-
-	//动画函数
-	function startMove(obj, json, times, fx, fn) {
-
-	    if (typeof times == 'undefined') {
-	        times = 400;
-	        fx = 'linear';
-	    }
-
-	    if (typeof times == 'string') {
-	        if (typeof fx == 'function') {
-	            fn = fx;
-	        }
-	        fx = times;
-	        times = 400;
-	    } else if (typeof times == 'function') {
-	        fn = times;
-	        times = 400;
-	        fx = 'linear';
-	    } else if (typeof times == 'number') {
-	        if (typeof fx == 'function') {
-	            fn = fx;
-	            fx = 'linear';
-	        } else if (typeof fx == 'undefined') {
-	            fx = 'linear';
-	        }
-	    }
-
-	    var iCur = {};
-
-	    for (var attr in json) {
-	        iCur[attr] = 0;
-
-	        if (attr == 'opacity') {
-	            iCur[attr] = Math.round(getCss(obj, attr) * 100);
-	        } else {
-	            iCur[attr] = parseInt(getCss(obj, attr));
-	        }
-	    }
-
-	    var startTime = now();
-
-	    clearInterval(obj.timer);
-
-	    obj.timer = setInterval(function () {
-
-	        var changeTime = now();
-
-	        var t = times - Math.max(0, startTime - changeTime + times); //0到2000
-
-	        for (var attr in json) {
-
-	            var value = Tween[fx](t, iCur[attr], json[attr] - iCur[attr], times);
-
-	            if (attr == 'opacity') {
-	                obj.style.opacity = value / 100;
-	                obj.style.filter = 'alpha(opacity=' + value + ')';
-	            } else {
-	                obj.style[attr] = value + 'px';
-	            }
-	        }
-
-	        if (t == times) {
-	            clearInterval(obj.timer);
-	            if (fn) {
-	                fn.call(obj);
-	            }
-	        }
-	    }, 13);
-
-	    function now() {
-	        return new Date().getTime();
-	    }
-	}
-
-	exports.default = {
-	    startMove: startMove
-	};
-
-/***/ },
-/* 91 */
-/***/ function(module, exports, __webpack_require__) {
-
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
@@ -3933,13 +3702,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	__webpack_require__(2);
 
-	__webpack_require__(92);
+	__webpack_require__(91);
 
 	var _util = __webpack_require__(8);
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _tip_config = __webpack_require__(94);
+	var _tip_config = __webpack_require__(93);
 
 	var _tip_config2 = _interopRequireDefault(_tip_config);
 
@@ -3951,9 +3720,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _animate = __webpack_require__(90);
+	var _animate = __webpack_require__(94);
 
 	var _animate2 = _interopRequireDefault(_animate);
+
+	var _tipHint = __webpack_require__(95);
+
+	var _tipHint2 = _interopRequireDefault(_tipHint);
+
+	var _tipText = __webpack_require__(96);
+
+	var _tipText2 = _interopRequireDefault(_tipText);
+
+	var _tipArrow = __webpack_require__(97);
+
+	var _tipArrow2 = _interopRequireDefault(_tipArrow);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3961,17 +3742,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //引入css
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // 引入css
 
 
 	exports.default = function () {
-
-	    var tipHint = ['<div class="dui-tip-hint <%= tipClass %>" style="margin-top: <%=marginTop %>px; top: <%=top %>px; min-width: <%=minWidth %>px; max-width: <%=maxWidth %>px;">', '<i class="<%= iconClass %>"></i>', '<p><%= msg %></p>', '</div>'];
-
-	    var tipText = ['<div class="dui-tip-text" style="opacity: 0;">', '<p><%= msg %></p>', '<div class="close-box">', '<button class="dui-btn-warning-bordered dui-btn-special dui-btn-small">我知道了</button>', '</div>', '</div>'];
-
-	    var tipArrow = ['<div style="position: absolute; opacity: 0" class="<%= tipType %> <%= tipClass %>">', '<%= msg %>', '</div>'];
-
 	    var Tip = function (_Event) {
 	        _inherits(Tip, _Event);
 
@@ -3989,7 +3763,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _this2.option = _util2.default.extend({}, defaultOption, _this2.option);
 
 	            _this2.init();
-
 	            return _this2;
 	        }
 
@@ -4038,13 +3811,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var time = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2;
 	        var callback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function () {};
 
-
-	        //先把之前的tip给干掉
+	        // 先把之前的tip给干掉
 	        if (_dom2.default.has(".dui-tip-hint").length > 0) {
 	            _dom2.default.remove(_dom2.default.find(".dui-tip-hint"));
 	        }
 
-	        var initialTop, finalTop;
+	        var initialTop = void 0,
+	            finalTop = void 0,
+	            tipContent = void 0;
 
 	        var option = {
 	            tipClass: _tip_config2.default.tipClassMap[type],
@@ -4057,14 +3831,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        finalTop = _tip_config2.default.hint.pos[pos];
 
-	        if (String(finalTop).slice(-1) == "%") {
-	            finalTop = Math.floor(_tip_config2.default.hint.pos.rel.offsetHeight * (finalTop.slice(0, -1) / 100));
+	        if (String(finalTop).slice(-1) === "%") {
+	            finalTop = Math.floor(_tip_config2.default.hint.pos.rel.clientHeight * (finalTop.slice(0, -1) / 100));
 	        }
 
 	        initialTop = finalTop - _tip_config2.default.hint.pos.dis;
 	        option.top = initialTop;
 
-	        var tipContent = _util2.default.renderTemp(tipHint.join(""), option);
+	        tipContent = _util2.default.renderTemp(_tipHint2.default, option);
 
 	        return new Tip({
 	            tipContent: tipContent,
@@ -4074,12 +3848,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                _dom2.default.show(this.tipDom);
 
 	                setTimeout(function () {
-
-	                    Dui.Animate.startMove(_this.tipDom, { top: finalTop }, function () {
-
+	                    _animate2.default.startMove(_this.tipDom, { top: finalTop }, function () {
 	                        setTimeout(function () {
-
-	                            Dui.Animate.startMove(_this.tipDom, { top: initialTop }, function () {
+	                            _animate2.default.startMove(_this.tipDom, { top: initialTop }, function () {
 	                                callback && callback.apply(_this);
 	                                _dom2.default.hide(_this.tipDom);
 	                                _this.destroy();
@@ -4161,17 +3932,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        Tip.showHint("error", msg, "middle", time, callback);
 	    };
 
-	    //显示更新的消息
+	    // 显示更新的消息
 	    Tip.showUpdateMessage = function (msg) {
-
 	        function bindEvent(dom) {
 	            var elem = _dom2.default.find(dom, "button");
 	            elem.onclick = function () {
-	                Dui.Animate.startMove(dom, { opacity: 0 }, 400, function () {
-	                    elem.onclick = null; //事件解绑
+	                _animate2.default.startMove(dom, { opacity: 0 }, 400, function () {
+	                    elem.onclick = null; // 事件解绑
 	                    _dom2.default.remove(dom);
 	                    var updateMessageDom = _dom2.default.find(".dui-update-message");
-	                    if (_dom2.default.has(updateMessageDom, ".dui-tip-text").length == 0) {
+	                    if (_dom2.default.has(updateMessageDom, ".dui-tip-text").length === 0) {
 	                        _dom2.default.remove(updateMessageDom);
 	                    }
 	                });
@@ -4180,29 +3950,26 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var option = {
 	            msg: msg
-	        };
+	        },
+	            tipContent = _util2.default.renderTemp(_tipText2.default, option);
 
-	        var tipContent = _util2.default.renderTemp(tipText.join(""), option);
-
-	        if (_dom2.default.has(".dui-update-message").length == 0) {
-
-	            tipContent = '<div style="top: ' + _tip_config2.default.updateMessage.top + '" class="dui-update-message">' + tipContent + '</div>';
+	        if (_dom2.default.has(".dui-update-message").length === 0) {
+	            tipContent = "<div style=\"top: " + _tip_config2.default.updateMessage.top + "\" class=\"dui-update-message\">" + tipContent + "</div>";
 
 	            new Tip({
 	                tipContent: tipContent,
 	                init: function init() {
 	                    var tipText = _dom2.default.find(this.tipDom, ".dui-tip-text");
-	                    Dui.Animate.startMove(tipText, { opacity: 100 }, 400, function () {
+	                    _animate2.default.startMove(tipText, { opacity: 100 }, 400, function () {
 	                        bindEvent(tipText);
 	                    });
 	                }
 	            });
 	        } else {
 	            (function () {
-
-	                var updateMessageDom = _dom2.default.find(".dui-update-message");
-	                var tipText = _dom2.default.prependHTML(updateMessageDom, tipContent);
-	                Dui.Animate.startMove(tipText, { opacity: 100 }, 400, function () {
+	                var updateMessageDom = _dom2.default.find(".dui-update-message"),
+	                    tipText = _dom2.default.prependHTML(updateMessageDom, tipContent);
+	                _animate2.default.startMove(tipText, { opacity: 100 }, 400, function () {
 	                    bindEvent(tipText);
 	                });
 	            })();
@@ -4218,14 +3985,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @private
 	     */
 	    Tip._showBasicArrow = function (option) {
-
 	        if (!option.pos) {
 	            console.error("必须传pos字段，来表明箭头的位置");
 	            return;
 	        }
 
 	        if (!option.alignElem) {
-	            console.error("必须传alignElem，来决定Tip的显示位置");
+	            console.error("必须传el，来决定Tip的显示位置");
+	            return;
+	        }
+
+	        if (!option.msg) {
+	            console.error("必须传msg");
 	            return;
 	        }
 
@@ -4233,9 +4004,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        option.type = option.type || "default";
 
-	        option.tipType = option.type == "error" ? "dui-tip-error-arrow" : "dui-tip-arrow";
+	        option.tipType = option.type === "error" ? "dui-tip-error-arrow" : "dui-tip-arrow";
 
-	        var tipContent = _util2.default.renderTemp(tipArrow.join(""), option);
+	        var tipContent = _util2.default.renderTemp(_tipArrow2.default, option);
 
 	        return new Tip({
 	            tipContent: tipContent,
@@ -4271,6 +4042,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        styleText += "; top: " + (alignPoint.top + alignRect.height + _tip_config2.default.arrowSize + option.spacing) + "px";
 	                        styleText += "; left: " + (alignPoint.left + alignRect.width - tipRect.width) + "px";
 	                        break;
+	                    default:
+	                        break;
 	                }
 
 	                styleText += "; display: none; opacity: 1";
@@ -4290,21 +4063,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @returns {*}
 	     */
 	    Tip.tooltip = function (option) {
-
-	        if (!option.el) {
-	            console.error("必须传入el");
-	            return;
-	        }
-
-	        if (!option.msg) {
-	            console.error("必须传msg");
-	            return;
-	        }
-
 	        var currentTip = void 0,
-	            el = typeof option.el == "string" ? _dom2.default.find(option.el) : option.el;
+	            el = typeof option.el === "string" ? _dom2.default.find(option.el) : option.el;
 
-	        currentTip = Dui.Tip._showBasicArrow({
+	        function showTip() {
+	            currentTip && currentTip.show();
+	        }
+
+	        function hideTip() {
+	            currentTip && currentTip.hide();
+	        }
+
+	        currentTip = Tip._showBasicArrow({
 	            msg: option.msg,
 	            pos: option.pos,
 	            alignElem: el,
@@ -4316,14 +4086,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        el.addEventListener("mouseover", showTip);
 	        el.addEventListener("mouseout", hideTip);
-
-	        function showTip() {
-	            currentTip && currentTip.show();
-	        }
-
-	        function hideTip() {
-	            currentTip && currentTip.hide();
-	        }
 
 	        return currentTip;
 	    };
@@ -4339,53 +4101,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @returns {*}
 	     */
 	    Tip.poptip = function (option) {
-	        if (!option.el) {
-	            console.error("必须传入el");
-	            return;
-	        }
-
-	        if (!option.msg) {
-	            console.error("必须传msg");
-	            return;
-	        }
+	        var _this3 = this;
 
 	        var _this = this;
 
 	        var currentTip = void 0,
-	            el = typeof option.el == "string" ? _dom2.default.find(option.el) : option.el,
+	            el = typeof option.el === "string" ? _dom2.default.find(option.el) : option.el,
 	            trigger = option.trigger ? option.trigger : "hover";
-
-	        currentTip = Dui.Tip._showBasicArrow({
-	            msg: option.msg,
-	            pos: option.pos,
-	            alignElem: el,
-	            spacing: option.spacing || 5
-	        }).$on("destroy", function () {
-	            switch (trigger) {
-	                case "hover":
-	                    el.removeEventListener("mouseover", showTip);
-	                    el.removeEventListener("mouseout", hideTip);
-	                    this.tipDom.removeEventListener("mouseenter", enterTip);
-	                    this.tipDom.removeEventListener("mouseleave", leaveTip);
-	                    break;
-	                case "click":
-	                    el.removeEventListener("click", showTip);
-	                    break;
-	            }
-	        });
-
-	        switch (trigger) {
-	            case "hover":
-	                el.addEventListener("mouseover", showTip);
-	                el.addEventListener("mouseout", hideTip);
-	                //关于低版本webkit不支持mouseenter和mouseleave的做法：https://www.web-tinker.com/article/20073.html
-	                currentTip.tipDom.addEventListener("mouseenter", enterTip);
-	                currentTip.tipDom.addEventListener("mouseleave", leaveTip);
-	                break;
-	            case "click":
-	                el.addEventListener("click", showTip);
-	                break;
-	        }
 
 	        function showTip() {
 	            currentTip && currentTip.show();
@@ -4405,11 +4127,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	            currentTip && currentTip.hide();
 	        }
 
+	        currentTip = Tip._showBasicArrow({
+	            msg: option.msg,
+	            pos: option.pos,
+	            alignElem: el,
+	            spacing: option.spacing || 5
+	        }).$on("destroy", function () {
+	            switch (trigger) {
+	                case "hover":
+	                    el.removeEventListener("mouseover", showTip);
+	                    el.removeEventListener("mouseout", hideTip);
+	                    _this3.tipDom.removeEventListener("mouseenter", enterTip);
+	                    _this3.tipDom.removeEventListener("mouseleave", leaveTip);
+	                    break;
+	                case "click":
+	                    el.removeEventListener("click", showTip);
+	                    break;
+	                default:
+	                    break;
+	            }
+	        });
+
+	        switch (trigger) {
+	            case "hover":
+	                el.addEventListener("mouseover", showTip);
+	                el.addEventListener("mouseout", hideTip);
+	                // 关于低版本webkit不支持mouseenter和mouseleave的做法：https://www.web-tinker.com/article/20073.html
+	                currentTip.tipDom.addEventListener("mouseenter", enterTip);
+	                currentTip.tipDom.addEventListener("mouseleave", leaveTip);
+	                break;
+	            case "click":
+	                el.addEventListener("click", showTip);
+	                break;
+	            default:
+	                break;
+	        }
+
 	        return currentTip;
 	    };
 
 	    Tip.showFormError = function (option) {
-
 	        if (!option.el) {
 	            console.error("必须传入el");
 	            return;
@@ -4420,10 +4177,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return;
 	        }
 
-	        var currentTip = void 0,
-	            el = typeof option.el == "string" ? _dom2.default.find(option.el) : option.el;
-
-	        currentTip = Dui.Tip._showBasicArrow({
+	        var el = typeof option.el === "string" ? _dom2.default.find(option.el) : option.el,
+	            currentTip = Tip._showBasicArrow({
 	            type: "error",
 	            msg: option.msg,
 	            pos: option.pos,
@@ -4438,14 +4193,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 
 /***/ },
-/* 92 */
+/* 91 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 93 */,
-/* 94 */
+/* 92 */,
+/* 93 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4494,7 +4249,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 95 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4503,335 +4258,248 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _dom = __webpack_require__(85);
 
-	__webpack_require__(96);
+	var _dom2 = _interopRequireDefault(_dom);
 
 	var _util = __webpack_require__(8);
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _event = __webpack_require__(86);
-
-	var _event2 = _interopRequireDefault(_event);
-
-	var _dom = __webpack_require__(85);
-
-	var _dom2 = _interopRequireDefault(_dom);
-
-	var _select_confg = __webpack_require__(98);
-
-	var _select_confg2 = _interopRequireDefault(_select_confg);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	var getCss = _dom2.default.getCss,
+	    Tween = {
+	    linear: function linear(t, b, c, d) {
+	        // 匀速
+	        return c * t / d + b;
+	    },
+	    easeIn: function easeIn(t, b, c, d) {
+	        // 加速曲线
+	        return c * (t /= d) * t + b;
+	    },
+	    easeOut: function easeOut(t, b, c, d) {
+	        // 减速曲线
+	        return -c * (t /= d) * (t - 2) + b;
+	    },
+	    easeBoth: function easeBoth(t, b, c, d) {
+	        // 加速减速曲线
+	        if ((t /= d / 2) < 1) {
+	            return c / 2 * t * t + b;
+	        }
+	        return -c / 2 * (--t * (t - 2) - 1) + b;
+	    },
+	    easeInStrong: function easeInStrong(t, b, c, d) {
+	        // 加加速曲线
+	        return c * (t /= d) * t * t * t + b;
+	    },
+	    easeOutStrong: function easeOutStrong(t, b, c, d) {
+	        // 减减速曲线
+	        return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+	    },
+	    easeBothStrong: function easeBothStrong(t, b, c, d) {
+	        // 加加速减减速曲线
+	        if ((t /= d / 2) < 1) {
+	            return c / 2 * t * t * t * t + b;
+	        }
+	        return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+	    },
+	    elasticIn: function elasticIn(t, b, c, d, a, p) {
+	        // 正弦衰减曲线（弹动渐入）
+	        var s = void 0;
+	        if (t === 0) {
+	            return b;
+	        }
+	        if ((t /= d) === 1) {
+	            return b + c;
+	        }
+	        if (!p) {
+	            p = d * 0.3;
+	        }
+	        if (!a || a < Math.abs(c)) {
+	            a = c;
+	            s = p / 4;
+	        } else {
+	            s = p / (2 * Math.PI) * Math.asin(c / a);
+	        }
+	        return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+	    },
+	    elasticOut: function elasticOut(t, b, c, d, a, p) {
+	        // 正弦增强曲线（弹动渐出）
+	        var s = void 0;
+	        if (t === 0) {
+	            return b;
+	        }
+	        if ((t /= d) === 1) {
+	            return b + c;
+	        }
+	        if (!p) {
+	            p = d * 0.3;
+	        }
+	        if (!a || a < Math.abs(c)) {
+	            a = c;
+	            s = p / 4;
+	        } else {
+	            s = p / (2 * Math.PI) * Math.asin(c / a);
+	        }
+	        return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
+	    },
+	    elasticBoth: function elasticBoth(t, b, c, d, a, p) {
+	        var s = void 0;
+	        if (t === 0) {
+	            return b;
+	        }
+	        if ((t /= d / 2) === 2) {
+	            return b + c;
+	        }
+	        if (!p) {
+	            p = d * (0.3 * 1.5);
+	        }
+	        if (!a || a < Math.abs(c)) {
+	            a = c;
+	            s = p / 4;
+	        } else {
+	            s = p / (2 * Math.PI) * Math.asin(c / a);
+	        }
+	        if (t < 1) {
+	            return -0.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+	        }
+	        return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * 0.5 + c + b;
+	    },
+	    backIn: function backIn(t, b, c, d, s) {
+	        // 回退加速（回退渐入）
+	        if (typeof s === 'undefined') {
+	            s = 1.70158;
+	        }
+	        return c * (t /= d) * t * ((s + 1) * t - s) + b;
+	    },
+	    backOut: function backOut(t, b, c, d, s) {
+	        if (typeof s === 'undefined') {
+	            s = 3.70158; // 回缩的距离
+	        }
+	        return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+	    },
+	    backBoth: function backBoth(t, b, c, d, s) {
+	        if (typeof s === 'undefined') {
+	            s = 1.70158;
+	        }
+	        if ((t /= d / 2) < 1) {
+	            return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
+	        }
+	        return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
+	    },
+	    bounceIn: function bounceIn(t, b, c, d) {
+	        // 弹球减振（弹球渐出）
+	        return c - this.bounceOut(d - t, 0, c, d) + b;
+	    },
+	    bounceOut: function bounceOut(t, b, c, d) {
+	        if ((t /= d) < 1 / 2.75) {
+	            return c * (7.5625 * t * t) + b;
+	        } else if (t < 2 / 2.75) {
+	            return c * (7.5625 * (t -= 1.5 / 2.75) * t + 0.75) + b;
+	        } else if (t < 2.5 / 2.75) {
+	            return c * (7.5625 * (t -= 2.25 / 2.75) * t + 0.9375) + b;
+	        }
+	        return c * (7.5625 * (t -= 2.625 / 2.75) * t + 0.984375) + b;
+	    },
+	    bounceBoth: function bounceBoth(t, b, c, d) {
+	        if (t < d / 2) {
+	            return this.bounceIn(t * 2, 0, c, d) * 0.5 + b;
+	        }
+	        return this.bounceOut(t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
+	    }
+	};
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	// 动画函数
+	function startMove(obj, json, times, fx, fn) {
+	    if (typeof times === "undefined") {
+	        times = 400;
+	        fx = 'linear';
+	    }
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	    if (typeof times === "string") {
+	        if (typeof fx === "function") {
+	            fn = fx;
+	        }
+	        fx = times;
+	        times = 400;
+	    } else if (typeof times === "function") {
+	        fn = times;
+	        times = 400;
+	        fx = "linear";
+	    } else if (typeof times === "number") {
+	        if (typeof fx === "function") {
+	            fn = fx;
+	            fx = 'linear';
+	        } else if (typeof fx === "undefined") {
+	            fx = "linear";
+	        }
+	    }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //引入css
+	    var iCur = {},
+	        startTime = _util2.default.now();
 
+	    var attr = void 0;
 
-	exports.default = function () {
+	    for (attr in json) {
+	        if ({}.hasOwnProperty.call(json, attr)) {
+	            iCur[attr] = 0;
+	            if (attr === "opacity") {
+	                iCur[attr] = Math.round(getCss(obj, attr) * 100);
+	            } else {
+	                iCur[attr] = parseInt(getCss(obj, attr), 10);
+	            }
+	        }
+	    }
 
-	    var selectTemplate = ['<div class="dui-select <%= className %>">', '<div tabindex="1" class="dropdown_hd" title="<%= text %>">', '<i class="<%= arrowIconClass %>"></i>', '<span><%= text %></span>', '</div>', '<div class="dropdown_bd">', '<div class="dropdown_menu">', '<ul>', '<% for(var i = 0, len = selectOptions.length; i < len; i ++) { %>', '<li class="item <% if(value == selectOptions[i].value){ %>current<% } %>" data-value="<%= selectOptions[i].value %>" data-text="<%= selectOptions[i].text %>"><%= selectOptions[i].text %></li>', '<% } %>', '</ul>', '</div>', '</div>', '<div>'];
+	    clearInterval(obj.timer);
 
-	    var selectLiTemplate = ['<% for(var i = 0, len = selectOptions.length; i < len; i ++) { %>', '<li class="item <% if(value == selectOptions[i].value){ %>current<% } %>" data-value="<%= selectOptions[i].value %>" data-text="<%= selectOptions[i].text %>"><%= selectOptions[i].text %></li>', '<% } %>'];
+	    obj.timer = setInterval(function () {
+	        var changeTime = _util2.default.now(),
+	            t = times - Math.max(0, startTime - changeTime + times); // 0到2000
 
-	    var Selectpicker = function (_Event) {
-	        _inherits(Selectpicker, _Event);
+	        var value = void 0;
 
-	        function Selectpicker(option) {
-	            _classCallCheck(this, Selectpicker);
-
-	            var _this2 = _possibleConstructorReturn(this, (Selectpicker.__proto__ || Object.getPrototypeOf(Selectpicker)).call(this));
-
-	            var defaultOption = {
-	                className: "",
-	                arrowIconClass: _select_confg2.default.arrowIconClass
-	            };
-
-	            _this2.option = _util2.default.extend({}, defaultOption, option);
-
-	            _this2.init();
-
-	            return _this2;
+	        for (attr in json) {
+	            if ({}.hasOwnProperty.call(json, attr)) {
+	                value = Tween[fx](t, iCur[attr], json[attr] - iCur[attr], times);
+	                if (attr === "opacity") {
+	                    obj.style.opacity = value / 100;
+	                    obj.style.filter = "alpha(opacity=" + value + ")";
+	                } else {
+	                    obj.style[attr] = value + "px";
+	                }
+	            }
 	        }
 
-	        _createClass(Selectpicker, [{
-	            key: "init",
-	            value: function init() {
+	        if (t === times) {
+	            clearInterval(obj.timer);
+	            fn && fn.call(obj);
+	        }
+	    }, 13);
+	}
 
-	                this.data = {
-	                    currentIndex: 0,
-	                    options: [],
-	                    dropDown_hd: null,
-	                    dropDown_bd: null,
-	                    oUl: null,
-	                    otitle: null
-	                };
+	exports.default = {
+	    startMove: startMove
+	};
 
-	                this.events = {};
+/***/ },
+/* 95 */
+/***/ function(module, exports) {
 
-	                this.handleOption();
-
-	                this.render();
-	            }
-	        }, {
-	            key: "handleOption",
-	            value: function handleOption() {
-	                this.el = typeof this.option.el == "string" ? _dom2.default.find(this.option.el) : this.option.el;
-	                var options = Array.from(_dom2.default.findAll(this.el, "option"));
-	                this.data.options = options;
-	                this._handleOptionTitle(options);
-	                this._handleOptionSelectOptions(options);
-	            }
-	        }, {
-	            key: "_handleOptionTitle",
-	            value: function _handleOptionTitle(options) {
-	                var selectItem = this._getSelectItem(options);
-	                this.option.text = selectItem.text;
-	                this.option.value = selectItem.value;
-	            }
-	        }, {
-	            key: "_handleOptionSelectOptions",
-	            value: function _handleOptionSelectOptions(options) {
-	                var selectOptions = this._getSelectOption(options);
-	                this.option.selectOptions = selectOptions;
-	            }
-	        }, {
-	            key: "_getSelectItem",
-	            value: function _getSelectItem(options) {
-	                var _this = this;
-	                options.forEach(function (option) {
-	                    if (option.selected) {
-	                        _this.value = option.value;
-	                        _this.text = option.text;
-	                    }
-	                });
-	                return {
-	                    value: _this.value,
-	                    text: _this.text
-	                };
-	            }
-	        }, {
-	            key: "_getSelectOption",
-	            value: function _getSelectOption(options) {
-	                var result = [];
-	                options.forEach(function (option) {
-	                    result.push({
-	                        value: option.value,
-	                        text: option.text
-	                    });
-	                });
-	                return result;
-	            }
-	        }, {
-	            key: "render",
-	            value: function render() {
-
-	                var selectContent = _util2.default.renderTemp(selectTemplate.join(""), this.option);
-
-	                this.selectDom = _dom2.default.beforeHTML(this.el, selectContent);
-
-	                _dom2.default.hide(this.el);
-
-	                this.bind();
-	            }
-	        }, {
-	            key: "_titleClick",
-	            value: function _titleClick() {
-
-	                var dropDown_bd = this.data.dropDown_bd;
-
-	                if (_dom2.default.isHide(dropDown_bd)) {
-	                    _dom2.default.show(dropDown_bd);
-	                } else {
-	                    _dom2.default.hide(dropDown_bd);
-	                }
-
-	                this.data.currentIndex = 0;
-
-	                var liList = [].concat(_toConsumableArray(_dom2.default.findAll(dropDown_bd, ".item")));
-
-	                liList.forEach(function (item) {
-	                    _dom2.default.removeClass(item, "selected");
-	                });
-	            }
-	        }, {
-	            key: "_menuClick",
-	            value: function _menuClick(ev) {
-
-	                var oli = ev.target;
-
-	                while (oli && oli.tagName.toUpperCase() != "LI") {
-	                    oli = oli.parentNode;
-	                }
-
-	                this._changeTitle(oli);
-	            }
-	        }, {
-	            key: "_menuKeyDown",
-	            value: function _menuKeyDown(ev) {
-
-	                var dropDown_bd = this.data.dropDown_bd,
-	                    oUl = this.data.oUl,
-	                    otitle = this.data.otitle;
-
-	                if (_dom2.default.isHide(dropDown_bd)) {
-	                    return;
-	                }
-
-	                var liList = [].concat(_toConsumableArray(_dom2.default.findAll(oUl, "li"))),
-	                    len = liList.length;
-
-	                liList.forEach(function (item) {
-	                    _dom2.default.removeClass(item, "selected");
-	                });
-
-	                switch (ev.keyCode) {
-	                    //向下
-	                    case 40:
-
-	                        if (this.data.currentIndex == len) {
-	                            this.data.currentIndex = 0;
-	                        }
-
-	                        var index = this.data.currentIndex++;
-	                        _dom2.default.addClass(liList[index], "selected");
-	                        break;
-	                    //向上
-	                    case 38:
-	                        if (this.data.currentIndex == 1) {
-	                            this.data.currentIndex = len + 1;
-	                        }
-
-	                        var index = --this.data.currentIndex;
-
-	                        _dom2.default.addClass(liList[index - 1], "selected");
-	                        break;
-	                    //回车
-	                    case 13:
-	                        this._changeTitle(liList[this.data.currentIndex - 1], dropDown_bd, oUl, otitle);
-	                        break;
-
-	                }
-	            }
-	        }, {
-	            key: "_changeTitle",
-	            value: function _changeTitle(oli) {
-
-	                var dropDown_bd = this.data.dropDown_bd,
-	                    oUl = this.data.oUl,
-	                    otitle = this.data.otitle;
-
-	                this.value = _dom2.default.getDataAttr(oli, 'value');
-
-	                this.text = _dom2.default.getDataAttr(oli, "text");
-
-	                this.el.value = this.value;
-
-	                _dom2.default.html(otitle, this.text);
-
-	                var liList = [].concat(_toConsumableArray(_dom2.default.findAll(oUl, "li")));
-
-	                liList.forEach(function (item) {
-	                    _dom2.default.removeClass(item, "current");
-	                });
-
-	                _dom2.default.addClass(oli, "current");
-
-	                _dom2.default.hide(dropDown_bd);
-	            }
-	        }, {
-	            key: "bind",
-	            value: function bind() {
-
-	                var _this = this;
-
-	                var dropDown_hd = this.data.dropDown_hd = _dom2.default.find(this.selectDom, ".dropdown_hd");
-	                var oUl = this.data.oUl = _dom2.default.find(this.selectDom, ".dropdown_menu ul");
-	                var dropDown_bd = this.data.dropDown_bd = _dom2.default.find(this.selectDom, ".dropdown_bd");
-
-	                this.data.otitle = _dom2.default.find(this.selectDom, ".dropdown_hd span");
-
-	                dropDown_hd.addEventListener("click", this.events.proxyTitleClick = function (event) {
-	                    _this._titleClick();
-	                    event.stopPropagation();
-	                }.bind(this));
-
-	                dropDown_hd.addEventListener("keydown", this.events.proxyMenuKeyDown = function (event) {
-	                    _this._menuKeyDown(event);
-	                }.bind(this));
-
-	                oUl.addEventListener("click", this.events.proxyMenuClick = function (event) {
-	                    _this._menuClick(event);
-	                }.bind(this));
-
-	                document.addEventListener("click", this.events.proxyHideMenu = function () {
-	                    _dom2.default.hide(dropDown_bd);
-	                });
-	            }
-	        }, {
-	            key: "unbind",
-	            value: function unbind() {
-
-	                this.data.dropDown_hd.removeEventListener("click", this.events.proxyTitleClick);
-	                this.data.dropDown_hd.removeEventListener("keydown", this.events.proxyMenuKeyDown);
-	                this.data.oUl.removeEventListener("click", this.events.proxyMenuClick);
-	                document.removeEventListener("click", this.events.proxyHideMenu);
-	            }
-	        }, {
-	            key: "update",
-	            value: function update() {
-
-	                this.data.options = [].concat(_toConsumableArray(_dom2.default.findAll(this.el, "option")));
-
-	                var selectOptions = this._getSelectOption(this.data.options);
-
-	                var value = this._getSelectItem(this.data.options).value;
-
-	                var option = { selectOptions: selectOptions, value: value };
-
-	                var content = _util2.default.renderTemp(selectLiTemplate.join(""), option);
-
-	                _dom2.default.html(_dom2.default.find(this.selectDom, ".dropdown_bd ul"), content);
-	            }
-	        }, {
-	            key: "disable",
-	            value: function disable() {}
-	        }, {
-	            key: "destroy",
-	            value: function destroy() {}
-	        }]);
-
-	        return Selectpicker;
-	    }(_event2.default);
-
-	    return Selectpicker;
-	}();
+	module.exports = "<div class=\"dui-tip-hint <%= tipClass %>\" style=\"margin-top: <%=marginTop %>px;top: <%=top %>px;min-width: <%=minWidth %>px;max-width: <%=maxWidth %>px\"> <i class=\"<%= iconClass %>\"></i> <p><%= msg %></p> </div>";
 
 /***/ },
 /* 96 */
 /***/ function(module, exports) {
 
-	// removed by extract-text-webpack-plugin
+	module.exports = "<div class=dui-tip-text style=opacity:0> <p><%= msg %></p> <div class=close-box> <button class=\"dui-btn-warning-bordered dui-btn-special dui-btn-small\">我知道了</button> </div> </div>";
 
 /***/ },
-/* 97 */,
-/* 98 */
+/* 97 */
 /***/ function(module, exports) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = {
-	    arrowIconClass: "iconfont icon-appxiugaiicon20"
-	};
+	module.exports = "<div style=position:absolute;opacity:0 class=\"<%= tipType %> <%= tipClass %>\"> <%= msg %> </div>";
 
 /***/ }
 /******/ ])

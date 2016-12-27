@@ -1,14 +1,12 @@
 import Modal from "./component/modal";
 
-import Animate from "./component/animate";
-
 import Tip from "./component/tip";
 
-import Selectpicker from "./component/select.js";
+// import Animate from "./component/animate";
+
+// import Selectpicker from "./component/select";
 
 module.exports = {
     Modal,
-    Animate,
-    Tip,
-    Selectpicker
+    Tip
 }

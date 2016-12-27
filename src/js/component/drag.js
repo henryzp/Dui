@@ -1,79 +1,71 @@
 import DOM from "./dom";
 
-let getCss = DOM.getCss;
-
-let params = {
-    left: 0,
-    top: 0,
-    currentX: 0,
-    currentY: 0,
-    flag: false
-}
+const getCss = DOM.getCss,
+    params = {
+        left: 0,
+        top: 0,
+        currentX: 0,
+        currentY: 0,
+        flag: false
+    }
 
 export default {
-
     startDrag(bar, target, boundary, $scope) {
-
-        if(getCss(target, "left") !== "auto"){
+        if (getCss(target, "left") !== "auto") {
             params.left = getCss(target, "left");
         }
 
-        if(getCss(target, "top") !== "auto"){
+        if (getCss(target, "top") !== "auto") {
             params.top = getCss(target, "top");
         }
 
-        bar.onmousedown = function(event){
-            //触发dragStart事件
+        bar.onmousedown = function (event) {
+            // 触发dragStart事件
             $scope && $scope.$emit("dragStart");
             params.flag = true;
-            if(!event){
+            if (!event) {
                 event = window.event;
-                bar.onselectstart = function(){
+                bar.onselectstart = function () {
                     return false;
                 }
             }
-            var e = event;
-            params.currentX = e.clientX;
-            params.currentY = e.clientY;
+            params.currentX = event.clientX;
+            params.currentY = event.clientY;
 
-            document.onmouseup = function(){
+            document.onmouseup = function () {
                 params.flag = false;
-                if(getCss(target, "left") !== "auto"){
+                if (getCss(target, "left") !== "auto") {
                     params.left = getCss(target, "left");
                 }
-                if(getCss(target, "top") !== "auto"){
+                if (getCss(target, "top") !== "auto") {
                     params.top = getCss(target, "top");
                 }
-                //触发dragEnd事件
+                // 触发dragEnd事件
                 $scope && $scope.$emit("dragEnd");
 
                 document.onmousemove = null;
                 document.onmouseup = null;
             };
 
-
-            document.onmousemove = function(event){
-                var e = event ? event: window.event;
-                if(params.flag){
-                    let nowX = e.clientX, nowY = e.clientY;
-                    let disX = nowX - params.currentX,
+            document.onmousemove = function (ev) {
+                if (params.flag) {
+                    const nowX = ev.clientX,
+                        nowY = ev.clientY,
+                        disX = nowX - params.currentX,
                         disY = nowY - params.currentY;
 
-                    let left = parseInt(params.left) + disX,
-                        top = parseInt(params.top) + disY;
+                    let left = parseInt(params.left, 10) + disX,
+                        top = parseInt(params.top, 10) + disY;
 
-                    if(boundary) {
+                    if (boundary) {
                         left = boundary.getLeft(left);
                         top = boundary.getTop(top);
                     }
 
-                    target.style.left = left + "px";
-                    target.style.top = top + "px";
+                    target.style.left = `${left}px`;
+                    target.style.top = `${top}px`;
                 }
             }
-
         };
-
     }
-
 }

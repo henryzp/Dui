@@ -8,9 +8,9 @@
     "example": "demo"
   },
   "scripts": {
-    "lint": "eslint src/js/component/modal.js",
-    "lint-html": "eslint src/js/component/modal.js -f html -o ./reports/lint-results.html",
-    "lint-fix": "eslint --fix src/js/component/modal.js",
+    "lint": "eslint src/js/component/dom.js",
+    "lint-html": "eslint src/js/*/*.js -f html -o ./reports/lint-results.html",
+    "lint-fix": "eslint --fix src/js/*/*.js",
     "demo": "./node_modules/.bin/webpack-dev-server --inline --hot",
     "build": "gulp",
     "build-css": "gulp build-css",

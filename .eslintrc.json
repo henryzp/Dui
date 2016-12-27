@@ -1,7 +1,8 @@
 {
     "extends": "airbnb-base",
     "globals": {
-        "document": true
+        "document": true,
+        "window": true
     },
     "rules": {
         "quotes": [1, "double", {"avoidEscape": true}],
@@ -16,12 +17,24 @@
             1, "always", { "omitLastInOneLineBlock": true }
         ],
         "no-new": "error",
-        "no-underscore-dangle": ["error", {
-            "allowAfterThis": true
-        }],
+        "no-underscore-dangle": [1],
         "no-new": [1],
         "indent": [2,4, {"SwitchCase":1}],
         "spaced-comment": ["error", "always"],
+        "no-param-reassign": [1],
+        "no-cond-assign": [1],
+        "no-mixed-operators": 0,
+        "no-plusplus": 0,
+        "no-restricted-properties": [1, {
+            "object": "Math",
+            "property": "pow"
+        }],
+        "no-restricted-syntax": [1, "WithStatement"],
+        "no-useless-constructor": 0,
+        "prefer-const": [1],
+        "consistent-return": [1, {
+            "treatUndefinedAsUnspecified": true
+        }],
         "comma-dangle": ["error", {
             "exports": "never"
         }]

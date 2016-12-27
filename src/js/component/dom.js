@@ -1,19 +1,20 @@
 // dom简单操作
 export default {
-
-    //简单粗暴地将元素的style整个替换掉
+    // 简单粗暴地将元素的style整个替换掉
     addCssText(elem, cssText) {
-        if(Array.isArray(elem)) {
-            elem.forEach(function(item){
+        if (Array.isArray(elem)) {
+            elem.forEach((item) => {
                 item.style.cssText = cssText;
-            })
-        }else {
+            });
+        } else {
             elem.style.cssText = cssText;
         }
     },
 
     getCss(elem, key) {
-        return elem.currentStyle ? elem.currentStyle[key] : document.defaultView.getComputedStyle(elem,false)[key];
+        return elem.currentStyle ?
+            elem.currentStyle[key] :
+            document.defaultView.getComputedStyle(elem, false)[key];
     },
 
     addClass(elem, className) {
@@ -25,7 +26,7 @@ export default {
     },
 
     isHide(elem) {
-        return this.getCss(elem, "display") == "none";
+        return this.getCss(elem, "display") === "none";
     },
 
     show(elem) {
@@ -36,28 +37,28 @@ export default {
         elem.style.display = "none";
     },
 
-    //获取边界属性
+    // 获取边界属性
     getRect(dom) {
         return dom.getBoundingClientRect();
     },
 
-    //获取某元素以浏览器左上角为原点的坐标
+    // 获取某元素以浏览器左上角为原点的坐标
     getPoint(dom) {
-        var t = dom.offsetTop;
-        var l = dom.offsetLeft;
-        //判断是否有父容器，如果存在则累加其边距
+        let top = dom.offsetTop,
+            left = dom.offsetLeft;
+        // 判断是否有父容器，如果存在则累加其边距
         while (dom = dom.offsetParent) {
-            t += dom.offsetTop;
-            l += dom.offsetLeft;
+            top += dom.offsetTop;
+            left += dom.offsetLeft;
         }
         return {
-            top: t,
-            left: l
+            top,
+            left
         }
     },
 
     getDataAttr(dom, prop) {
-        return dom.getAttribute("data-" + prop);
+        return dom.getAttribute(`data-${prop}`);
     },
 
     html(dom, text) {
@@ -68,83 +69,78 @@ export default {
         return dom.innerHTML;
     },
 
-    has(elem, selector) {
-
-        if(arguments.length == 1) {
+    has(...args) {
+        let elem,
+            selector;
+        if (args.length === 1) {
             elem = document;
-            selector = arguments[0];
+            selector = args[0];
+        } else {
+            elem = args[0];
+            selector = args[1];
         }
 
-        let domArr = elem.querySelectorAll(selector);
+        const domArr = elem.querySelectorAll(selector);
 
         return {
             length: domArr.length
         }
-
     },
 
-    find(elem, selector) {
-
-        if(arguments.length == 1) {
+    find(...args) {
+        let elem,
+            selector;
+        if (args.length === 1) {
             elem = document;
-            selector = arguments[0];
+            selector = args[0];
+        } else {
+            elem = args[0];
+            selector = args[1];
         }
-
         return elem.querySelector(selector);
-
     },
 
     findById(selector) {
         return document.getElementById(selector);
     },
 
-    findAll(elem, selector) {
-
-        if(arguments.length == 1) {
+    findAll(...args) {
+        let elem,
+            selector;
+        if (args.length === 1) {
             elem = document;
-            selector = arguments[0];
+            selector = args[0];
+        } else {
+            elem = args[0];
+            selector = args[1];
         }
-
         return elem.querySelectorAll(selector);
-
     },
 
     appendHTML(elem, html) {
-
-        var divTemp = document.createElement("div");
-
+        const divTemp = document.createElement("div");
+        let dom = null;
         this.html(divTemp, html);
-
-        var dom = divTemp.childNodes[0];
-
+        dom = divTemp.childNodes[0];
         elem.appendChild(dom);
-
         return dom;
     },
 
     prependHTML(elem, html) {
-
-        var divTemp = document.createElement("div");
-
+        const divTemp = document.createElement("div");
+        let dom = null;
         this.html(divTemp, html);
-
-        var dom = divTemp.childNodes[0];
-
+        dom = divTemp.childNodes[0];
         elem.insertBefore(dom, elem.firstChild);
-
         return dom;
-
     },
 
     beforeHTML(elem, html) {
-        var divTemp = document.createElement("div");
-
+        const divTemp = document.createElement("div");
+        let dom = null;
         this.html(divTemp, html);
-
-        var dom = divTemp.childNodes[0];
-
+        dom = divTemp.childNodes[0];
         elem.parentNode.insertBefore(dom, elem);
-
         return dom;
     },
 
@@ -152,5 +148,4 @@ export default {
         elem.parentNode && elem.parentNode.removeChild(elem);
         return elem;
     }
-
 }

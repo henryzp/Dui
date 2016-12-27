@@ -102,6 +102,8 @@
 
 </div>
 
+<!--<script src="js/dui.min.js"></script>-->
+
 <script src="dist/js/dui.js"></script>
 
 <script>
@@ -112,7 +114,7 @@
     var t1 = Dui.Tip.tooltip({
         el: ".J_tip1",
         msg: "这是一个弹出层信息",
-        pos: "l"
+        pos: "br"
     });
 
     var t2 = Dui.Tip.tooltip({
@@ -152,13 +154,11 @@
 
     }, 3000);
 
-    /*
     setTimeout(function(){
 
         t1.destroy();
 
     }, 5000);
-    */
 
     var t3 = Dui.Tip.showFormError({
         el: ".J_input",
