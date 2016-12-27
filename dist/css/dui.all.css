@@ -683,7 +683,8 @@ button {
   left: 0;
   right: 0;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto;
+  z-index: 9999999; }
 
 .dui-update-message {
   width: 600px;
