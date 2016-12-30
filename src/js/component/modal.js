@@ -230,7 +230,6 @@ export default (function () {
 
         // 隐藏弹窗
         hide() {
-            this.$emit("destroy");
             this.destroy();
         }
 
@@ -268,12 +267,14 @@ export default (function () {
             this.$emit("cancel");
             // TODO 判断是否是函数
             this.option.cancelFn && this.option.cancelFn.apply(this);
+            this.$emit("destroy");
             this.hide();
         }
 
         // 关闭事件处理
         _closeFn() {
             this.$emit("close");
+            this.$emit("destroy");
             this.hide();
         }
 
@@ -281,6 +282,8 @@ export default (function () {
         _escFn(ev) {
             // ESC键
             if (ev.keyCode === 27) {
+                this.$emit("esc");
+                this.$emit("destroy");
                 this.hide();
             }
         }

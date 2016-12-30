@@ -376,7 +376,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }, {
 	            key: "hide",
 	            value: function hide() {
-	                this.$emit("destroy");
 	                this.destroy();
 	            }
 
@@ -423,6 +422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.$emit("cancel");
 	                // TODO 判断是否是函数
 	                this.option.cancelFn && this.option.cancelFn.apply(this);
+	                this.$emit("destroy");
 	                this.hide();
 	            }
 
@@ -432,6 +432,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            key: "_closeFn",
 	            value: function _closeFn() {
 	                this.$emit("close");
+	                this.$emit("destroy");
 	                this.hide();
 	            }
 
@@ -442,6 +443,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            value: function _escFn(ev) {
 	                // ESC键
 	                if (ev.keyCode === 27) {
+	                    this.$emit("esc");
+	                    this.$emit("destroy");
 	                    this.hide();
 	                }
 	            }
