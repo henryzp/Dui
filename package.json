@@ -1,6 +1,6 @@
 {
   "name": "Dui",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "针对某部门的UI组件开发",
   "main": "index.js",
   "directories": {
