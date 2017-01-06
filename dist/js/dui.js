@@ -418,11 +418,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        }, {
 	            key: "_cancelFn",
-	            value: function _cancelFn() {
+	            value: function _cancelFn(ev) {
 	                this.$emit("cancel");
 	                // TODO 判断是否是函数
 	                this.option.cancelFn && this.option.cancelFn.apply(this);
 	                this.$emit("destroy");
+	                ev.stopPropagation();
 	                this.hide();
 	            }
 
@@ -430,9 +431,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        }, {
 	            key: "_closeFn",
-	            value: function _closeFn() {
+	            value: function _closeFn(ev) {
 	                this.$emit("close");
 	                this.$emit("destroy");
+	                ev.stopPropagation();
 	                this.hide();
 	            }
 
@@ -445,6 +447,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (ev.keyCode === 27) {
 	                    this.$emit("esc");
 	                    this.$emit("destroy");
+	                    ev.stopPropagation();
 	                    this.hide();
 	                }
 	            }

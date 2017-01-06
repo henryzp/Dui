@@ -263,18 +263,20 @@ export default (function () {
         }
 
         // 取消事件处理
-        _cancelFn() {
+        _cancelFn(ev) {
             this.$emit("cancel");
             // TODO 判断是否是函数
             this.option.cancelFn && this.option.cancelFn.apply(this);
             this.$emit("destroy");
+            ev.stopPropagation();
             this.hide();
         }
 
         // 关闭事件处理
-        _closeFn() {
+        _closeFn(ev) {
             this.$emit("close");
             this.$emit("destroy");
+            ev.stopPropagation();
             this.hide();
         }
 
@@ -284,6 +286,7 @@ export default (function () {
             if (ev.keyCode === 27) {
                 this.$emit("esc");
                 this.$emit("destroy");
+                ev.stopPropagation();
                 this.hide();
             }
         }
