@@ -4073,12 +4073,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    Tip.showHint = function (type, msg) {
 	        var pos = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "top";
-	        var time = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2;
+	        var time = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [3, 7];
 	        var callback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function () {};
 	
 	        // 先把之前的tip给干掉
 	        if (_dom2.default.has(".dui-tip-hint").length > 0) {
 	            _dom2.default.remove(_dom2.default.find(".dui-tip-hint"));
+	        }
+	
+	        if (typeof time === "function") {
+	            callback = time;
+	            time = [3, 7]; // 默认
+	        }
+	
+	        if (!Array.isArray(time)) {
+	            time = [time, time];
 	        }
 	
 	        var initialTop = void 0,
@@ -4099,6 +4108,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        if (String(finalTop).slice(-1) === "%") {
 	            finalTop = Math.floor(_tip_config2.default.hint.pos.rel.clientHeight * (finalTop.slice(0, -1) / 100));
+	        }
+	
+	        if (msg.length < 6) {
+	            time = time[0];
+	        }
+	
+	        if (msg.length > 5 && msg.length < 11) {
+	            time = time[1];
 	        }
 	
 	        if (msg.length > 10) {

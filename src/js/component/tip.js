@@ -59,10 +59,19 @@ export default (() => {
 
     }
 
-    Tip.showHint = (type, msg, pos = "top", time = 2, callback = () => {}) => {
+    Tip.showHint = (type, msg, pos = "top", time = [3, 7], callback = () => {}) => {
         // 先把之前的tip给干掉
         if (DOM.has(".dui-tip-hint").length > 0) {
             DOM.remove(DOM.find(".dui-tip-hint"));
+        }
+
+        if(typeof time === "function") {
+            callback = time;
+            time = [3, 7]; // 默认
+        }
+
+        if(!Array.isArray(time)) {
+            time = [time, time];
         }
 
         let initialTop,
@@ -83,6 +92,14 @@ export default (() => {
 
         if (String(finalTop).slice(-1) === "%") {
             finalTop = Math.floor(Config.hint.pos.rel.clientHeight * (finalTop.slice(0, -1) / 100));
+        }
+
+        if(msg.length < 6) {
+            time = time[0];
+        }
+
+        if(msg.length >5 && msg.length < 11) {
+            time = time[1];
         }
 
         if (msg.length > 10) {
