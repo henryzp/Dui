@@ -75,6 +75,7 @@ export default (() => {
             minWidth: Config.hint.minWidth,
             maxWidth: Config.hint.maxWidth,
             iconClass: Config.hint.iconClass[type],
+            hasClose: false,
             msg
         };
 
@@ -82,6 +83,10 @@ export default (() => {
 
         if (String(finalTop).slice(-1) === "%") {
             finalTop = Math.floor(Config.hint.pos.rel.clientHeight * (finalTop.slice(0, -1) / 100));
+        }
+
+        if (msg.length > 10) {
+            option.hasClose = true;
         }
 
         initialTop = finalTop - Config.hint.pos.dis;
@@ -98,7 +103,18 @@ export default (() => {
 
                 setTimeout(() => {
                     Animate.startMove(_this.tipDom, { top: finalTop }, () => {
-                        setTimeout(() => {
+                        // 如果大于10个字，不自动消失
+                        if (msg.length > 10) {
+                            const close_btn = DOM.find(_this.tipDom, ".close-btn");
+                            close_btn.onclick = () => {
+                                callback && callback.apply(_this);
+                                DOM.hide(_this.tipDom);
+                                close_btn.onclick = null;
+                                _this.destroy();
+                            }
+                            return;
+                        }
+                       setTimeout(() => {
                             Animate.startMove(_this.tipDom, { top: initialTop }, () => {
                                 callback && callback.apply(_this);
                                 DOM.hide(_this.tipDom);

@@ -11,41 +11,41 @@
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "/dist/";
-
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -55,21 +55,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
+	
 	var _modal = __webpack_require__(1);
-
+	
 	var _modal2 = _interopRequireDefault(_modal);
-
-	var _tip = __webpack_require__(90);
-
+	
+	var _tip = __webpack_require__(91);
+	
 	var _tip2 = _interopRequireDefault(_tip);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	// import Animate from "./component/animate";
-
+	
 	// import Selectpicker from "./component/select";
-
+	
 	module.exports = {
 	    Modal: _modal2.default,
 	    Tip: _tip2.default
@@ -80,70 +80,75 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
+	
 	__webpack_require__(2);
-
+	
 	var _dialog = __webpack_require__(6);
-
+	
 	var _dialog2 = _interopRequireDefault(_dialog);
-
+	
 	var _util = __webpack_require__(8);
-
+	
 	var _util2 = _interopRequireDefault(_util);
-
+	
 	var _modal_config = __webpack_require__(84);
-
+	
 	var _modal_config2 = _interopRequireDefault(_modal_config);
-
+	
 	var _dom = __webpack_require__(85);
-
+	
 	var _dom2 = _interopRequireDefault(_dom);
-
+	
 	var _event = __webpack_require__(86);
-
+	
 	var _event2 = _interopRequireDefault(_event);
-
+	
 	var _drag = __webpack_require__(87);
-
+	
 	var _drag2 = _interopRequireDefault(_drag);
-
-	var _scrollHanlder = __webpack_require__(88);
-
+	
+	var _animate = __webpack_require__(88);
+	
+	var _animate2 = _interopRequireDefault(_animate);
+	
+	var _scrollHanlder = __webpack_require__(89);
+	
 	var _scrollHanlder2 = _interopRequireDefault(_scrollHanlder);
-
-	var _modal = __webpack_require__(89);
-
+	
+	var _modal = __webpack_require__(90);
+	
 	var _modal2 = _interopRequireDefault(_modal);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
+	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
+	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // 引入css
-
-
+	
+	
 	exports.default = function () {
 	    // 将style里面的变量赋值给Config
-	    _util2.default.extend(_modal_config2.default, _dialog2.default);
-
+	    Object.assign(_modal_config2.default, _dialog2.default);
+	
 	    var Modal = function (_Event) {
 	        _inherits(Modal, _Event);
-
+	
 	        function Modal(option) {
 	            _classCallCheck(this, Modal);
-
+	
 	            var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this));
-
+	
 	            var defaultOption = {
 	                type: "default",
+	                showType: "normal",
 	                title: "提示",
 	                content: "内容",
 	                height: "auto",
@@ -161,101 +166,101 @@ return /******/ (function(modules) { // webpackBootstrap
 	                draggable: false,
 	                appendEl: document.body
 	            };
-
+	
 	            _this.option = option;
-
-	            _this.option = _util2.default.extend({}, defaultOption, _this.option);
-
+	
+	            _this.option = Object.assign({}, defaultOption, _this.option);
+	
 	            _this.init();
 	            return _this;
 	        }
-
+	
 	        _createClass(Modal, [{
 	            key: "init",
 	            value: function init() {
 	                this.handleOption();
-
+	
 	                this.render();
-
+	
 	                this.bindEvent();
-
+	
 	                this.handleDrag();
-
+	
 	                this.option.init && this.option.init.apply(this);
 	            }
-
+	
 	            // 处理参数
-
+	
 	        }, {
 	            key: "handleOption",
 	            value: function handleOption() {
 	                this.handleOptionWidth();
-
+	
 	                this.handleOptionHeight();
-
+	
 	                this.handleOptionButton();
-
+	
 	                // 初始化content的高度，它会取决于有没有下面的按钮
 	                this.handleOptionContentHeight();
-
+	
 	                this.handleOptionContent();
 	            }
-
+	
 	            // 处理弹窗宽度
-
+	
 	        }, {
 	            key: "handleOptionWidth",
 	            value: function handleOptionWidth() {
 	                var width = this.option.width;
-
+	
 	                if (!width) {
 	                    width = _modal_config2.default.minWidth;
 	                } else {
 	                    width = parseInt(width, 10);
 	                }
-
+	
 	                if (_modal_config2.default.minWidth - width >= 0) {
 	                    width = _modal_config2.default.minWidth;
 	                }
-
+	
 	                if (_modal_config2.default.maxWidth - width < 0) {
 	                    width = _modal_config2.default.maxWidth;
 	                }
-
+	
 	                this.option.width = width;
 	            }
-
+	
 	            // 处理弹窗高度
-
+	
 	        }, {
 	            key: "handleOptionHeight",
 	            value: function handleOptionHeight() {
 	                var height = this.option.height;
-
+	
 	                // 处理特殊的auto情况
 	                if (height === "auto") {
 	                    return;
 	                }
-
+	
 	                if (!height) {
 	                    height = _modal_config2.default.minHeight;
 	                } else {
 	                    height = parseInt(height, 10);
 	                }
-
+	
 	                if (_modal_config2.default.minHeight - height >= 0) {
 	                    height = _modal_config2.default.minHeight;
 	                }
-
+	
 	                if (_modal_config2.default.maxHeight - height < 0) {
 	                    height = _modal_config2.default.maxHeight;
 	                }
-
+	
 	                this.option.height = height;
 	            }
-
+	
 	            // 处理内容高度
-
+	
 	        }, {
 	            key: "handleOptionContentHeight",
 	            value: function handleOptionContentHeight() {
@@ -263,48 +268,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    padding = _modal_config2.default.padding,
 	                    minHeight = _modal_config2.default.minHeight,
 	                    maxHeight = _modal_config2.default.maxHeight;
-
+	
 	                var spacing = void 0,
 	                    hdHeight = _modal_config2.default.hdHeight,
 	                    ftHeight = _modal_config2.default.ftHeight;
-
+	
 	                if (!this.option.ok && !this.option.cancel) {
 	                    spacing = 2 * padding;
 	                    ftHeight = 0;
 	                } else {
 	                    spacing = 3 * padding;
 	                }
-
+	
 	                if (this.option.title === "") {
 	                    hdHeight = 14;
 	                }
-
+	
 	                if (height === "auto") {
 	                    this.option.contentHeight = "auto";
-
+	
 	                    var contentMinHeight = minHeight - hdHeight - ftHeight - spacing,
 	                        contentMaxHeight = maxHeight - hdHeight - ftHeight - spacing;
-
+	
 	                    this.option.contentMaxHeight = contentMaxHeight;
-
+	
 	                    this.option.contentMinHeight = contentMinHeight;
 	                } else {
 	                    var contentHeight = height - hdHeight - ftHeight - spacing;
-
+	
 	                    this.option.contentHeight = contentHeight;
 	                }
 	            }
-
+	
 	            // 处理底部按钮
-
+	
 	        }, {
 	            key: "handleOptionButton",
 	            value: function handleOptionButton() {
 	                var ok = this.option.ok,
 	                    cancel = this.option.cancel;
-
+	
 	                var isBool = void 0;
-
+	
 	                if (ok == null) {
 	                    this.option.ok = false;
 	                } else {
@@ -312,7 +317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.option.ok = !!ok;
 	                    this.option.okValue = isBool ? this.option.okValue : ok;
 	                }
-
+	
 	                if (cancel == null) {
 	                    this.option.cancel = false;
 	                } else {
@@ -320,15 +325,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.option.cancel = !!cancel;
 	                    this.option.cancelValue = isBool ? this.option.cancelValue : cancel;
 	                }
-
+	
 	                if (this.option.okFn) {
 	                    this.option.ok = true;
 	                }
-
+	
 	                if (this.option.cancelFn) {
 	                    this.option.cancel = true;
 	                }
-
+	
 	                this.option.btnPosClass = "dui-dialog-ft-" + this.option.btnPos;
 	            }
 	        }, {
@@ -346,21 +351,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                }
 	            }
-
+	
 	            // 显示弹窗
-
+	
 	        }, {
 	            key: "render",
 	            value: function render() {
 	                var len = _dom2.default.has(".dui-dialog-wrap").length,
 	                    result = _util2.default.renderTemp(_modal2.default, this.option);
-
+	
 	                if (len === 0 && this.option.mask) {
 	                    var wrap = "<div class=\"dui-dialog-wrap\" style=\"z-index: " + this.option.zIndex + "\"></div>";
 	                    _dom2.default.appendHTML(document.body, wrap);
 	                    _scrollHanlder2.default.disableScroll();
 	                }
-
+	
 	                if (this.option.mask) {
 	                    this.dialogDom = _dom2.default.appendHTML(_dom2.default.find(".dui-dialog-wrap"), result);
 	                } else {
@@ -369,43 +374,59 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                    this.dialogDom = _dom2.default.appendHTML(this.option.appendEl, result);
 	                }
+	                this.show();
 	            }
-
+	        }, {
+	            key: "show",
+	            value: function show() {
+	                switch (this.option.showType) {
+	                    case "normal":
+	                        _dom2.default.show(this.dialogDom);
+	                        break;
+	                    case "fade":
+	                        this.dialogDom.style.top = "-50%";
+	                        this.dialogDom.style.opacity = 0;
+	                        _dom2.default.show(this.dialogDom);
+	                        _animate2.default.startMove(this.dialogDom, { top: document.documentElement.clientHeight / 2, opacity: 100 }, 800);
+	                        break;
+	                }
+	            }
+	
 	            // 隐藏弹窗
-
+	
 	        }, {
 	            key: "hide",
 	            value: function hide() {
 	                this.destroy();
 	            }
-
+	
 	            // 销毁弹窗
-
+	
 	        }, {
 	            key: "destroy",
 	            value: function destroy() {
 	                this.unBindEvent();
-
+	
 	                var len = void 0;
-
+	
 	                if (this.option.mask) {
 	                    len = _dom2.default.has(_dom2.default.find(".dui-dialog-wrap"), ".dui-dialog").length;
 	                } else {
 	                    len = _dom2.default.has(".dui-dialog").length;
 	                }
-
+	
 	                _dom2.default.remove(this.dialogDom);
-
+	
 	                if (len === 1 && this.option.mask) {
 	                    _dom2.default.remove(_dom2.default.find(".dui-dialog-wrap"));
 	                    _scrollHanlder2.default.enableScroll();
 	                }
-
+	
 	                this.dialogDom = null;
 	            }
-
+	
 	            // 确定事件处理
-
+	
 	        }, {
 	            key: "_okFn",
 	            value: function _okFn() {
@@ -413,9 +434,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // TODO 判断是否是函数
 	                this.option.okFn && this.option.okFn.apply(this);
 	            }
-
+	
 	            // 取消事件处理
-
+	
 	        }, {
 	            key: "_cancelFn",
 	            value: function _cancelFn(ev) {
@@ -426,9 +447,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                ev.stopPropagation();
 	                this.hide();
 	            }
-
+	
 	            // 关闭事件处理
-
+	
 	        }, {
 	            key: "_closeFn",
 	            value: function _closeFn(ev) {
@@ -437,9 +458,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                ev.stopPropagation();
 	                this.hide();
 	            }
-
+	
 	            // 按ESC让弹窗消失
-
+	
 	        }, {
 	            key: "_escFn",
 	            value: function _escFn(ev) {
@@ -460,9 +481,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _drag2.default.startDrag(bar, this.dialogDom, _modal_config2.default.boundary(this.dialogDom, this.option.appendEl), this);
 	                }
 	            }
-
+	
 	            // 绑定按钮事件
-
+	
 	        }, {
 	            key: "bindEvent",
 	            value: function bindEvent() {
@@ -470,20 +491,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    cancelBtn = this.cancelBtn = _dom2.default.find(this.dialogDom, ".J_dialog-cancel"),
 	                    closeBtn = this.closeBtn = _dom2.default.find(this.dialogDom, ".J_dialog-close"),
 	                    dialogBd = this.dialogBd = _dom2.default.find(this.dialogDom, ".dui-dialog-bd") || _dom2.default.find(this.dialogDom, ".dui-dialog-custom-bd");
-
+	
 	                // 在弹窗内的点击阻止冒泡，防止触发document的事件。
 	                // this.dialogDom.addEventListener("click", this._stopPropagation, false);
-
+	
 	                okBtn && okBtn.addEventListener("click", this.bindOkClick = this._okFn.bind(this), false);
-
+	
 	                cancelBtn && cancelBtn.addEventListener("click", this.bindCancelClick = this._cancelFn.bind(this), false);
-
+	
 	                closeBtn && closeBtn.addEventListener("click", this.bindCloseClick = this._closeFn.bind(this), false);
-
+	
 	                dialogBd && dialogBd.addEventListener("mousewheel", Modal.stopPropagation, false);
-
+	
 	                dialogBd && dialogBd.addEventListener("touchmove", Modal.stopPropagation, false);
-
+	
 	                document.addEventListener("keydown", this.bindEscClick = this._escFn.bind(this), false);
 	            }
 	        }, {
@@ -493,16 +514,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    cancelBtn = this.cancelBtn,
 	                    closeBtn = this.closeBtn,
 	                    dialogBd = this.dialogBd;
-
+	
 	                okBtn && okBtn.removeEventListener("click", this.bindOkClick, false);
-
+	
 	                cancelBtn && cancelBtn.removeEventListener("click", this.bindCancelClick, false);
-
+	
 	                closeBtn && closeBtn.removeEventListener("click", this.bindCloseClick, false);
-
+	
 	                dialogBd && dialogBd.removeEventListener("mousewheel", Modal.stopPropagation, false);
 	                dialogBd && dialogBd.removeEventListener("touchmove", Modal.stopPropagation, false);
-
+	
 	                document.removeEventListener("keydown", this.bindEscClick, false);
 	            }
 	        }], [{
@@ -511,14 +532,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                ev.stopPropagation();
 	            }
 	        }]);
-
+	
 	        return Modal;
 	    }(_event2.default);
-
+	
 	    Modal.alert = function (text) {
 	        var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "提示";
 	        var close = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-
+	
 	        return new Modal({
 	            title: title,
 	            content: text,
@@ -529,12 +550,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        });
 	    };
-
+	
 	    Modal.confirm = function (text) {
 	        var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "提示";
 	        var close = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 	        var align = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "right";
-
+	
 	        return new Promise(function (resolve) {
 	            new Modal({
 	                title: title,
@@ -552,7 +573,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 	        });
 	    };
-
+	
 	    return Modal;
 	}();
 
@@ -578,21 +599,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
+	
 	var _template = __webpack_require__(9);
-
+	
 	var _template2 = _interopRequireDefault(_template);
-
+	
 	var _extend = __webpack_require__(82);
-
+	
 	var _extend2 = _interopRequireDefault(_extend);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	exports.default = {
 	    extend: _extend2.default,
 	    renderTemp: function renderTemp(str, json) {
@@ -608,35 +629,35 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assignInDefaults = __webpack_require__(10),
-	    assignInWith = __webpack_require__(12),
-	    attempt = __webpack_require__(61),
-	    baseValues = __webpack_require__(66),
+	var assignInWith = __webpack_require__(10),
+	    attempt = __webpack_require__(60),
+	    baseValues = __webpack_require__(65),
+	    customDefaultsAssignIn = __webpack_require__(67),
 	    escapeStringChar = __webpack_require__(68),
-	    isError = __webpack_require__(62),
-	    isIterateeCall = __webpack_require__(40),
+	    isError = __webpack_require__(61),
+	    isIterateeCall = __webpack_require__(39),
 	    keys = __webpack_require__(69),
 	    reInterpolate = __webpack_require__(72),
 	    templateSettings = __webpack_require__(73),
 	    toString = __webpack_require__(77);
-
+	
 	/** Used to match empty string literals in compiled template source. */
 	var reEmptyStringLeading = /\b__p \+= '';/g,
 	    reEmptyStringMiddle = /\b(__p \+=) '' \+/g,
 	    reEmptyStringTrailing = /(__e\(.*?\)|\b__t\)) \+\n'';/g;
-
+	
 	/**
 	 * Used to match
 	 * [ES template delimiters](http://ecma-international.org/ecma-262/7.0/#sec-template-literal-lexical-components).
 	 */
 	var reEsTemplate = /\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g;
-
+	
 	/** Used to ensure capturing order of template delimiters. */
 	var reNoMatch = /($^)/;
-
+	
 	/** Used to match unescaped characters in compiled string literals. */
 	var reUnescapedString = /['\n\r\u2028\u2029\\]/g;
-
+	
 	/**
 	 * Creates a compiled template function that can interpolate data properties
 	 * in "interpolate" delimiters, HTML-escape interpolated data properties in
@@ -746,23 +767,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // (http://ejohn.org/blog/javascript-micro-templating/)
 	  // and Laura Doktorova's doT.js (https://github.com/olado/doT).
 	  var settings = templateSettings.imports._.templateSettings || templateSettings;
-
+	
 	  if (guard && isIterateeCall(string, options, guard)) {
 	    options = undefined;
 	  }
 	  string = toString(string);
-	  options = assignInWith({}, options, settings, assignInDefaults);
-
-	  var imports = assignInWith({}, options.imports, settings.imports, assignInDefaults),
+	  options = assignInWith({}, options, settings, customDefaultsAssignIn);
+	
+	  var imports = assignInWith({}, options.imports, settings.imports, customDefaultsAssignIn),
 	      importsKeys = keys(imports),
 	      importsValues = baseValues(imports, importsKeys);
-
+	
 	  var isEscaping,
 	      isEvaluating,
 	      index = 0,
 	      interpolate = options.interpolate || reNoMatch,
 	      source = "__p += '";
-
+	
 	  // Compile the regexp to match each delimiter.
 	  var reDelimiters = RegExp(
 	    (options.escape || reNoMatch).source + '|' +
@@ -770,16 +791,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    (interpolate === reInterpolate ? reEsTemplate : reNoMatch).source + '|' +
 	    (options.evaluate || reNoMatch).source + '|$'
 	  , 'g');
-
+	
 	  // Use a sourceURL for easier debugging.
 	  var sourceURL = 'sourceURL' in options ? '//# sourceURL=' + options.sourceURL + '\n' : '';
-
+	
 	  string.replace(reDelimiters, function(match, escapeValue, interpolateValue, esTemplateValue, evaluateValue, offset) {
 	    interpolateValue || (interpolateValue = esTemplateValue);
-
+	
 	    // Escape characters that can't be included in string literals.
 	    source += string.slice(index, offset).replace(reUnescapedString, escapeStringChar);
-
+	
 	    // Replace delimiters with snippets.
 	    if (escapeValue) {
 	      isEscaping = true;
@@ -793,14 +814,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      source += "' +\n((__t = (" + interpolateValue + ")) == null ? '' : __t) +\n'";
 	    }
 	    index = offset + match.length;
-
+	
 	    // The JS engine embedded in Adobe products needs `match` returned in
 	    // order to produce the correct `offset` value.
 	    return match;
 	  });
-
+	
 	  source += "';\n";
-
+	
 	  // If `variable` is not specified wrap a with-statement around the generated
 	  // code to add the data object to the top of the scope chain.
 	  var variable = options.variable;
@@ -811,7 +832,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  source = (isEvaluating ? source.replace(reEmptyStringLeading, '') : source)
 	    .replace(reEmptyStringMiddle, '$1')
 	    .replace(reEmptyStringTrailing, '$1;');
-
+	
 	  // Frame code as the function body.
 	  source = 'function(' + (variable || 'obj') + ') {\n' +
 	    (variable
@@ -830,12 +851,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ) +
 	    source +
 	    'return __p\n}';
-
+	
 	  var result = attempt(function() {
 	    return Function(importsKeys, sourceURL + 'return ' + source)
 	      .apply(undefined, importsValues);
 	  });
-
+	
 	  // Provide the compiled function's source by its `toString` method or
 	  // the `source` property as a convenience for inlining compiled templates.
 	  result.source = source;
@@ -844,7 +865,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return result;
 	}
-
+	
 	module.exports = template;
 
 
@@ -852,37 +873,573 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var eq = __webpack_require__(11);
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
+	var copyObject = __webpack_require__(11),
+	    createAssigner = __webpack_require__(30),
+	    keysIn = __webpack_require__(43);
+	
 	/**
-	 * Used by `_.defaults` to customize its `_.assignIn` use.
+	 * This method is like `_.assignIn` except that it accepts `customizer`
+	 * which is invoked to produce the assigned values. If `customizer` returns
+	 * `undefined`, assignment is handled by the method instead. The `customizer`
+	 * is invoked with five arguments: (objValue, srcValue, key, object, source).
 	 *
-	 * @private
-	 * @param {*} objValue The destination value.
-	 * @param {*} srcValue The source value.
-	 * @param {string} key The key of the property to assign.
-	 * @param {Object} object The parent object of `objValue`.
-	 * @returns {*} Returns the value to assign.
+	 * **Note:** This method mutates `object`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @alias extendWith
+	 * @category Object
+	 * @param {Object} object The destination object.
+	 * @param {...Object} sources The source objects.
+	 * @param {Function} [customizer] The function to customize assigned values.
+	 * @returns {Object} Returns `object`.
+	 * @see _.assignWith
+	 * @example
+	 *
+	 * function customizer(objValue, srcValue) {
+	 *   return _.isUndefined(objValue) ? srcValue : objValue;
+	 * }
+	 *
+	 * var defaults = _.partialRight(_.assignInWith, customizer);
+	 *
+	 * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
+	 * // => { 'a': 1, 'b': 2 }
 	 */
-	function assignInDefaults(objValue, srcValue, key, object) {
-	  if (objValue === undefined ||
-	      (eq(objValue, objectProto[key]) && !hasOwnProperty.call(object, key))) {
-	    return srcValue;
-	  }
-	  return objValue;
-	}
-
-	module.exports = assignInDefaults;
+	var assignInWith = createAssigner(function(object, source, srcIndex, customizer) {
+	  copyObject(source, keysIn(source), object, customizer);
+	});
+	
+	module.exports = assignInWith;
 
 
 /***/ },
 /* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var assignValue = __webpack_require__(12),
+	    baseAssignValue = __webpack_require__(13);
+	
+	/**
+	 * Copies properties of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy properties from.
+	 * @param {Array} props The property identifiers to copy.
+	 * @param {Object} [object={}] The object to copy properties to.
+	 * @param {Function} [customizer] The function to customize copied values.
+	 * @returns {Object} Returns `object`.
+	 */
+	function copyObject(source, props, object, customizer) {
+	  var isNew = !object;
+	  object || (object = {});
+	
+	  var index = -1,
+	      length = props.length;
+	
+	  while (++index < length) {
+	    var key = props[index];
+	
+	    var newValue = customizer
+	      ? customizer(object[key], source[key], key, object, source)
+	      : undefined;
+	
+	    if (newValue === undefined) {
+	      newValue = source[key];
+	    }
+	    if (isNew) {
+	      baseAssignValue(object, key, newValue);
+	    } else {
+	      assignValue(object, key, newValue);
+	    }
+	  }
+	  return object;
+	}
+	
+	module.exports = copyObject;
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseAssignValue = __webpack_require__(13),
+	    eq = __webpack_require__(29);
+	
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Assigns `value` to `key` of `object` if the existing value is not equivalent
+	 * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+	 * for equality comparisons.
+	 *
+	 * @private
+	 * @param {Object} object The object to modify.
+	 * @param {string} key The key of the property to assign.
+	 * @param {*} value The value to assign.
+	 */
+	function assignValue(object, key, value) {
+	  var objValue = object[key];
+	  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
+	      (value === undefined && !(key in object))) {
+	    baseAssignValue(object, key, value);
+	  }
+	}
+	
+	module.exports = assignValue;
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var defineProperty = __webpack_require__(14);
+	
+	/**
+	 * The base implementation of `assignValue` and `assignMergeValue` without
+	 * value checks.
+	 *
+	 * @private
+	 * @param {Object} object The object to modify.
+	 * @param {string} key The key of the property to assign.
+	 * @param {*} value The value to assign.
+	 */
+	function baseAssignValue(object, key, value) {
+	  if (key == '__proto__' && defineProperty) {
+	    defineProperty(object, key, {
+	      'configurable': true,
+	      'enumerable': true,
+	      'value': value,
+	      'writable': true
+	    });
+	  } else {
+	    object[key] = value;
+	  }
+	}
+	
+	module.exports = baseAssignValue;
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(15);
+	
+	var defineProperty = (function() {
+	  try {
+	    var func = getNative(Object, 'defineProperty');
+	    func({}, '', {});
+	    return func;
+	  } catch (e) {}
+	}());
+	
+	module.exports = defineProperty;
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseIsNative = __webpack_require__(16),
+	    getValue = __webpack_require__(28);
+	
+	/**
+	 * Gets the native function at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the method to get.
+	 * @returns {*} Returns the function if it's native, else `undefined`.
+	 */
+	function getNative(object, key) {
+	  var value = getValue(object, key);
+	  return baseIsNative(value) ? value : undefined;
+	}
+	
+	module.exports = getNative;
+
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isFunction = __webpack_require__(17),
+	    isMasked = __webpack_require__(25),
+	    isObject = __webpack_require__(24),
+	    toSource = __webpack_require__(27);
+	
+	/**
+	 * Used to match `RegExp`
+	 * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+	 */
+	var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+	
+	/** Used to detect host constructors (Safari). */
+	var reIsHostCtor = /^\[object .+?Constructor\]$/;
+	
+	/** Used for built-in method references. */
+	var funcProto = Function.prototype,
+	    objectProto = Object.prototype;
+	
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/** Used to detect if a method is native. */
+	var reIsNative = RegExp('^' +
+	  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+	
+	/**
+	 * The base implementation of `_.isNative` without bad shim checks.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a native function,
+	 *  else `false`.
+	 */
+	function baseIsNative(value) {
+	  if (!isObject(value) || isMasked(value)) {
+	    return false;
+	  }
+	  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+	  return pattern.test(toSource(value));
+	}
+	
+	module.exports = baseIsNative;
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseGetTag = __webpack_require__(18),
+	    isObject = __webpack_require__(24);
+	
+	/** `Object#toString` result references. */
+	var asyncTag = '[object AsyncFunction]',
+	    funcTag = '[object Function]',
+	    genTag = '[object GeneratorFunction]',
+	    proxyTag = '[object Proxy]';
+	
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  if (!isObject(value)) {
+	    return false;
+	  }
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+	  var tag = baseGetTag(value);
+	  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+	}
+	
+	module.exports = isFunction;
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Symbol = __webpack_require__(19),
+	    getRawTag = __webpack_require__(22),
+	    objectToString = __webpack_require__(23);
+	
+	/** `Object#toString` result references. */
+	var nullTag = '[object Null]',
+	    undefinedTag = '[object Undefined]';
+	
+	/** Built-in value references. */
+	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+	
+	/**
+	 * The base implementation of `getTag` without fallbacks for buggy environments.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	function baseGetTag(value) {
+	  if (value == null) {
+	    return value === undefined ? undefinedTag : nullTag;
+	  }
+	  return (symToStringTag && symToStringTag in Object(value))
+	    ? getRawTag(value)
+	    : objectToString(value);
+	}
+	
+	module.exports = baseGetTag;
+
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var root = __webpack_require__(20);
+	
+	/** Built-in value references. */
+	var Symbol = root.Symbol;
+	
+	module.exports = Symbol;
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var freeGlobal = __webpack_require__(21);
+	
+	/** Detect free variable `self`. */
+	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+	
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+	
+	module.exports = root;
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
+	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+	
+	module.exports = freeGlobal;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Symbol = __webpack_require__(19);
+	
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+	
+	/** Built-in value references. */
+	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+	
+	/**
+	 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the raw `toStringTag`.
+	 */
+	function getRawTag(value) {
+	  var isOwn = hasOwnProperty.call(value, symToStringTag),
+	      tag = value[symToStringTag];
+	
+	  try {
+	    value[symToStringTag] = undefined;
+	    var unmasked = true;
+	  } catch (e) {}
+	
+	  var result = nativeObjectToString.call(value);
+	  if (unmasked) {
+	    if (isOwn) {
+	      value[symToStringTag] = tag;
+	    } else {
+	      delete value[symToStringTag];
+	    }
+	  }
+	  return result;
+	}
+	
+	module.exports = getRawTag;
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+	
+	/**
+	 * Converts `value` to a string using `Object.prototype.toString`.
+	 *
+	 * @private
+	 * @param {*} value The value to convert.
+	 * @returns {string} Returns the converted string.
+	 */
+	function objectToString(value) {
+	  return nativeObjectToString.call(value);
+	}
+	
+	module.exports = objectToString;
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is the
+	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return value != null && (type == 'object' || type == 'function');
+	}
+	
+	module.exports = isObject;
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var coreJsData = __webpack_require__(26);
+	
+	/** Used to detect methods masquerading as native. */
+	var maskSrcKey = (function() {
+	  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+	  return uid ? ('Symbol(src)_1.' + uid) : '';
+	}());
+	
+	/**
+	 * Checks if `func` has its source masked.
+	 *
+	 * @private
+	 * @param {Function} func The function to check.
+	 * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+	 */
+	function isMasked(func) {
+	  return !!maskSrcKey && (maskSrcKey in func);
+	}
+	
+	module.exports = isMasked;
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var root = __webpack_require__(20);
+	
+	/** Used to detect overreaching core-js shims. */
+	var coreJsData = root['__core-js_shared__'];
+	
+	module.exports = coreJsData;
+
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	/** Used for built-in method references. */
+	var funcProto = Function.prototype;
+	
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+	
+	/**
+	 * Converts `func` to its source code.
+	 *
+	 * @private
+	 * @param {Function} func The function to convert.
+	 * @returns {string} Returns the source code.
+	 */
+	function toSource(func) {
+	  if (func != null) {
+	    try {
+	      return funcToString.call(func);
+	    } catch (e) {}
+	    try {
+	      return (func + '');
+	    } catch (e) {}
+	  }
+	  return '';
+	}
+	
+	module.exports = toSource;
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	/**
+	 * Gets the value at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} [object] The object to query.
+	 * @param {string} key The key of the property to get.
+	 * @returns {*} Returns the property value.
+	 */
+	function getValue(object, key) {
+	  return object == null ? undefined : object[key];
+	}
+	
+	module.exports = getValue;
+
+
+/***/ },
+/* 29 */
 /***/ function(module, exports) {
 
 	/**
@@ -920,587 +1477,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	function eq(value, other) {
 	  return value === other || (value !== value && other !== other);
 	}
-
+	
 	module.exports = eq;
 
 
 /***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var copyObject = __webpack_require__(13),
-	    createAssigner = __webpack_require__(31),
-	    keysIn = __webpack_require__(44);
-
-	/**
-	 * This method is like `_.assignIn` except that it accepts `customizer`
-	 * which is invoked to produce the assigned values. If `customizer` returns
-	 * `undefined`, assignment is handled by the method instead. The `customizer`
-	 * is invoked with five arguments: (objValue, srcValue, key, object, source).
-	 *
-	 * **Note:** This method mutates `object`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @alias extendWith
-	 * @category Object
-	 * @param {Object} object The destination object.
-	 * @param {...Object} sources The source objects.
-	 * @param {Function} [customizer] The function to customize assigned values.
-	 * @returns {Object} Returns `object`.
-	 * @see _.assignWith
-	 * @example
-	 *
-	 * function customizer(objValue, srcValue) {
-	 *   return _.isUndefined(objValue) ? srcValue : objValue;
-	 * }
-	 *
-	 * var defaults = _.partialRight(_.assignInWith, customizer);
-	 *
-	 * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
-	 * // => { 'a': 1, 'b': 2 }
-	 */
-	var assignInWith = createAssigner(function(object, source, srcIndex, customizer) {
-	  copyObject(source, keysIn(source), object, customizer);
-	});
-
-	module.exports = assignInWith;
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var assignValue = __webpack_require__(14),
-	    baseAssignValue = __webpack_require__(15);
-
-	/**
-	 * Copies properties of `source` to `object`.
-	 *
-	 * @private
-	 * @param {Object} source The object to copy properties from.
-	 * @param {Array} props The property identifiers to copy.
-	 * @param {Object} [object={}] The object to copy properties to.
-	 * @param {Function} [customizer] The function to customize copied values.
-	 * @returns {Object} Returns `object`.
-	 */
-	function copyObject(source, props, object, customizer) {
-	  var isNew = !object;
-	  object || (object = {});
-
-	  var index = -1,
-	      length = props.length;
-
-	  while (++index < length) {
-	    var key = props[index];
-
-	    var newValue = customizer
-	      ? customizer(object[key], source[key], key, object, source)
-	      : undefined;
-
-	    if (newValue === undefined) {
-	      newValue = source[key];
-	    }
-	    if (isNew) {
-	      baseAssignValue(object, key, newValue);
-	    } else {
-	      assignValue(object, key, newValue);
-	    }
-	  }
-	  return object;
-	}
-
-	module.exports = copyObject;
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var baseAssignValue = __webpack_require__(15),
-	    eq = __webpack_require__(11);
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/**
-	 * Assigns `value` to `key` of `object` if the existing value is not equivalent
-	 * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
-	 * for equality comparisons.
-	 *
-	 * @private
-	 * @param {Object} object The object to modify.
-	 * @param {string} key The key of the property to assign.
-	 * @param {*} value The value to assign.
-	 */
-	function assignValue(object, key, value) {
-	  var objValue = object[key];
-	  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
-	      (value === undefined && !(key in object))) {
-	    baseAssignValue(object, key, value);
-	  }
-	}
-
-	module.exports = assignValue;
-
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var defineProperty = __webpack_require__(16);
-
-	/**
-	 * The base implementation of `assignValue` and `assignMergeValue` without
-	 * value checks.
-	 *
-	 * @private
-	 * @param {Object} object The object to modify.
-	 * @param {string} key The key of the property to assign.
-	 * @param {*} value The value to assign.
-	 */
-	function baseAssignValue(object, key, value) {
-	  if (key == '__proto__' && defineProperty) {
-	    defineProperty(object, key, {
-	      'configurable': true,
-	      'enumerable': true,
-	      'value': value,
-	      'writable': true
-	    });
-	  } else {
-	    object[key] = value;
-	  }
-	}
-
-	module.exports = baseAssignValue;
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var getNative = __webpack_require__(17);
-
-	var defineProperty = (function() {
-	  try {
-	    var func = getNative(Object, 'defineProperty');
-	    func({}, '', {});
-	    return func;
-	  } catch (e) {}
-	}());
-
-	module.exports = defineProperty;
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var baseIsNative = __webpack_require__(18),
-	    getValue = __webpack_require__(30);
-
-	/**
-	 * Gets the native function at `key` of `object`.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @param {string} key The key of the method to get.
-	 * @returns {*} Returns the function if it's native, else `undefined`.
-	 */
-	function getNative(object, key) {
-	  var value = getValue(object, key);
-	  return baseIsNative(value) ? value : undefined;
-	}
-
-	module.exports = getNative;
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isFunction = __webpack_require__(19),
-	    isMasked = __webpack_require__(27),
-	    isObject = __webpack_require__(26),
-	    toSource = __webpack_require__(29);
-
-	/**
-	 * Used to match `RegExp`
-	 * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
-	 */
-	var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
-
-	/** Used to detect host constructors (Safari). */
-	var reIsHostCtor = /^\[object .+?Constructor\]$/;
-
-	/** Used for built-in method references. */
-	var funcProto = Function.prototype,
-	    objectProto = Object.prototype;
-
-	/** Used to resolve the decompiled source of functions. */
-	var funcToString = funcProto.toString;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/** Used to detect if a method is native. */
-	var reIsNative = RegExp('^' +
-	  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
-	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
-	);
-
-	/**
-	 * The base implementation of `_.isNative` without bad shim checks.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a native function,
-	 *  else `false`.
-	 */
-	function baseIsNative(value) {
-	  if (!isObject(value) || isMasked(value)) {
-	    return false;
-	  }
-	  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
-	  return pattern.test(toSource(value));
-	}
-
-	module.exports = baseIsNative;
-
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var baseGetTag = __webpack_require__(20),
-	    isObject = __webpack_require__(26);
-
-	/** `Object#toString` result references. */
-	var asyncTag = '[object AsyncFunction]',
-	    funcTag = '[object Function]',
-	    genTag = '[object GeneratorFunction]',
-	    proxyTag = '[object Proxy]';
-
-	/**
-	 * Checks if `value` is classified as a `Function` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
-	 * @example
-	 *
-	 * _.isFunction(_);
-	 * // => true
-	 *
-	 * _.isFunction(/abc/);
-	 * // => false
-	 */
-	function isFunction(value) {
-	  if (!isObject(value)) {
-	    return false;
-	  }
-	  // The use of `Object#toString` avoids issues with the `typeof` operator
-	  // in Safari 9 which returns 'object' for typed arrays and other constructors.
-	  var tag = baseGetTag(value);
-	  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
-	}
-
-	module.exports = isFunction;
-
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Symbol = __webpack_require__(21),
-	    getRawTag = __webpack_require__(24),
-	    objectToString = __webpack_require__(25);
-
-	/** `Object#toString` result references. */
-	var nullTag = '[object Null]',
-	    undefinedTag = '[object Undefined]';
-
-	/** Built-in value references. */
-	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-	/**
-	 * The base implementation of `getTag` without fallbacks for buggy environments.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @returns {string} Returns the `toStringTag`.
-	 */
-	function baseGetTag(value) {
-	  if (value == null) {
-	    return value === undefined ? undefinedTag : nullTag;
-	  }
-	  value = Object(value);
-	  return (symToStringTag && symToStringTag in value)
-	    ? getRawTag(value)
-	    : objectToString(value);
-	}
-
-	module.exports = baseGetTag;
-
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var root = __webpack_require__(22);
-
-	/** Built-in value references. */
-	var Symbol = root.Symbol;
-
-	module.exports = Symbol;
-
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var freeGlobal = __webpack_require__(23);
-
-	/** Detect free variable `self`. */
-	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-	/** Used as a reference to the global object. */
-	var root = freeGlobal || freeSelf || Function('return this')();
-
-	module.exports = root;
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
-	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
-
-	module.exports = freeGlobal;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Symbol = __webpack_require__(21);
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var nativeObjectToString = objectProto.toString;
-
-	/** Built-in value references. */
-	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-	/**
-	 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @returns {string} Returns the raw `toStringTag`.
-	 */
-	function getRawTag(value) {
-	  var isOwn = hasOwnProperty.call(value, symToStringTag),
-	      tag = value[symToStringTag];
-
-	  try {
-	    value[symToStringTag] = undefined;
-	    var unmasked = true;
-	  } catch (e) {}
-
-	  var result = nativeObjectToString.call(value);
-	  if (unmasked) {
-	    if (isOwn) {
-	      value[symToStringTag] = tag;
-	    } else {
-	      delete value[symToStringTag];
-	    }
-	  }
-	  return result;
-	}
-
-	module.exports = getRawTag;
-
-
-/***/ },
-/* 25 */
-/***/ function(module, exports) {
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var nativeObjectToString = objectProto.toString;
-
-	/**
-	 * Converts `value` to a string using `Object.prototype.toString`.
-	 *
-	 * @private
-	 * @param {*} value The value to convert.
-	 * @returns {string} Returns the converted string.
-	 */
-	function objectToString(value) {
-	  return nativeObjectToString.call(value);
-	}
-
-	module.exports = objectToString;
-
-
-/***/ },
-/* 26 */
-/***/ function(module, exports) {
-
-	/**
-	 * Checks if `value` is the
-	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
-	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.1.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(_.noop);
-	 * // => true
-	 *
-	 * _.isObject(null);
-	 * // => false
-	 */
-	function isObject(value) {
-	  var type = typeof value;
-	  return value != null && (type == 'object' || type == 'function');
-	}
-
-	module.exports = isObject;
-
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var coreJsData = __webpack_require__(28);
-
-	/** Used to detect methods masquerading as native. */
-	var maskSrcKey = (function() {
-	  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
-	  return uid ? ('Symbol(src)_1.' + uid) : '';
-	}());
-
-	/**
-	 * Checks if `func` has its source masked.
-	 *
-	 * @private
-	 * @param {Function} func The function to check.
-	 * @returns {boolean} Returns `true` if `func` is masked, else `false`.
-	 */
-	function isMasked(func) {
-	  return !!maskSrcKey && (maskSrcKey in func);
-	}
-
-	module.exports = isMasked;
-
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var root = __webpack_require__(22);
-
-	/** Used to detect overreaching core-js shims. */
-	var coreJsData = root['__core-js_shared__'];
-
-	module.exports = coreJsData;
-
-
-/***/ },
-/* 29 */
-/***/ function(module, exports) {
-
-	/** Used for built-in method references. */
-	var funcProto = Function.prototype;
-
-	/** Used to resolve the decompiled source of functions. */
-	var funcToString = funcProto.toString;
-
-	/**
-	 * Converts `func` to its source code.
-	 *
-	 * @private
-	 * @param {Function} func The function to convert.
-	 * @returns {string} Returns the source code.
-	 */
-	function toSource(func) {
-	  if (func != null) {
-	    try {
-	      return funcToString.call(func);
-	    } catch (e) {}
-	    try {
-	      return (func + '');
-	    } catch (e) {}
-	  }
-	  return '';
-	}
-
-	module.exports = toSource;
-
-
-/***/ },
 /* 30 */
-/***/ function(module, exports) {
-
-	/**
-	 * Gets the value at `key` of `object`.
-	 *
-	 * @private
-	 * @param {Object} [object] The object to query.
-	 * @param {string} key The key of the property to get.
-	 * @returns {*} Returns the property value.
-	 */
-	function getValue(object, key) {
-	  return object == null ? undefined : object[key];
-	}
-
-	module.exports = getValue;
-
-
-/***/ },
-/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseRest = __webpack_require__(32),
-	    isIterateeCall = __webpack_require__(40);
-
+	var baseRest = __webpack_require__(31),
+	    isIterateeCall = __webpack_require__(39);
+	
 	/**
 	 * Creates a function like `_.assign`.
 	 *
@@ -1514,11 +1501,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        length = sources.length,
 	        customizer = length > 1 ? sources[length - 1] : undefined,
 	        guard = length > 2 ? sources[2] : undefined;
-
+	
 	    customizer = (assigner.length > 3 && typeof customizer == 'function')
 	      ? (length--, customizer)
 	      : undefined;
-
+	
 	    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
 	      customizer = length < 3 ? undefined : customizer;
 	      length = 1;
@@ -1533,18 +1520,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return object;
 	  });
 	}
-
+	
 	module.exports = createAssigner;
 
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(33),
-	    overRest = __webpack_require__(34),
-	    setToString = __webpack_require__(36);
-
+	var identity = __webpack_require__(32),
+	    overRest = __webpack_require__(33),
+	    setToString = __webpack_require__(35);
+	
 	/**
 	 * The base implementation of `_.rest` which doesn't validate or coerce arguments.
 	 *
@@ -1556,12 +1543,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	function baseRest(func, start) {
 	  return setToString(overRest(func, start, identity), func + '');
 	}
-
+	
 	module.exports = baseRest;
 
 
 /***/ },
-/* 33 */
+/* 32 */
 /***/ function(module, exports) {
 
 	/**
@@ -1583,19 +1570,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	function identity(value) {
 	  return value;
 	}
-
+	
 	module.exports = identity;
 
 
 /***/ },
-/* 34 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var apply = __webpack_require__(35);
-
+	var apply = __webpack_require__(34);
+	
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeMax = Math.max;
-
+	
 	/**
 	 * A specialized version of `baseRest` which transforms the rest array.
 	 *
@@ -1612,7 +1599,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        index = -1,
 	        length = nativeMax(args.length - start, 0),
 	        array = Array(length);
-
+	
 	    while (++index < length) {
 	      array[index] = args[start + index];
 	    }
@@ -1625,12 +1612,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return apply(func, this, otherArgs);
 	  };
 	}
-
+	
 	module.exports = overRest;
 
 
 /***/ },
-/* 35 */
+/* 34 */
 /***/ function(module, exports) {
 
 	/**
@@ -1652,17 +1639,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return func.apply(thisArg, args);
 	}
-
+	
 	module.exports = apply;
 
 
 /***/ },
-/* 36 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseSetToString = __webpack_require__(37),
-	    shortOut = __webpack_require__(39);
-
+	var baseSetToString = __webpack_require__(36),
+	    shortOut = __webpack_require__(38);
+	
 	/**
 	 * Sets the `toString` method of `func` to return `string`.
 	 *
@@ -1672,18 +1659,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {Function} Returns `func`.
 	 */
 	var setToString = shortOut(baseSetToString);
-
+	
 	module.exports = setToString;
 
 
 /***/ },
-/* 37 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var constant = __webpack_require__(38),
-	    defineProperty = __webpack_require__(16),
-	    identity = __webpack_require__(33);
-
+	var constant = __webpack_require__(37),
+	    defineProperty = __webpack_require__(14),
+	    identity = __webpack_require__(32);
+	
 	/**
 	 * The base implementation of `setToString` without support for hot loop shorting.
 	 *
@@ -1700,12 +1687,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    'writable': true
 	  });
 	};
-
+	
 	module.exports = baseSetToString;
 
 
 /***/ },
-/* 38 */
+/* 37 */
 /***/ function(module, exports) {
 
 	/**
@@ -1732,21 +1719,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return value;
 	  };
 	}
-
+	
 	module.exports = constant;
 
 
 /***/ },
-/* 39 */
+/* 38 */
 /***/ function(module, exports) {
 
 	/** Used to detect hot functions by number of calls within a span of milliseconds. */
 	var HOT_COUNT = 800,
 	    HOT_SPAN = 16;
-
+	
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeNow = Date.now;
-
+	
 	/**
 	 * Creates a function that'll short out and invoke `identity` instead
 	 * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
@@ -1759,11 +1746,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	function shortOut(func) {
 	  var count = 0,
 	      lastCalled = 0;
-
+	
 	  return function() {
 	    var stamp = nativeNow(),
 	        remaining = HOT_SPAN - (stamp - lastCalled);
-
+	
 	    lastCalled = stamp;
 	    if (remaining > 0) {
 	      if (++count >= HOT_COUNT) {
@@ -1775,19 +1762,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return func.apply(undefined, arguments);
 	  };
 	}
-
+	
 	module.exports = shortOut;
 
 
 /***/ },
-/* 40 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var eq = __webpack_require__(11),
-	    isArrayLike = __webpack_require__(41),
-	    isIndex = __webpack_require__(43),
-	    isObject = __webpack_require__(26);
-
+	var eq = __webpack_require__(29),
+	    isArrayLike = __webpack_require__(40),
+	    isIndex = __webpack_require__(42),
+	    isObject = __webpack_require__(24);
+	
 	/**
 	 * Checks if the given arguments are from an iteratee call.
 	 *
@@ -1811,17 +1798,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return false;
 	}
-
+	
 	module.exports = isIterateeCall;
 
 
 /***/ },
-/* 41 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(19),
-	    isLength = __webpack_require__(42);
-
+	var isFunction = __webpack_require__(17),
+	    isLength = __webpack_require__(41);
+	
 	/**
 	 * Checks if `value` is array-like. A value is considered array-like if it's
 	 * not a function and has a `value.length` that's an integer greater than or
@@ -1850,17 +1837,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isArrayLike(value) {
 	  return value != null && isLength(value.length) && !isFunction(value);
 	}
-
+	
 	module.exports = isArrayLike;
 
 
 /***/ },
-/* 42 */
+/* 41 */
 /***/ function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
 	var MAX_SAFE_INTEGER = 9007199254740991;
-
+	
 	/**
 	 * Checks if `value` is a valid array-like length.
 	 *
@@ -1891,20 +1878,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return typeof value == 'number' &&
 	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
 	}
-
+	
 	module.exports = isLength;
 
 
 /***/ },
-/* 43 */
+/* 42 */
 /***/ function(module, exports) {
 
 	/** Used as references for various `Number` constants. */
 	var MAX_SAFE_INTEGER = 9007199254740991;
-
+	
 	/** Used to detect unsigned integer values. */
 	var reIsUint = /^(?:0|[1-9]\d*)$/;
-
+	
 	/**
 	 * Checks if `value` is a valid array-like index.
 	 *
@@ -1919,18 +1906,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    (typeof value == 'number' || reIsUint.test(value)) &&
 	    (value > -1 && value % 1 == 0 && value < length);
 	}
-
+	
 	module.exports = isIndex;
 
 
 /***/ },
-/* 44 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayLikeKeys = __webpack_require__(45),
-	    baseKeysIn = __webpack_require__(58),
-	    isArrayLike = __webpack_require__(41);
-
+	var arrayLikeKeys = __webpack_require__(44),
+	    baseKeysIn = __webpack_require__(57),
+	    isArrayLike = __webpack_require__(40);
+	
 	/**
 	 * Creates an array of the own and inherited enumerable property names of `object`.
 	 *
@@ -1957,27 +1944,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	function keysIn(object) {
 	  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
 	}
-
+	
 	module.exports = keysIn;
 
 
 /***/ },
-/* 45 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseTimes = __webpack_require__(46),
-	    isArguments = __webpack_require__(47),
-	    isArray = __webpack_require__(50),
-	    isBuffer = __webpack_require__(51),
-	    isIndex = __webpack_require__(43),
-	    isTypedArray = __webpack_require__(54);
-
+	var baseTimes = __webpack_require__(45),
+	    isArguments = __webpack_require__(46),
+	    isArray = __webpack_require__(49),
+	    isBuffer = __webpack_require__(50),
+	    isIndex = __webpack_require__(42),
+	    isTypedArray = __webpack_require__(53);
+	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
-
+	
 	/** Used to check objects for own properties. */
 	var hasOwnProperty = objectProto.hasOwnProperty;
-
+	
 	/**
 	 * Creates an array of the enumerable property names of the array-like `value`.
 	 *
@@ -1994,7 +1981,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      skipIndexes = isArr || isArg || isBuff || isType,
 	      result = skipIndexes ? baseTimes(value.length, String) : [],
 	      length = result.length;
-
+	
 	  for (var key in value) {
 	    if ((inherited || hasOwnProperty.call(value, key)) &&
 	        !(skipIndexes && (
@@ -2012,12 +1999,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return result;
 	}
-
+	
 	module.exports = arrayLikeKeys;
 
 
 /***/ },
-/* 46 */
+/* 45 */
 /***/ function(module, exports) {
 
 	/**
@@ -2032,32 +2019,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	function baseTimes(n, iteratee) {
 	  var index = -1,
 	      result = Array(n);
-
+	
 	  while (++index < n) {
 	    result[index] = iteratee(index);
 	  }
 	  return result;
 	}
-
+	
 	module.exports = baseTimes;
 
 
 /***/ },
-/* 47 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsArguments = __webpack_require__(48),
-	    isObjectLike = __webpack_require__(49);
-
+	var baseIsArguments = __webpack_require__(47),
+	    isObjectLike = __webpack_require__(48);
+	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
-
+	
 	/** Used to check objects for own properties. */
 	var hasOwnProperty = objectProto.hasOwnProperty;
-
+	
 	/** Built-in value references. */
 	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
-
+	
 	/**
 	 * Checks if `value` is likely an `arguments` object.
 	 *
@@ -2080,20 +2067,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
 	    !propertyIsEnumerable.call(value, 'callee');
 	};
-
+	
 	module.exports = isArguments;
 
 
 /***/ },
-/* 48 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(20),
-	    isObjectLike = __webpack_require__(49);
-
+	var baseGetTag = __webpack_require__(18),
+	    isObjectLike = __webpack_require__(48);
+	
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]';
-
+	
 	/**
 	 * The base implementation of `_.isArguments`.
 	 *
@@ -2104,12 +2091,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	function baseIsArguments(value) {
 	  return isObjectLike(value) && baseGetTag(value) == argsTag;
 	}
-
+	
 	module.exports = baseIsArguments;
 
 
 /***/ },
-/* 49 */
+/* 48 */
 /***/ function(module, exports) {
 
 	/**
@@ -2139,12 +2126,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isObjectLike(value) {
 	  return value != null && typeof value == 'object';
 	}
-
+	
 	module.exports = isObjectLike;
 
 
 /***/ },
-/* 50 */
+/* 49 */
 /***/ function(module, exports) {
 
 	/**
@@ -2171,32 +2158,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * // => false
 	 */
 	var isArray = Array.isArray;
-
+	
 	module.exports = isArray;
 
 
 /***/ },
-/* 51 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(22),
-	    stubFalse = __webpack_require__(53);
-
+	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(20),
+	    stubFalse = __webpack_require__(52);
+	
 	/** Detect free variable `exports`. */
 	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
-
+	
 	/** Detect free variable `module`. */
 	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
+	
 	/** Detect the popular CommonJS extension `module.exports`. */
 	var moduleExports = freeModule && freeModule.exports === freeExports;
-
+	
 	/** Built-in value references. */
 	var Buffer = moduleExports ? root.Buffer : undefined;
-
+	
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
-
+	
 	/**
 	 * Checks if `value` is a buffer.
 	 *
@@ -2215,13 +2202,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * // => false
 	 */
 	var isBuffer = nativeIsBuffer || stubFalse;
-
+	
 	module.exports = isBuffer;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(52)(module)))
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(51)(module)))
 
 /***/ },
-/* 52 */
+/* 51 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -2237,7 +2224,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 53 */
+/* 52 */
 /***/ function(module, exports) {
 
 	/**
@@ -2256,21 +2243,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	function stubFalse() {
 	  return false;
 	}
-
+	
 	module.exports = stubFalse;
 
 
 /***/ },
-/* 54 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsTypedArray = __webpack_require__(55),
-	    baseUnary = __webpack_require__(56),
-	    nodeUtil = __webpack_require__(57);
-
+	var baseIsTypedArray = __webpack_require__(54),
+	    baseUnary = __webpack_require__(55),
+	    nodeUtil = __webpack_require__(56);
+	
 	/* Node.js helper references. */
 	var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
-
+	
 	/**
 	 * Checks if `value` is classified as a typed array.
 	 *
@@ -2289,18 +2276,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * // => false
 	 */
 	var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
-
+	
 	module.exports = isTypedArray;
 
 
 /***/ },
-/* 55 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(20),
-	    isLength = __webpack_require__(42),
-	    isObjectLike = __webpack_require__(49);
-
+	var baseGetTag = __webpack_require__(18),
+	    isLength = __webpack_require__(41),
+	    isObjectLike = __webpack_require__(48);
+	
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
 	    arrayTag = '[object Array]',
@@ -2315,7 +2302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    setTag = '[object Set]',
 	    stringTag = '[object String]',
 	    weakMapTag = '[object WeakMap]';
-
+	
 	var arrayBufferTag = '[object ArrayBuffer]',
 	    dataViewTag = '[object DataView]',
 	    float32Tag = '[object Float32Array]',
@@ -2327,7 +2314,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    uint8ClampedTag = '[object Uint8ClampedArray]',
 	    uint16Tag = '[object Uint16Array]',
 	    uint32Tag = '[object Uint32Array]';
-
+	
 	/** Used to identify `toStringTag` values of typed arrays. */
 	var typedArrayTags = {};
 	typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
@@ -2343,7 +2330,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
 	typedArrayTags[setTag] = typedArrayTags[stringTag] =
 	typedArrayTags[weakMapTag] = false;
-
+	
 	/**
 	 * The base implementation of `_.isTypedArray` without Node.js optimizations.
 	 *
@@ -2355,12 +2342,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return isObjectLike(value) &&
 	    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
 	}
-
+	
 	module.exports = baseIsTypedArray;
 
 
 /***/ },
-/* 56 */
+/* 55 */
 /***/ function(module, exports) {
 
 	/**
@@ -2375,53 +2362,53 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return func(value);
 	  };
 	}
-
+	
 	module.exports = baseUnary;
 
 
 /***/ },
-/* 57 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(23);
-
+	/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(21);
+	
 	/** Detect free variable `exports`. */
 	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
-
+	
 	/** Detect free variable `module`. */
 	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
+	
 	/** Detect the popular CommonJS extension `module.exports`. */
 	var moduleExports = freeModule && freeModule.exports === freeExports;
-
+	
 	/** Detect free variable `process` from Node.js. */
 	var freeProcess = moduleExports && freeGlobal.process;
-
+	
 	/** Used to access faster Node.js helpers. */
 	var nodeUtil = (function() {
 	  try {
 	    return freeProcess && freeProcess.binding && freeProcess.binding('util');
 	  } catch (e) {}
 	}());
-
+	
 	module.exports = nodeUtil;
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(52)(module)))
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(51)(module)))
 
 /***/ },
-/* 58 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(26),
-	    isPrototype = __webpack_require__(59),
-	    nativeKeysIn = __webpack_require__(60);
-
+	var isObject = __webpack_require__(24),
+	    isPrototype = __webpack_require__(58),
+	    nativeKeysIn = __webpack_require__(59);
+	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
-
+	
 	/** Used to check objects for own properties. */
 	var hasOwnProperty = objectProto.hasOwnProperty;
-
+	
 	/**
 	 * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
 	 *
@@ -2435,7 +2422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  var isProto = isPrototype(object),
 	      result = [];
-
+	
 	  for (var key in object) {
 	    if (!(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
 	      result.push(key);
@@ -2443,17 +2430,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return result;
 	}
-
+	
 	module.exports = baseKeysIn;
 
 
 /***/ },
-/* 59 */
+/* 58 */
 /***/ function(module, exports) {
 
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
-
+	
 	/**
 	 * Checks if `value` is likely a prototype object.
 	 *
@@ -2464,15 +2451,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	function isPrototype(value) {
 	  var Ctor = value && value.constructor,
 	      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
-
+	
 	  return value === proto;
 	}
-
+	
 	module.exports = isPrototype;
 
 
 /***/ },
-/* 60 */
+/* 59 */
 /***/ function(module, exports) {
 
 	/**
@@ -2493,18 +2480,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return result;
 	}
-
+	
 	module.exports = nativeKeysIn;
 
 
 /***/ },
-/* 61 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var apply = __webpack_require__(35),
-	    baseRest = __webpack_require__(32),
-	    isError = __webpack_require__(62);
-
+	var apply = __webpack_require__(34),
+	    baseRest = __webpack_require__(31),
+	    isError = __webpack_require__(61);
+	
 	/**
 	 * Attempts to invoke `func`, returning either the result or the caught error
 	 * object. Any additional arguments are provided to `func` when it's invoked.
@@ -2534,22 +2521,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return isError(e) ? e : new Error(e);
 	  }
 	});
-
+	
 	module.exports = attempt;
 
 
 /***/ },
-/* 62 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(20),
-	    isObjectLike = __webpack_require__(49),
-	    isPlainObject = __webpack_require__(63);
-
+	var baseGetTag = __webpack_require__(18),
+	    isObjectLike = __webpack_require__(48),
+	    isPlainObject = __webpack_require__(62);
+	
 	/** `Object#toString` result references. */
 	var domExcTag = '[object DOMException]',
 	    errorTag = '[object Error]';
-
+	
 	/**
 	 * Checks if `value` is an `Error`, `EvalError`, `RangeError`, `ReferenceError`,
 	 * `SyntaxError`, `TypeError`, or `URIError` object.
@@ -2576,34 +2563,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return tag == errorTag || tag == domExcTag ||
 	    (typeof value.message == 'string' && typeof value.name == 'string' && !isPlainObject(value));
 	}
-
+	
 	module.exports = isError;
 
 
 /***/ },
-/* 63 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(20),
-	    getPrototype = __webpack_require__(64),
-	    isObjectLike = __webpack_require__(49);
-
+	var baseGetTag = __webpack_require__(18),
+	    getPrototype = __webpack_require__(63),
+	    isObjectLike = __webpack_require__(48);
+	
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
-
+	
 	/** Used for built-in method references. */
 	var funcProto = Function.prototype,
 	    objectProto = Object.prototype;
-
+	
 	/** Used to resolve the decompiled source of functions. */
 	var funcToString = funcProto.toString;
-
+	
 	/** Used to check objects for own properties. */
 	var hasOwnProperty = objectProto.hasOwnProperty;
-
+	
 	/** Used to infer the `Object` constructor. */
 	var objectCtorString = funcToString.call(Object);
-
+	
 	/**
 	 * Checks if `value` is a plain object, that is, an object created by the
 	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
@@ -2644,24 +2631,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
 	    funcToString.call(Ctor) == objectCtorString;
 	}
-
+	
 	module.exports = isPlainObject;
 
 
 /***/ },
-/* 64 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(65);
-
+	var overArg = __webpack_require__(64);
+	
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
-
+	
 	module.exports = getPrototype;
 
 
 /***/ },
-/* 65 */
+/* 64 */
 /***/ function(module, exports) {
 
 	/**
@@ -2677,16 +2664,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return func(transform(arg));
 	  };
 	}
-
+	
 	module.exports = overArg;
 
 
 /***/ },
-/* 66 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayMap = __webpack_require__(67);
-
+	var arrayMap = __webpack_require__(66);
+	
 	/**
 	 * The base implementation of `_.values` and `_.valuesIn` which creates an
 	 * array of `object` property values corresponding to the property names
@@ -2702,12 +2689,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return object[key];
 	  });
 	}
-
+	
 	module.exports = baseValues;
 
 
 /***/ },
-/* 67 */
+/* 66 */
 /***/ function(module, exports) {
 
 	/**
@@ -2723,14 +2710,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var index = -1,
 	      length = array == null ? 0 : array.length,
 	      result = Array(length);
-
+	
 	  while (++index < length) {
 	    result[index] = iteratee(array[index], index, array);
 	  }
 	  return result;
 	}
-
+	
 	module.exports = arrayMap;
+
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var eq = __webpack_require__(29);
+	
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Used by `_.defaults` to customize its `_.assignIn` use to assign properties
+	 * of source objects to the destination object for all destination properties
+	 * that resolve to `undefined`.
+	 *
+	 * @private
+	 * @param {*} objValue The destination value.
+	 * @param {*} srcValue The source value.
+	 * @param {string} key The key of the property to assign.
+	 * @param {Object} object The parent object of `objValue`.
+	 * @returns {*} Returns the value to assign.
+	 */
+	function customDefaultsAssignIn(objValue, srcValue, key, object) {
+	  if (objValue === undefined ||
+	      (eq(objValue, objectProto[key]) && !hasOwnProperty.call(object, key))) {
+	    return srcValue;
+	  }
+	  return objValue;
+	}
+	
+	module.exports = customDefaultsAssignIn;
 
 
 /***/ },
@@ -2746,7 +2768,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  '\u2028': 'u2028',
 	  '\u2029': 'u2029'
 	};
-
+	
 	/**
 	 * Used by `_.template` to escape characters for inclusion in compiled string literals.
 	 *
@@ -2757,7 +2779,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function escapeStringChar(chr) {
 	  return '\\' + stringEscapes[chr];
 	}
-
+	
 	module.exports = escapeStringChar;
 
 
@@ -2765,10 +2787,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayLikeKeys = __webpack_require__(45),
+	var arrayLikeKeys = __webpack_require__(44),
 	    baseKeys = __webpack_require__(70),
-	    isArrayLike = __webpack_require__(41);
-
+	    isArrayLike = __webpack_require__(40);
+	
 	/**
 	 * Creates an array of the own enumerable property names of `object`.
 	 *
@@ -2800,7 +2822,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function keys(object) {
 	  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
 	}
-
+	
 	module.exports = keys;
 
 
@@ -2808,15 +2830,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isPrototype = __webpack_require__(59),
+	var isPrototype = __webpack_require__(58),
 	    nativeKeys = __webpack_require__(71);
-
+	
 	/** Used for built-in method references. */
 	var objectProto = Object.prototype;
-
+	
 	/** Used to check objects for own properties. */
 	var hasOwnProperty = objectProto.hasOwnProperty;
-
+	
 	/**
 	 * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
 	 *
@@ -2836,7 +2858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return result;
 	}
-
+	
 	module.exports = baseKeys;
 
 
@@ -2844,11 +2866,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(65);
-
+	var overArg = __webpack_require__(64);
+	
 	/* Built-in method references for those with the same name as other `lodash` methods. */
 	var nativeKeys = overArg(Object.keys, Object);
-
+	
 	module.exports = nativeKeys;
 
 
@@ -2858,7 +2880,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/** Used to match template delimiters. */
 	var reInterpolate = /<%=([\s\S]+?)%>/g;
-
+	
 	module.exports = reInterpolate;
 
 
@@ -2870,18 +2892,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    reEscape = __webpack_require__(80),
 	    reEvaluate = __webpack_require__(81),
 	    reInterpolate = __webpack_require__(72);
-
+	
 	/**
 	 * By default, the template delimiters used by lodash are like those in
-	 * embedded Ruby (ERB). Change the following template settings to use
-	 * alternative delimiters.
+	 * embedded Ruby (ERB) as well as ES2015 template strings. Change the
+	 * following template settings to use alternative delimiters.
 	 *
 	 * @static
 	 * @memberOf _
 	 * @type {Object}
 	 */
 	var templateSettings = {
-
+	
 	  /**
 	   * Used to detect `data` property values to be HTML-escaped.
 	   *
@@ -2889,7 +2911,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @type {RegExp}
 	   */
 	  'escape': reEscape,
-
+	
 	  /**
 	   * Used to detect code to be evaluated.
 	   *
@@ -2897,7 +2919,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @type {RegExp}
 	   */
 	  'evaluate': reEvaluate,
-
+	
 	  /**
 	   * Used to detect `data` property values to inject.
 	   *
@@ -2905,7 +2927,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @type {RegExp}
 	   */
 	  'interpolate': reInterpolate,
-
+	
 	  /**
 	   * Used to reference the data object in the template text.
 	   *
@@ -2913,7 +2935,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @type {string}
 	   */
 	  'variable': '',
-
+	
 	  /**
 	   * Used to import variables into the compiled template.
 	   *
@@ -2921,7 +2943,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * @type {Object}
 	   */
 	  'imports': {
-
+	
 	    /**
 	     * A reference to the `lodash` function.
 	     *
@@ -2931,7 +2953,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    '_': { 'escape': escape }
 	  }
 	};
-
+	
 	module.exports = templateSettings;
 
 
@@ -2941,11 +2963,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var escapeHtmlChar = __webpack_require__(75),
 	    toString = __webpack_require__(77);
-
+	
 	/** Used to match HTML entities and HTML characters. */
 	var reUnescapedHtml = /[&<>"']/g,
 	    reHasUnescapedHtml = RegExp(reUnescapedHtml.source);
-
+	
 	/**
 	 * Converts the characters "&", "<", ">", '"', and "'" in `string` to their
 	 * corresponding HTML entities.
@@ -2980,7 +3002,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ? string.replace(reUnescapedHtml, escapeHtmlChar)
 	    : string;
 	}
-
+	
 	module.exports = escape;
 
 
@@ -2989,7 +3011,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var basePropertyOf = __webpack_require__(76);
-
+	
 	/** Used to map characters to HTML entities. */
 	var htmlEscapes = {
 	  '&': '&amp;',
@@ -2998,7 +3020,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  '"': '&quot;',
 	  "'": '&#39;'
 	};
-
+	
 	/**
 	 * Used by `_.escape` to convert characters to HTML entities.
 	 *
@@ -3007,7 +3029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {string} Returns the escaped character.
 	 */
 	var escapeHtmlChar = basePropertyOf(htmlEscapes);
-
+	
 	module.exports = escapeHtmlChar;
 
 
@@ -3027,7 +3049,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return object == null ? undefined : object[key];
 	  };
 	}
-
+	
 	module.exports = basePropertyOf;
 
 
@@ -3036,7 +3058,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var baseToString = __webpack_require__(78);
-
+	
 	/**
 	 * Converts `value` to a string. An empty string is returned for `null`
 	 * and `undefined` values. The sign of `-0` is preserved.
@@ -3061,7 +3083,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function toString(value) {
 	  return value == null ? '' : baseToString(value);
 	}
-
+	
 	module.exports = toString;
 
 
@@ -3069,18 +3091,18 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Symbol = __webpack_require__(21),
-	    arrayMap = __webpack_require__(67),
-	    isArray = __webpack_require__(50),
+	var Symbol = __webpack_require__(19),
+	    arrayMap = __webpack_require__(66),
+	    isArray = __webpack_require__(49),
 	    isSymbol = __webpack_require__(79);
-
+	
 	/** Used as references for various `Number` constants. */
 	var INFINITY = 1 / 0;
-
+	
 	/** Used to convert symbols to primitives and strings. */
 	var symbolProto = Symbol ? Symbol.prototype : undefined,
 	    symbolToString = symbolProto ? symbolProto.toString : undefined;
-
+	
 	/**
 	 * The base implementation of `_.toString` which doesn't convert nullish
 	 * values to empty strings.
@@ -3104,7 +3126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var result = (value + '');
 	  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
 	}
-
+	
 	module.exports = baseToString;
 
 
@@ -3112,12 +3134,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGetTag = __webpack_require__(20),
-	    isObjectLike = __webpack_require__(49);
-
+	var baseGetTag = __webpack_require__(18),
+	    isObjectLike = __webpack_require__(48);
+	
 	/** `Object#toString` result references. */
 	var symbolTag = '[object Symbol]';
-
+	
 	/**
 	 * Checks if `value` is classified as a `Symbol` primitive or object.
 	 *
@@ -3139,7 +3161,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return typeof value == 'symbol' ||
 	    (isObjectLike(value) && baseGetTag(value) == symbolTag);
 	}
-
+	
 	module.exports = isSymbol;
 
 
@@ -3149,7 +3171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/** Used to match template delimiters. */
 	var reEscape = /<%-([\s\S]+?)%>/g;
-
+	
 	module.exports = reEscape;
 
 
@@ -3159,7 +3181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/** Used to match template delimiters. */
 	var reEvaluate = /<%([\s\S]+?)%>/g;
-
+	
 	module.exports = reEvaluate;
 
 
@@ -3174,10 +3196,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var copyObject = __webpack_require__(13),
-	    createAssigner = __webpack_require__(31),
-	    keysIn = __webpack_require__(44);
-
+	var copyObject = __webpack_require__(11),
+	    createAssigner = __webpack_require__(30),
+	    keysIn = __webpack_require__(43);
+	
 	/**
 	 * This method is like `_.assign` except that it iterates over own and
 	 * inherited source properties.
@@ -3212,7 +3234,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var assignIn = createAssigner(function(object, source) {
 	  copyObject(source, keysIn(source), object);
 	});
-
+	
 	module.exports = assignIn;
 
 
@@ -3221,7 +3243,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	"use strict";
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -3231,32 +3253,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	    boundary: function boundary(elem) {
 	        var width = elem.offsetWidth,
 	            height = elem.offsetHeight;
-
+	
 	        return {
 	            getLeft: function getLeft(left) {
 	                var containerWidth = document.documentElement.clientWidth;
-
+	
 	                if (left < width / 2) {
 	                    return width / 2;
 	                }
-
+	
 	                if (left > containerWidth - width / 2) {
 	                    return containerWidth - width / 2;
 	                }
-
+	
 	                return left;
 	            },
 	            getTop: function getTop(top) {
 	                var containerHeight = document.documentElement.clientHeight;
-
+	
 	                if (top < height / 2) {
 	                    return height / 2;
 	                }
-
+	
 	                if (top > containerHeight - height / 2) {
 	                    return containerHeight - height / 2;
 	                }
-
+	
 	                return top;
 	            }
 	        };
@@ -3268,7 +3290,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	"use strict";
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -3302,14 +3324,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    hide: function hide(elem) {
 	        elem.style.display = "none";
 	    },
-
-
+	
+	
 	    // 获取边界属性
 	    getRect: function getRect(dom) {
 	        return dom.getBoundingClientRect();
 	    },
-
-
+	
+	
 	    // 获取某元素以浏览器左上角为原点的坐标
 	    getPoint: function getPoint(dom) {
 	        var top = dom.offsetTop,
@@ -3343,9 +3365,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            elem = arguments.length <= 0 ? undefined : arguments[0];
 	            selector = arguments.length <= 1 ? undefined : arguments[1];
 	        }
-
+	
 	        var domArr = elem.querySelectorAll(selector);
-
+	
 	        return {
 	            length: domArr.length
 	        };
@@ -3412,24 +3434,24 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	"use strict";
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
+	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
+	
 	var Event = function () {
 	    function Event() {
 	        // do something
-
+	
 	        _classCallCheck(this, Event);
 	    }
-
+	
 	    _createClass(Event, [{
 	        key: "$on",
 	        value: function $on(event, fn) {
@@ -3454,12 +3476,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function $off(event, fn) {
 	            var context = this,
 	                handles = context._handles;
-
+	
 	            var calls = void 0;
-
+	
 	            if (!context._handles) return context;
 	            if (!event) this._handles = {};
-
+	
 	            if (calls = handles[event]) {
 	                if (!fn) {
 	                    handles[event] = [];
@@ -3474,9 +3496,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            return context;
 	        }
-
+	
 	        // bubble event
-
+	
 	    }, {
 	        key: "$emit",
 	        value: function $emit(event) {
@@ -3484,20 +3506,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var context = this,
 	                handles = context._handles,
 	                type = event;
-
+	
 	            var calls = void 0,
 	                len = void 0,
 	                i = void 0,
 	                j = void 0;
-
+	
 	            if (!event) return;
-
+	
 	            if (!handles) return context;
-
+	
 	            for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
 	                args[_key - 1] = arguments[_key];
 	            }
-
+	
 	            if (calls = handles[type.slice(1)]) {
 	                for (j = 0, len = calls.length; j < len; j++) {
 	                    calls[j].apply(context, args);
@@ -3511,10 +3533,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return context;
 	        }
 	    }]);
-
+	
 	    return Event;
 	}();
-
+	
 	exports.default = Event;
 
 /***/ },
@@ -3522,17 +3544,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
+	
 	var _dom = __webpack_require__(85);
-
+	
 	var _dom2 = _interopRequireDefault(_dom);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	var getCss = _dom2.default.getCss,
 	    params = {
 	    left: 0,
@@ -3541,17 +3563,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    currentY: 0,
 	    flag: false
 	};
-
+	
 	exports.default = {
 	    startDrag: function startDrag(bar, target, boundary, $scope) {
 	        if (getCss(target, "left") !== "auto") {
 	            params.left = getCss(target, "left");
 	        }
-
+	
 	        if (getCss(target, "top") !== "auto") {
 	            params.top = getCss(target, "top");
 	        }
-
+	
 	        bar.onmousedown = function (event) {
 	            // 触发dragStart事件
 	            $scope && $scope.$emit("dragStart");
@@ -3564,7 +3586,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            params.currentX = event.clientX;
 	            params.currentY = event.clientY;
-
+	
 	            document.onmouseup = function () {
 	                params.flag = false;
 	                if (getCss(target, "left") !== "auto") {
@@ -3575,26 +3597,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	                // 触发dragEnd事件
 	                $scope && $scope.$emit("dragEnd");
-
+	
 	                document.onmousemove = null;
 	                document.onmouseup = null;
 	            };
-
+	
 	            document.onmousemove = function (ev) {
 	                if (params.flag) {
 	                    var nowX = ev.clientX,
 	                        nowY = ev.clientY,
 	                        disX = nowX - params.currentX,
 	                        disY = nowY - params.currentY;
-
+	
 	                    var left = parseInt(params.left, 10) + disX,
 	                        top = parseInt(params.top, 10) + disY;
-
+	
 	                    if (boundary) {
 	                        left = boundary.getLeft(left);
 	                        top = boundary.getTop(top);
 	                    }
-
+	
 	                    target.style.left = left + "px";
 	                    target.style.top = top + "px";
 	                }
@@ -3608,672 +3630,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
+	
 	var _dom = __webpack_require__(85);
-
+	
 	var _dom2 = _interopRequireDefault(_dom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var keys = {
-	    37: 1,
-	    38: 1,
-	    39: 1,
-	    40: 1
-	};
-
-	function preventDefault(e) {
-	    e.preventDefault();
-	}
-
-	function preventDefaultForScrollKeys(e) {
-	    if (keys[e.keyCode]) {
-	        preventDefault(e);
-	        // return false;
-	    }
-	    // no return statement
-	}
-
-	function getScrollWidth() {
-	    var w1 = void 0,
-	        w2 = void 0;
-	    var dom = document.documentElement;
-	    w1 = dom.clientWidth;
-	    _dom2.default.addClass(dom, "dui-dialog-lock-test");
-	    w2 = dom.clientWidth;
-	    _dom2.default.removeClass(dom, "dui-dialog-lock-test");
-	    return w2 - w1;
-	}
-
-	var oldonwheel = void 0,
-	    oldontouchmove = void 0,
-	    oldonkeydown = void 0,
-	    isDisabled = void 0;
-
-	function disableScroll() {
-	    var scrollWidth = getScrollWidth();
-
-	    oldonwheel = window.onwheel;
-	    window.onwheel = preventDefault; // modern standard
-
-	    oldontouchmove = window.ontouchmove;
-	    window.ontouchmove = preventDefault; // mobile
-
-	    oldonkeydown = document.onkeydown;
-	    document.onkeydown = preventDefaultForScrollKeys;
-	    isDisabled = true;
-
-	    _dom2.default.addCssText([document.body, document.documentElement], "overflow-y: hidden; padding-right: " + scrollWidth + "px");
-	}
-
-	function enableScroll() {
-	    if (!isDisabled) return;
-
-	    window.onwheel = oldonwheel; // modern standard
-
-	    window.ontouchmove = oldontouchmove; // mobile
-
-	    document.onkeydown = oldonkeydown;
-	    isDisabled = false;
-
-	    _dom2.default.addCssText([document.body, document.documentElement], "overflow-y: visible; padding-right: 0;");
-	}
-
-	exports.default = {
-	    disableScroll: disableScroll,
-	    enableScroll: enableScroll
-	};
-
-/***/ },
-/* 89 */
-/***/ function(module, exports) {
-
-	module.exports = "<%if(height != \"auto\"){  %><div class=\"dui-dialog <%= className %>\" style=\"width: <%= width %>px;height: <%= height %>px;z-index: <%= zIndex %>\"> <% }else { %><div class=\"dui-dialog <%= className %>\" style=\"width: <%= width %>px;height: <%= height %>;z-index: <%= zIndex %>\"> <% } %> <% if(close) { %> <i class=\"dui-dialog-close J_dialog-close <%=closeClass %>\" href=javascript:;></i> <% } %> <% if(title != \"\" && type == \"default\") { %> <div class=dui-dialog-hd> <% if(titleIconClass == \"\") { %> <h3 class=dui-dialog-title><%= title %></h3> <% }else { %> <h3 class=\"dui-dialog-title has-icon\"><i class=\"<%= titleIconClass %>\"></i><%= title %></h3> <% } %> </div> <% } %> <% if(title == \"\" && type == \"default\") { %> <div style=height:14px></div> <% } %> <% if(type == \"custom\") { %> <div class=dui-dialog-custom-bd><%= content %></div> <% } %> <% if(type == \"default\") { %> <% if(contentHeight != \"auto\"){ %> <div style=\"height: <%= contentHeight %>px\" class=dui-dialog-bd> <% }else { %> <div style=\"height: <%= contentHeight %>;min-height: <%= contentMinHeight %>px;max-height: <%= contentMaxHeight %>px\" class=dui-dialog-bd> <% } %> <%= content %> </div> <% if(ok || cancel) { %> <div class=\"dui-dialog-ft <%= btnPosClass %>\"> <div class=dui-btn-list-g10> <% if(ok) { %> <a class=\"dui-btn-info J_dialog-ok\" href=javascript:;><%= okValue %></a> <% } %> <% if(cancel) { %> <a class=\"dui-btn J_dialog-cancel\" href=javascript:;><%= cancelValue %></a> <% } %> </div> </div> <% }  %> <% }  %> </div></div></div>";
-
-/***/ },
-/* 90 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(2);
-
-	__webpack_require__(91);
-
+	
 	var _util = __webpack_require__(8);
-
+	
 	var _util2 = _interopRequireDefault(_util);
-
-	var _tip_config = __webpack_require__(93);
-
-	var _tip_config2 = _interopRequireDefault(_tip_config);
-
-	var _dom = __webpack_require__(85);
-
-	var _dom2 = _interopRequireDefault(_dom);
-
-	var _event = __webpack_require__(86);
-
-	var _event2 = _interopRequireDefault(_event);
-
-	var _animate = __webpack_require__(94);
-
-	var _animate2 = _interopRequireDefault(_animate);
-
-	var _tipHint = __webpack_require__(95);
-
-	var _tipHint2 = _interopRequireDefault(_tipHint);
-
-	var _tipText = __webpack_require__(96);
-
-	var _tipText2 = _interopRequireDefault(_tipText);
-
-	var _tipArrow = __webpack_require__(97);
-
-	var _tipArrow2 = _interopRequireDefault(_tipArrow);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // 引入css
-
-
-	exports.default = function () {
-	    var Tip = function (_Event) {
-	        _inherits(Tip, _Event);
-
-	        function Tip(option) {
-	            _classCallCheck(this, Tip);
-
-	            var _this2 = _possibleConstructorReturn(this, (Tip.__proto__ || Object.getPrototypeOf(Tip)).call(this));
-
-	            var defaultOption = {
-	                tipContent: "这是一段提示"
-	            };
-
-	            _this2.option = option;
-
-	            _this2.option = _util2.default.extend({}, defaultOption, _this2.option);
-
-	            _this2.init();
-	            return _this2;
-	        }
-
-	        _createClass(Tip, [{
-	            key: "init",
-	            value: function init() {
-	                this.render();
-	                this.option.init && this.option.init.apply(this);
-	            }
-	        }, {
-	            key: "render",
-	            value: function render() {
-	                this.tipDom = _dom2.default.appendHTML(document.body, this.option.tipContent);
-	            }
-	        }, {
-	            key: "show",
-	            value: function show() {
-	                _dom2.default.show(this.tipDom);
-	            }
-	        }, {
-	            key: "hide",
-	            value: function hide() {
-	                _dom2.default.hide(this.tipDom);
-	            }
-
-	            /**
-	             * 销毁
-	             * @param fn 可选参数，函数中可以对事件解绑
-	             */
-
-	        }, {
-	            key: "destroy",
-	            value: function destroy(fn) {
-	                this.$emit("destroy");
-	                fn && fn();
-	                _dom2.default.remove(this.tipDom);
-	                this.tipDom = null;
-	            }
-	        }]);
-
-	        return Tip;
-	    }(_event2.default);
-
-	    Tip.showHint = function (type, msg) {
-	        var pos = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "top";
-	        var time = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2;
-	        var callback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function () {};
-
-	        // 先把之前的tip给干掉
-	        if (_dom2.default.has(".dui-tip-hint").length > 0) {
-	            _dom2.default.remove(_dom2.default.find(".dui-tip-hint"));
-	        }
-
-	        var initialTop = void 0,
-	            finalTop = void 0,
-	            tipContent = void 0;
-
-	        var option = {
-	            tipClass: _tip_config2.default.tipClassMap[type],
-	            marginTop: _tip_config2.default.hint.marginTop,
-	            minWidth: _tip_config2.default.hint.minWidth,
-	            maxWidth: _tip_config2.default.hint.maxWidth,
-	            iconClass: _tip_config2.default.hint.iconClass[type],
-	            msg: msg
-	        };
-
-	        finalTop = _tip_config2.default.hint.pos[pos];
-
-	        if (String(finalTop).slice(-1) === "%") {
-	            finalTop = Math.floor(_tip_config2.default.hint.pos.rel.clientHeight * (finalTop.slice(0, -1) / 100));
-	        }
-
-	        initialTop = finalTop - _tip_config2.default.hint.pos.dis;
-	        option.top = initialTop;
-
-	        tipContent = _util2.default.renderTemp(_tipHint2.default, option);
-
-	        return new Tip({
-	            tipContent: tipContent,
-	            init: function init() {
-	                var _this = this;
-
-	                _dom2.default.show(this.tipDom);
-
-	                setTimeout(function () {
-	                    _animate2.default.startMove(_this.tipDom, { top: finalTop }, function () {
-	                        setTimeout(function () {
-	                            _animate2.default.startMove(_this.tipDom, { top: initialTop }, function () {
-	                                callback && callback.apply(_this);
-	                                _dom2.default.hide(_this.tipDom);
-	                                _this.destroy();
-	                            });
-	                        }, time * 1000);
-	                    });
-	                }, 10);
-	            }
-	        });
-	    };
-
-	    Tip.successInfo = function (msg) {
-	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
-
-	        Tip.showHint("success", msg, "top", time, callback);
-	    };
-
-	    Tip.middleSuccessInfo = function (msg) {
-	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
-
-	        Tip.showHint("success", msg, "middle", time, callback);
-	    };
-
-	    Tip.warning = function (msg) {
-	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
-
-	        Tip.showHint("warn", msg, "top", time, callback);
-	    };
-
-	    Tip.middleWarning = function (msg) {
-	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
-
-	        Tip.showHint("warn", msg, "middle", time, callback);
-	    };
-
-	    Tip.otherInfo = function (msg) {
-	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
-
-	        Tip.showHint("other", msg, "top", time, callback);
-	    };
-
-	    Tip.middleOtherInfo = function (msg) {
-	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
-
-	        Tip.showHint("other", msg, "middle", time, callback);
-	    };
-
-	    Tip.info = function (msg) {
-	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
-
-	        Tip.showHint("info", msg, "top", time, callback);
-	    };
-
-	    Tip.middleInfo = function (msg) {
-	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
-
-	        Tip.showHint("info", msg, "middle", time, callback);
-	    };
-
-	    Tip.error = function (msg) {
-	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
-
-	        Tip.showHint("error", msg, "top", time, callback);
-	    };
-
-	    Tip.middleError = function (msg) {
-	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
-
-	        Tip.showHint("error", msg, "middle", time, callback);
-	    };
-
-	    // 显示更新的消息
-	    Tip.showUpdateMessage = function (msg) {
-	        function bindEvent(dom) {
-	            var elem = _dom2.default.find(dom, "button");
-	            elem.onclick = function () {
-	                _animate2.default.startMove(dom, { opacity: 0 }, 400, function () {
-	                    elem.onclick = null; // 事件解绑
-	                    _dom2.default.remove(dom);
-	                    var updateMessageDom = _dom2.default.find(".dui-update-message");
-	                    if (_dom2.default.has(updateMessageDom, ".dui-tip-text").length === 0) {
-	                        _dom2.default.remove(updateMessageDom);
-	                    }
-	                });
-	            };
-	        }
-
-	        var option = {
-	            msg: msg
-	        },
-	            tipContent = _util2.default.renderTemp(_tipText2.default, option);
-
-	        if (_dom2.default.has(".dui-update-message").length === 0) {
-	            tipContent = "<div style=\"top: " + _tip_config2.default.updateMessage.top + "\" class=\"dui-update-message\">" + tipContent + "</div>";
-
-	            new Tip({
-	                tipContent: tipContent,
-	                init: function init() {
-	                    var tipText = _dom2.default.find(this.tipDom, ".dui-tip-text");
-	                    _animate2.default.startMove(tipText, { opacity: 100 }, 400, function () {
-	                        bindEvent(tipText);
-	                    });
-	                }
-	            });
-	        } else {
-	            (function () {
-	                var updateMessageDom = _dom2.default.find(".dui-update-message"),
-	                    tipText = _dom2.default.prependHTML(updateMessageDom, tipContent);
-	                _animate2.default.startMove(tipText, { opacity: 100 }, 400, function () {
-	                    bindEvent(tipText);
-	                });
-	            })();
-	        }
-	    };
-	    /**
-	     * 创建有箭头的tip对象
-	     * @param option
-	     * @param option.msg
-	     * @param option.pos
-	     * @param option.alignElem
-	     * @param option.type
-	     * @private
-	     */
-	    Tip._showBasicArrow = function (option) {
-	        if (!option.pos) {
-	            console.error("必须传pos字段，来表明箭头的位置");
-	            return;
-	        }
-
-	        if (!option.alignElem) {
-	            console.error("必须传el，来决定Tip的显示位置");
-	            return;
-	        }
-
-	        if (!option.msg) {
-	            console.error("必须传msg");
-	            return;
-	        }
-
-	        option.tipClass = _tip_config2.default.tipArrowClassMap[option.pos];
-
-	        option.type = option.type || "default";
-
-	        option.tipType = option.type === "error" ? "dui-tip-error-arrow" : "dui-tip-arrow";
-
-	        var tipContent = _util2.default.renderTemp(_tipArrow2.default, option);
-
-	        return new Tip({
-	            tipContent: tipContent,
-	            init: function init() {
-	                var tipRect = _dom2.default.getRect(this.tipDom),
-	                    alignRect = _dom2.default.getRect(option.alignElem),
-	                    alignPoint = _dom2.default.getPoint(option.alignElem);
-
-	                var styleText = "position: absolute";
-
-	                switch (option.pos) {
-	                    case "l":
-	                        styleText += "; top: " + alignPoint.top + "px";
-	                        styleText += "; left: " + (alignPoint.left - tipRect.width - _tip_config2.default.arrowSize - option.spacing) + "px";
-	                        break;
-	                    case "r":
-	                        styleText += "; top: " + alignPoint.top + "px";
-	                        styleText += "; left: " + (alignPoint.left + alignRect.width + _tip_config2.default.arrowSize + option.spacing) + "px";
-	                        break;
-	                    case "t":
-	                        styleText += "; top: " + (alignPoint.top - tipRect.height - _tip_config2.default.arrowSize - option.spacing) + "px";
-	                        styleText += "; left: " + (alignPoint.left + alignRect.width / 2 - tipRect.width / 2) + "px";
-	                        break;
-	                    case "b":
-	                        styleText += "; top: " + (alignPoint.top + alignRect.height + _tip_config2.default.arrowSize + option.spacing) + "px";
-	                        styleText += "; left: " + (alignRect.left + alignRect.width / 2 - tipRect.width / 2) + "px";
-	                        break;
-	                    case "bl":
-	                        styleText += "; top: " + (alignPoint.top + alignRect.height + _tip_config2.default.arrowSize + option.spacing) + "px";
-	                        styleText += "; left: " + alignPoint.left + "px";
-	                        break;
-	                    case "br":
-	                        styleText += "; top: " + (alignPoint.top + alignRect.height + _tip_config2.default.arrowSize + option.spacing) + "px";
-	                        styleText += "; left: " + (alignPoint.left + alignRect.width - tipRect.width) + "px";
-	                        break;
-	                    default:
-	                        break;
-	                }
-
-	                styleText += "; display: none; opacity: 1";
-
-	                this.tipDom.style.cssText = styleText;
-	            }
-	        });
-	    };
-
-	    /**
-	     * 简单的tip提示，即鼠标移入时，根据传入的位置显示信息
-	     * @param option
-	     * @param option.el
-	     * @param option.msg
-	     * @param option.pos
-	     * @param option.spacing
-	     * @returns {*}
-	     */
-	    Tip.tooltip = function (option) {
-	        var currentTip = void 0,
-	            el = typeof option.el === "string" ? _dom2.default.find(option.el) : option.el;
-
-	        function showTip() {
-	            currentTip && currentTip.show();
-	        }
-
-	        function hideTip() {
-	            currentTip && currentTip.hide();
-	        }
-
-	        currentTip = Tip._showBasicArrow({
-	            msg: option.msg,
-	            pos: option.pos,
-	            alignElem: el,
-	            spacing: option.spacing || 5
-	        }).$on("destroy", function () {
-	            el.removeEventListener("mouseover", showTip);
-	            el.removeEventListener("mouseout", hideTip);
-	        });
-
-	        el.addEventListener("mouseover", showTip);
-	        el.addEventListener("mouseout", hideTip);
-
-	        return currentTip;
-	    };
-
-	    /**
-	     * 复杂的tip提示，如提示内容有一些操作
-	     * @param option
-	     * @param option.el
-	     * @param option.pos
-	     * @param option.msg
-	     * @param option.spacing
-	     * @param option.trigger
-	     * @returns {*}
-	     */
-	    Tip.poptip = function (option) {
-	        var _this3 = this;
-
-	        var _this = this;
-
-	        var currentTip = void 0,
-	            el = typeof option.el === "string" ? _dom2.default.find(option.el) : option.el,
-	            trigger = option.trigger ? option.trigger : "hover";
-
-	        function showTip() {
-	            currentTip && currentTip.show();
-	        }
-
-	        function hideTip() {
-	            _this.timer = setTimeout(function () {
-	                currentTip && currentTip.hide();
-	            }, 300);
-	        }
-
-	        function enterTip() {
-	            clearTimeout(_this.timer);
-	        }
-
-	        function leaveTip() {
-	            currentTip && currentTip.hide();
-	        }
-
-	        currentTip = Tip._showBasicArrow({
-	            msg: option.msg,
-	            pos: option.pos,
-	            alignElem: el,
-	            spacing: option.spacing || 5
-	        }).$on("destroy", function () {
-	            switch (trigger) {
-	                case "hover":
-	                    el.removeEventListener("mouseover", showTip);
-	                    el.removeEventListener("mouseout", hideTip);
-	                    _this3.tipDom.removeEventListener("mouseenter", enterTip);
-	                    _this3.tipDom.removeEventListener("mouseleave", leaveTip);
-	                    break;
-	                case "click":
-	                    el.removeEventListener("click", showTip);
-	                    break;
-	                default:
-	                    break;
-	            }
-	        });
-
-	        switch (trigger) {
-	            case "hover":
-	                el.addEventListener("mouseover", showTip);
-	                el.addEventListener("mouseout", hideTip);
-	                // 关于低版本webkit不支持mouseenter和mouseleave的做法：https://www.web-tinker.com/article/20073.html
-	                currentTip.tipDom.addEventListener("mouseenter", enterTip);
-	                currentTip.tipDom.addEventListener("mouseleave", leaveTip);
-	                break;
-	            case "click":
-	                el.addEventListener("click", showTip);
-	                break;
-	            default:
-	                break;
-	        }
-
-	        return currentTip;
-	    };
-
-	    Tip.showFormError = function (option) {
-	        if (!option.el) {
-	            console.error("必须传入el");
-	            return;
-	        }
-
-	        if (!option.msg) {
-	            console.error("必须传msg");
-	            return;
-	        }
-
-	        var el = typeof option.el === "string" ? _dom2.default.find(option.el) : option.el,
-	            currentTip = Tip._showBasicArrow({
-	            type: "error",
-	            msg: option.msg,
-	            pos: option.pos,
-	            alignElem: el,
-	            spacing: option.spacing || 0
-	        });
-
-	        return currentTip;
-	    };
-
-	    return Tip;
-	}();
-
-/***/ },
-/* 91 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 92 */,
-/* 93 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = {
-	    hint: {
-	        marginTop: 8,
-	        minWidth: 250,
-	        maxWidth: 362,
-	        iconClass: {
-	            warn: "iconfont icon-tanhao",
-	            info: "iconfont icon-jingshi",
-	            error: "iconfont icon-cuowu-20160921",
-	            success: "iconfont icon-zhengque1",
-	            other: "iconfont icon-tanhao"
-	        },
-	        pos: {
-	            rel: document.documentElement,
-	            top: "0",
-	            middle: "35%",
-	            dis: 50
-	        }
-	    },
-	    tipClassMap: {
-	        success: "dui-tip-success",
-	        info: "dui-tip-info",
-	        warn: "dui-tip-warning",
-	        error: "dui-tip-error",
-	        other: "dui-tip"
-	    },
-	    updateMessage: {
-	        top: "2%"
-	    },
-	    arrowSize: 5,
-	    tipArrowClassMap: {
-	        l: "dui-tip-right-arrow",
-	        r: "dui-tip-left-arrow",
-	        t: "dui-tip-bottom-arrow",
-	        b: "dui-tip-top-arrow",
-	        bl: "dui-tip-top-left-arrow",
-	        br: "dui-tip-top-right-arrow"
-	    }
-	};
-
-/***/ },
-/* 94 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _dom = __webpack_require__(85);
-
-	var _dom2 = _interopRequireDefault(_dom);
-
-	var _util = __webpack_require__(8);
-
-	var _util2 = _interopRequireDefault(_util);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	var getCss = _dom2.default.getCss,
 	    Tween = {
 	    linear: function linear(t, b, c, d) {
@@ -4415,14 +3786,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return this.bounceOut(t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
 	    }
 	};
-
+	
 	// 动画函数
 	function startMove(obj, json, times, fx, fn) {
 	    if (typeof times === "undefined") {
 	        times = 400;
 	        fx = 'linear';
 	    }
-
+	
 	    if (typeof times === "string") {
 	        if (typeof fx === "function") {
 	            fn = fx;
@@ -4441,12 +3812,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            fx = "linear";
 	        }
 	    }
-
+	
 	    var iCur = {},
 	        startTime = _util2.default.now();
-
+	
 	    var attr = void 0;
-
+	
 	    for (attr in json) {
 	        if ({}.hasOwnProperty.call(json, attr)) {
 	            iCur[attr] = 0;
@@ -4457,15 +3828,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	    }
-
+	
 	    clearInterval(obj.timer);
-
+	
 	    obj.timer = setInterval(function () {
 	        var changeTime = _util2.default.now(),
 	            t = times - Math.max(0, startTime - changeTime + times); // 0到2000
-
+	
 	        var value = void 0;
-
+	
 	        for (attr in json) {
 	            if ({}.hasOwnProperty.call(json, attr)) {
 	                value = Tween[fx](t, iCur[attr], json[attr] - iCur[attr], times);
@@ -4477,23 +3848,698 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 	        }
-
+	
 	        if (t === times) {
 	            clearInterval(obj.timer);
 	            fn && fn.call(obj);
 	        }
 	    }, 13);
 	}
-
+	
 	exports.default = {
 	    startMove: startMove
+	};
+
+/***/ },
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _dom = __webpack_require__(85);
+	
+	var _dom2 = _interopRequireDefault(_dom);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var keys = {
+	    37: 1,
+	    38: 1,
+	    39: 1,
+	    40: 1
+	};
+	
+	function preventDefault(e) {
+	    e.preventDefault();
+	}
+	
+	function preventDefaultForScrollKeys(e) {
+	    if (keys[e.keyCode]) {
+	        preventDefault(e);
+	        // return false;
+	    }
+	    // no return statement
+	}
+	
+	function getScrollWidth() {
+	    var w1 = void 0,
+	        w2 = void 0;
+	    var dom = document.documentElement;
+	    w1 = dom.clientWidth;
+	    _dom2.default.addClass(dom, "dui-dialog-lock-test");
+	    w2 = dom.clientWidth;
+	    _dom2.default.removeClass(dom, "dui-dialog-lock-test");
+	    return w2 - w1;
+	}
+	
+	var oldonwheel = void 0,
+	    oldontouchmove = void 0,
+	    oldonkeydown = void 0,
+	    isDisabled = void 0;
+	
+	function disableScroll() {
+	    var scrollWidth = getScrollWidth();
+	
+	    oldonwheel = window.onwheel;
+	    window.onwheel = preventDefault; // modern standard
+	
+	    oldontouchmove = window.ontouchmove;
+	    window.ontouchmove = preventDefault; // mobile
+	
+	    oldonkeydown = document.onkeydown;
+	    document.onkeydown = preventDefaultForScrollKeys;
+	    isDisabled = true;
+	
+	    _dom2.default.addCssText([document.body, document.documentElement], "overflow-y: hidden; padding-right: " + scrollWidth + "px");
+	}
+	
+	function enableScroll() {
+	    if (!isDisabled) return;
+	
+	    window.onwheel = oldonwheel; // modern standard
+	
+	    window.ontouchmove = oldontouchmove; // mobile
+	
+	    document.onkeydown = oldonkeydown;
+	    isDisabled = false;
+	
+	    _dom2.default.addCssText([document.body, document.documentElement], "overflow-y: visible; padding-right: 0;");
+	}
+	
+	exports.default = {
+	    disableScroll: disableScroll,
+	    enableScroll: enableScroll
+	};
+
+/***/ },
+/* 90 */
+/***/ function(module, exports) {
+
+	module.exports = "<%if(height != \"auto\"){  %><div class=\"dui-dialog <%= className %>\" style=\"display:none;width: <%= width %>px;height: <%= height %>px;z-index: <%= zIndex %>\"> <% }else { %><div class=\"dui-dialog <%= className %>\" style=\"display:none;width: <%= width %>px;height: <%= height %>;z-index: <%= zIndex %>\"> <% } %> <% if(close) { %> <i class=\"dui-dialog-close J_dialog-close <%=closeClass %>\" href=javascript:;></i> <% } %> <% if(title != \"\" && type == \"default\") { %> <div class=dui-dialog-hd> <% if(titleIconClass == \"\") { %> <h3 class=dui-dialog-title><%= title %></h3> <% }else { %> <h3 class=\"dui-dialog-title has-icon\"><i class=\"<%= titleIconClass %>\"></i><%= title %></h3> <% } %> </div> <% } %> <% if(title == \"\" && type == \"default\") { %> <div style=height:14px></div> <% } %> <% if(type == \"custom\") { %> <div class=dui-dialog-custom-bd><%= content %></div> <% } %> <% if(type == \"default\") { %> <% if(contentHeight != \"auto\"){ %> <div style=\"height: <%= contentHeight %>px\" class=dui-dialog-bd> <% }else { %> <div style=\"height: <%= contentHeight %>;min-height: <%= contentMinHeight %>px;max-height: <%= contentMaxHeight %>px\" class=dui-dialog-bd> <% } %> <%= content %> </div> <% if(ok || cancel) { %> <div class=\"dui-dialog-ft <%= btnPosClass %>\"> <div class=dui-btn-list-g10> <% if(ok) { %> <a class=\"dui-btn-info J_dialog-ok\" href=javascript:;><%= okValue %></a> <% } %> <% if(cancel) { %> <a class=\"dui-btn J_dialog-cancel\" href=javascript:;><%= cancelValue %></a> <% } %> </div> </div> <% }  %> <% }  %> </div></div></div>";
+
+/***/ },
+/* 91 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	__webpack_require__(2);
+	
+	__webpack_require__(92);
+	
+	var _util = __webpack_require__(8);
+	
+	var _util2 = _interopRequireDefault(_util);
+	
+	var _tip_config = __webpack_require__(94);
+	
+	var _tip_config2 = _interopRequireDefault(_tip_config);
+	
+	var _dom = __webpack_require__(85);
+	
+	var _dom2 = _interopRequireDefault(_dom);
+	
+	var _event = __webpack_require__(86);
+	
+	var _event2 = _interopRequireDefault(_event);
+	
+	var _animate = __webpack_require__(88);
+	
+	var _animate2 = _interopRequireDefault(_animate);
+	
+	var _tipHint = __webpack_require__(95);
+	
+	var _tipHint2 = _interopRequireDefault(_tipHint);
+	
+	var _tipText = __webpack_require__(96);
+	
+	var _tipText2 = _interopRequireDefault(_tipText);
+	
+	var _tipArrow = __webpack_require__(97);
+	
+	var _tipArrow2 = _interopRequireDefault(_tipArrow);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // 引入css
+	
+	
+	exports.default = function () {
+	    var Tip = function (_Event) {
+	        _inherits(Tip, _Event);
+	
+	        function Tip(option) {
+	            _classCallCheck(this, Tip);
+	
+	            var _this2 = _possibleConstructorReturn(this, (Tip.__proto__ || Object.getPrototypeOf(Tip)).call(this));
+	
+	            var defaultOption = {
+	                tipContent: "这是一段提示"
+	            };
+	
+	            _this2.option = option;
+	
+	            _this2.option = _util2.default.extend({}, defaultOption, _this2.option);
+	
+	            _this2.init();
+	            return _this2;
+	        }
+	
+	        _createClass(Tip, [{
+	            key: "init",
+	            value: function init() {
+	                this.render();
+	                this.option.init && this.option.init.apply(this);
+	            }
+	        }, {
+	            key: "render",
+	            value: function render() {
+	                this.tipDom = _dom2.default.appendHTML(document.body, this.option.tipContent);
+	            }
+	        }, {
+	            key: "show",
+	            value: function show() {
+	                _dom2.default.show(this.tipDom);
+	            }
+	        }, {
+	            key: "hide",
+	            value: function hide() {
+	                _dom2.default.hide(this.tipDom);
+	            }
+	
+	            /**
+	             * 销毁
+	             * @param fn 可选参数，函数中可以对事件解绑
+	             */
+	
+	        }, {
+	            key: "destroy",
+	            value: function destroy(fn) {
+	                this.$emit("destroy");
+	                fn && fn();
+	                _dom2.default.remove(this.tipDom);
+	                this.tipDom = null;
+	            }
+	        }]);
+	
+	        return Tip;
+	    }(_event2.default);
+	
+	    Tip.showHint = function (type, msg) {
+	        var pos = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "top";
+	        var time = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2;
+	        var callback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function () {};
+	
+	        // 先把之前的tip给干掉
+	        if (_dom2.default.has(".dui-tip-hint").length > 0) {
+	            _dom2.default.remove(_dom2.default.find(".dui-tip-hint"));
+	        }
+	
+	        var initialTop = void 0,
+	            finalTop = void 0,
+	            tipContent = void 0;
+	
+	        var option = {
+	            tipClass: _tip_config2.default.tipClassMap[type],
+	            marginTop: _tip_config2.default.hint.marginTop,
+	            minWidth: _tip_config2.default.hint.minWidth,
+	            maxWidth: _tip_config2.default.hint.maxWidth,
+	            iconClass: _tip_config2.default.hint.iconClass[type],
+	            hasClose: false,
+	            msg: msg
+	        };
+	
+	        finalTop = _tip_config2.default.hint.pos[pos];
+	
+	        if (String(finalTop).slice(-1) === "%") {
+	            finalTop = Math.floor(_tip_config2.default.hint.pos.rel.clientHeight * (finalTop.slice(0, -1) / 100));
+	        }
+	
+	        if (msg.length > 10) {
+	            option.hasClose = true;
+	        }
+	
+	        initialTop = finalTop - _tip_config2.default.hint.pos.dis;
+	        option.top = initialTop;
+	
+	        tipContent = _util2.default.renderTemp(_tipHint2.default, option);
+	
+	        return new Tip({
+	            tipContent: tipContent,
+	            init: function init() {
+	                var _this = this;
+	
+	                _dom2.default.show(this.tipDom);
+	
+	                setTimeout(function () {
+	                    _animate2.default.startMove(_this.tipDom, { top: finalTop }, function () {
+	                        // 如果大于10个字，不自动消失
+	                        if (msg.length > 10) {
+	                            var _ret = function () {
+	                                var close_btn = _dom2.default.find(_this.tipDom, ".close-btn");
+	                                close_btn.onclick = function () {
+	                                    callback && callback.apply(_this);
+	                                    _dom2.default.hide(_this.tipDom);
+	                                    close_btn.onclick = null;
+	                                    _this.destroy();
+	                                };
+	                                return {
+	                                    v: void 0
+	                                };
+	                            }();
+	
+	                            if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
+	                        }
+	                        setTimeout(function () {
+	                            _animate2.default.startMove(_this.tipDom, { top: initialTop }, function () {
+	                                callback && callback.apply(_this);
+	                                _dom2.default.hide(_this.tipDom);
+	                                _this.destroy();
+	                            });
+	                        }, time * 1000);
+	                    });
+	                }, 10);
+	            }
+	        });
+	    };
+	
+	    Tip.successInfo = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+	
+	        Tip.showHint("success", msg, "top", time, callback);
+	    };
+	
+	    Tip.middleSuccessInfo = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+	
+	        Tip.showHint("success", msg, "middle", time, callback);
+	    };
+	
+	    Tip.warning = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+	
+	        Tip.showHint("warn", msg, "top", time, callback);
+	    };
+	
+	    Tip.middleWarning = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+	
+	        Tip.showHint("warn", msg, "middle", time, callback);
+	    };
+	
+	    Tip.otherInfo = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+	
+	        Tip.showHint("other", msg, "top", time, callback);
+	    };
+	
+	    Tip.middleOtherInfo = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+	
+	        Tip.showHint("other", msg, "middle", time, callback);
+	    };
+	
+	    Tip.info = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+	
+	        Tip.showHint("info", msg, "top", time, callback);
+	    };
+	
+	    Tip.middleInfo = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+	
+	        Tip.showHint("info", msg, "middle", time, callback);
+	    };
+	
+	    Tip.error = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+	
+	        Tip.showHint("error", msg, "top", time, callback);
+	    };
+	
+	    Tip.middleError = function (msg) {
+	        var time = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+	        var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+	
+	        Tip.showHint("error", msg, "middle", time, callback);
+	    };
+	
+	    // 显示更新的消息
+	    Tip.showUpdateMessage = function (msg) {
+	        function bindEvent(dom) {
+	            var elem = _dom2.default.find(dom, "button");
+	            elem.onclick = function () {
+	                _animate2.default.startMove(dom, { opacity: 0 }, 400, function () {
+	                    elem.onclick = null; // 事件解绑
+	                    _dom2.default.remove(dom);
+	                    var updateMessageDom = _dom2.default.find(".dui-update-message");
+	                    if (_dom2.default.has(updateMessageDom, ".dui-tip-text").length === 0) {
+	                        _dom2.default.remove(updateMessageDom);
+	                    }
+	                });
+	            };
+	        }
+	
+	        var option = {
+	            msg: msg
+	        },
+	            tipContent = _util2.default.renderTemp(_tipText2.default, option);
+	
+	        if (_dom2.default.has(".dui-update-message").length === 0) {
+	            tipContent = "<div style=\"top: " + _tip_config2.default.updateMessage.top + "\" class=\"dui-update-message\">" + tipContent + "</div>";
+	
+	            new Tip({
+	                tipContent: tipContent,
+	                init: function init() {
+	                    var tipText = _dom2.default.find(this.tipDom, ".dui-tip-text");
+	                    _animate2.default.startMove(tipText, { opacity: 100 }, 400, function () {
+	                        bindEvent(tipText);
+	                    });
+	                }
+	            });
+	        } else {
+	            (function () {
+	                var updateMessageDom = _dom2.default.find(".dui-update-message"),
+	                    tipText = _dom2.default.prependHTML(updateMessageDom, tipContent);
+	                _animate2.default.startMove(tipText, { opacity: 100 }, 400, function () {
+	                    bindEvent(tipText);
+	                });
+	            })();
+	        }
+	    };
+	    /**
+	     * 创建有箭头的tip对象
+	     * @param option
+	     * @param option.msg
+	     * @param option.pos
+	     * @param option.alignElem
+	     * @param option.type
+	     * @private
+	     */
+	    Tip._showBasicArrow = function (option) {
+	        if (!option.pos) {
+	            console.error("必须传pos字段，来表明箭头的位置");
+	            return;
+	        }
+	
+	        if (!option.alignElem) {
+	            console.error("必须传el，来决定Tip的显示位置");
+	            return;
+	        }
+	
+	        if (!option.msg) {
+	            console.error("必须传msg");
+	            return;
+	        }
+	
+	        option.tipClass = _tip_config2.default.tipArrowClassMap[option.pos];
+	
+	        option.type = option.type || "default";
+	
+	        option.tipType = option.type === "error" ? "dui-tip-error-arrow" : "dui-tip-arrow";
+	
+	        var tipContent = _util2.default.renderTemp(_tipArrow2.default, option);
+	
+	        return new Tip({
+	            tipContent: tipContent,
+	            init: function init() {
+	                var tipRect = _dom2.default.getRect(this.tipDom),
+	                    alignRect = _dom2.default.getRect(option.alignElem),
+	                    alignPoint = _dom2.default.getPoint(option.alignElem);
+	
+	                var styleText = "position: absolute";
+	
+	                switch (option.pos) {
+	                    case "l":
+	                        styleText += "; top: " + alignPoint.top + "px";
+	                        styleText += "; left: " + (alignPoint.left - tipRect.width - _tip_config2.default.arrowSize - option.spacing) + "px";
+	                        break;
+	                    case "r":
+	                        styleText += "; top: " + alignPoint.top + "px";
+	                        styleText += "; left: " + (alignPoint.left + alignRect.width + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        break;
+	                    case "t":
+	                        styleText += "; top: " + (alignPoint.top - tipRect.height - _tip_config2.default.arrowSize - option.spacing) + "px";
+	                        styleText += "; left: " + (alignPoint.left + alignRect.width / 2 - tipRect.width / 2) + "px";
+	                        break;
+	                    case "b":
+	                        styleText += "; top: " + (alignPoint.top + alignRect.height + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        styleText += "; left: " + (alignRect.left + alignRect.width / 2 - tipRect.width / 2) + "px";
+	                        break;
+	                    case "bl":
+	                        styleText += "; top: " + (alignPoint.top + alignRect.height + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        styleText += "; left: " + alignPoint.left + "px";
+	                        break;
+	                    case "br":
+	                        styleText += "; top: " + (alignPoint.top + alignRect.height + _tip_config2.default.arrowSize + option.spacing) + "px";
+	                        styleText += "; left: " + (alignPoint.left + alignRect.width - tipRect.width) + "px";
+	                        break;
+	                    default:
+	                        break;
+	                }
+	
+	                styleText += "; display: none; opacity: 1";
+	
+	                this.tipDom.style.cssText = styleText;
+	            }
+	        });
+	    };
+	
+	    /**
+	     * 简单的tip提示，即鼠标移入时，根据传入的位置显示信息
+	     * @param option
+	     * @param option.el
+	     * @param option.msg
+	     * @param option.pos
+	     * @param option.spacing
+	     * @returns {*}
+	     */
+	    Tip.tooltip = function (option) {
+	        var currentTip = void 0,
+	            el = typeof option.el === "string" ? _dom2.default.find(option.el) : option.el;
+	
+	        function showTip() {
+	            currentTip && currentTip.show();
+	        }
+	
+	        function hideTip() {
+	            currentTip && currentTip.hide();
+	        }
+	
+	        currentTip = Tip._showBasicArrow({
+	            msg: option.msg,
+	            pos: option.pos,
+	            alignElem: el,
+	            spacing: option.spacing || 5
+	        }).$on("destroy", function () {
+	            el.removeEventListener("mouseover", showTip);
+	            el.removeEventListener("mouseout", hideTip);
+	        });
+	
+	        el.addEventListener("mouseover", showTip);
+	        el.addEventListener("mouseout", hideTip);
+	
+	        return currentTip;
+	    };
+	
+	    /**
+	     * 复杂的tip提示，如提示内容有一些操作
+	     * @param option
+	     * @param option.el
+	     * @param option.pos
+	     * @param option.msg
+	     * @param option.spacing
+	     * @param option.trigger
+	     * @returns {*}
+	     */
+	    Tip.poptip = function (option) {
+	        var _this3 = this;
+	
+	        var _this = this;
+	
+	        var currentTip = void 0,
+	            el = typeof option.el === "string" ? _dom2.default.find(option.el) : option.el,
+	            trigger = option.trigger ? option.trigger : "hover";
+	
+	        function showTip() {
+	            currentTip && currentTip.show();
+	        }
+	
+	        function hideTip() {
+	            _this.timer = setTimeout(function () {
+	                currentTip && currentTip.hide();
+	            }, 300);
+	        }
+	
+	        function enterTip() {
+	            clearTimeout(_this.timer);
+	        }
+	
+	        function leaveTip() {
+	            currentTip && currentTip.hide();
+	        }
+	
+	        currentTip = Tip._showBasicArrow({
+	            msg: option.msg,
+	            pos: option.pos,
+	            alignElem: el,
+	            spacing: option.spacing || 5
+	        }).$on("destroy", function () {
+	            switch (trigger) {
+	                case "hover":
+	                    el.removeEventListener("mouseover", showTip);
+	                    el.removeEventListener("mouseout", hideTip);
+	                    _this3.tipDom.removeEventListener("mouseenter", enterTip);
+	                    _this3.tipDom.removeEventListener("mouseleave", leaveTip);
+	                    break;
+	                case "click":
+	                    el.removeEventListener("click", showTip);
+	                    break;
+	                default:
+	                    break;
+	            }
+	        });
+	
+	        switch (trigger) {
+	            case "hover":
+	                el.addEventListener("mouseover", showTip);
+	                el.addEventListener("mouseout", hideTip);
+	                // 关于低版本webkit不支持mouseenter和mouseleave的做法：https://www.web-tinker.com/article/20073.html
+	                currentTip.tipDom.addEventListener("mouseenter", enterTip);
+	                currentTip.tipDom.addEventListener("mouseleave", leaveTip);
+	                break;
+	            case "click":
+	                el.addEventListener("click", showTip);
+	                break;
+	            default:
+	                break;
+	        }
+	
+	        return currentTip;
+	    };
+	
+	    Tip.showFormError = function (option) {
+	        if (!option.el) {
+	            console.error("必须传入el");
+	            return;
+	        }
+	
+	        if (!option.msg) {
+	            console.error("必须传msg");
+	            return;
+	        }
+	
+	        var el = typeof option.el === "string" ? _dom2.default.find(option.el) : option.el,
+	            currentTip = Tip._showBasicArrow({
+	            type: "error",
+	            msg: option.msg,
+	            pos: option.pos,
+	            alignElem: el,
+	            spacing: option.spacing || 0
+	        });
+	
+	        return currentTip;
+	    };
+	
+	    return Tip;
+	}();
+
+/***/ },
+/* 92 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 93 */,
+/* 94 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = {
+	    hint: {
+	        marginTop: 8,
+	        minWidth: 250,
+	        maxWidth: 362,
+	        iconClass: {
+	            warn: "iconfont icon-tanhao",
+	            info: "iconfont icon-jingshi",
+	            error: "iconfont icon-cuowu-20160921",
+	            success: "iconfont icon-zhengque1",
+	            other: "iconfont icon-tanhao"
+	        },
+	        pos: {
+	            rel: document.documentElement,
+	            top: "0",
+	            middle: "35%",
+	            dis: 50
+	        }
+	    },
+	    tipClassMap: {
+	        success: "dui-tip-success",
+	        info: "dui-tip-info",
+	        warn: "dui-tip-warning",
+	        error: "dui-tip-error",
+	        other: "dui-tip"
+	    },
+	    updateMessage: {
+	        top: "2%"
+	    },
+	    arrowSize: 5,
+	    tipArrowClassMap: {
+	        l: "dui-tip-right-arrow",
+	        r: "dui-tip-left-arrow",
+	        t: "dui-tip-bottom-arrow",
+	        b: "dui-tip-top-arrow",
+	        bl: "dui-tip-top-left-arrow",
+	        br: "dui-tip-top-right-arrow"
+	    }
 	};
 
 /***/ },
 /* 95 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"dui-tip-hint <%= tipClass %>\" style=\"margin-top: <%=marginTop %>px;top: <%=top %>px;min-width: <%=minWidth %>px;max-width: <%=maxWidth %>px\"> <i class=\"<%= iconClass %>\"></i> <p><%= msg %></p> </div>";
+	module.exports = "<div class=\"dui-tip-hint <%= tipClass %>\" style=\"margin-top: <%=marginTop %>px;top: <%=top %>px;min-width: <%=minWidth %>px;max-width: <%=maxWidth %>px\"> <i class=\"<%= iconClass %>\"></i> <p><%= msg %></p> <% if(hasClose) { %> <a class=close-btn>&times;</a> <% } %> </div>";
 
 /***/ },
 /* 96 */
@@ -4511,3 +4557,4 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
+//# sourceMappingURL=dui.js.map

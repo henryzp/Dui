@@ -1,7 +1,7 @@
 <%if(height != "auto"){  %><!--
---><div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>px; z-index: <%= zIndex %>">
+--><div class="dui-dialog <%= className %>" style="display:none; width: <%= width %>px; height: <%= height %>px; z-index: <%= zIndex %>">
 <% }else { %><!--
---><div class="dui-dialog <%= className %>" style="width: <%= width %>px; height: <%= height %>; z-index: <%= zIndex %>">
+--><div class="dui-dialog <%= className %>" style="display: none; width: <%= width %>px; height: <%= height %>; z-index: <%= zIndex %>">
 <% } %>
     <% if(close) { %>
     <i class="dui-dialog-close J_dialog-close <%=closeClass %>" href="javascript:;"></i>

@@ -12,7 +12,7 @@
         top: 7px;
     }
     p {
-        margin: 0 0 0 20px;
+        margin: 0 8px 0 20px;
         line-height: 16px;
     }
 }
@@ -47,6 +47,18 @@ $typeList: (success: #31c37c, info: #2db7f5, warning: #ffb745, error: #ff424f);
     margin-left: auto;
     margin-right: auto;
     z-index: 9999999;
+    .close-btn {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translate(0,-50%);
+        font-family: SimSun;
+        font-size: 16px;
+        line-height: 1em;
+        color: #999;
+        cursor: pointer;
+        text-decoration: none;
+    }
 }
 
 .dui-update-message {

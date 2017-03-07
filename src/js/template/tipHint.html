@@ -2,4 +2,7 @@
      style="margin-top: <%=marginTop %>px; top: <%=top %>px; min-width: <%=minWidth %>px; max-width: <%=maxWidth %>px;">
     <i class="<%= iconClass %>"></i>
     <p><%= msg %></p>
+    <% if(hasClose) { %>
+    <a class="close-btn">&times;</a>
+    <% } %>
 </div>

@@ -7,6 +7,7 @@ import Config from "../config/modal_config";
 import DOM from "./dom";
 import Event from "./event";
 import Drag from "./drag";
+import Animate from "./animate.js"
 
 import ScrollHanlder from "./scrollHanlder";
 
@@ -14,7 +15,7 @@ import ModalTemplate from "../template/modal.html";
 
 export default (function () {
     // 将style里面的变量赋值给Config
-    Util.extend(Config, style);
+    Object.assign(Config, style);
 
     class Modal extends Event {
 
@@ -23,6 +24,7 @@ export default (function () {
 
             const defaultOption = {
                 type: "default",
+                showType: "normal",
                 title: "提示",
                 content: "内容",
                 height: "auto",
@@ -43,7 +45,7 @@ export default (function () {
 
             this.option = option;
 
-            this.option = Util.extend({}, defaultOption, this.option);
+            this.option = Object.assign({}, defaultOption, this.option);
 
             this.init();
         }
@@ -225,6 +227,21 @@ export default (function () {
                     this.option.appendEl = DOM.find(this.option.appendEl);
                 }
                 this.dialogDom = DOM.appendHTML(this.option.appendEl, result);
+            }
+            this.show();
+        }
+
+        show() {
+            switch (this.option.showType) {
+                case "normal":
+                    DOM.show(this.dialogDom);
+                    break;
+                case "fade":
+                    this.dialogDom.style.top = "-50%";
+                    this.dialogDom.style.opacity = 0;
+                    DOM.show(this.dialogDom);
+                    Animate.startMove(this.dialogDom, { top: document.documentElement.clientHeight / 2, opacity: 100 }, 800);
+                    break;
             }
         }
 

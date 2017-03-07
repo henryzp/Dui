@@ -11,6 +11,7 @@ module.exports = {
         library: 'Dui',
         libraryTarget: 'umd'
     },
+    devtool: "source-map",
     module: {
         loaders: [
             {
@@ -35,13 +36,13 @@ module.exports = {
         stats: { colors: true },
         publicPath: "/dist/",
         contentBase: 'demo',
-        port: 8090,
+        port: 8070,
         watch: true,
         progress: true,
         "display-error-details": true
     },
     plugins: [
         new ExtractTextPlugin("css/dui.css"),
-        new openBrowserWebpackPlugin({ url: 'http://localhost:8090' })
+        new openBrowserWebpackPlugin({ url: 'http://localhost:8070' })
     ]
 }
