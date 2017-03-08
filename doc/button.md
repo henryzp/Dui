@@ -78,7 +78,7 @@ normal不需要添加类，当其他尺寸时，只要组合`风格`和`尺寸`�
 </a>
 ```
 
-<mark>需要注意的是，要对容器加`dui-btn-has-icon`</mark>，且不考虑small和mini的情况
+需要注意的是，要对容器加`dui-btn-has-icon`，且不考虑small和mini的情况
 
 ### 需要自定义宽度的button
 
