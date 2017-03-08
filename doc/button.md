@@ -9,6 +9,23 @@
 
 ![button](images/button.png)
 
+```html
+<div>
+    <a class="dui-btn-info" href="javascript:;">常用</a>
+    <a class="dui-btn-warning" href="javascript:;">重要</a>
+    <a class="dui-btn-info-bordered" href="javascript:;">常用</a>
+    <a class="dui-btn-warning-bordered" href="javascript:;">重要</a>
+    <a class="dui-btn" href="javascript:;">默认</a>
+    <a class="dui-btn-warning dui-btn-has-icon" href="javascript:;">
+        <i class="iconfont icon-sousuo1"></i>图标按钮
+    </a>
+    <a class="dui-btn-danger disabled" href="javascript:;">警示</a>
+    <a class="dui-btn-danger disabled dui-btn-has-icon" href="javascript:;">
+        <i class="iconfont icon-tixing"></i>警示
+    </a>
+</div>
+```
+
 ### button的尺寸
 
 - dui-btn-large （大）
@@ -56,10 +73,12 @@ normal不需要添加类，当其他尺寸时，只要组合`风格`和`尺寸`�
 如：
 
 ```html
-<a class="dui-btn-warning" href="javascript:;">
+<a class="dui-btn-warning dui-btn-has-icon" href="javascript:;">
      <i class="iconfont icon-sousuo1"></i>图标按钮
 </a>
 ```
+
+<mark>需要注意的是，要对容器加`dui-btn-has-icon`</mark>，且不考虑small和mini的情况
 
 ### 需要自定义宽度的button
 

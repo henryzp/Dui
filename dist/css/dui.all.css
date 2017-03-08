@@ -396,7 +396,7 @@ button {
   padding: 0 1em;
   white-space: nowrap;
   text-decoration: none;
-  font-family: "微软雅黑"; }
+  font-family: "Microsoft Yahei"; }
 
 .dui-btn,
 .dui-btn-info,
@@ -419,18 +419,10 @@ button {
     margin-right: 5px;
     font-size: inherit; }
 
-.dui-btn {
-  color: #666;
-  background-color: #fff;
-  border-color: #ccc; }
-  .dui-btn:hover, .dui-btn:active, .dui-btn:focus {
-    text-decoration: none; }
-  .dui-btn:hover {
-    color: #666;
-    background-color: #f2f2f2; }
-  .dui-btn:active, .dui-btn:focus {
-    color: #666;
-    background-color: #e6e6e6; }
+.dui-btn-has-icon {
+  font-size: 12px; }
+  .dui-btn-has-icon i {
+    font-size: 14px; }
 
 .dui-btn-info {
   color: #fff;
@@ -439,23 +431,10 @@ button {
     text-decoration: none; }
   .dui-btn-info:hover {
     color: #fff;
-    background-color: #11bde8; }
+    background-color: #02aed9; }
   .dui-btn-info:active, .dui-btn-info:focus {
     color: #fff;
     background-color: #02aed9; }
-
-.dui-btn-info-bordered {
-  color: #2dc3e8;
-  background-color: #fff;
-  border-color: #2dc3e8; }
-  .dui-btn-info-bordered:hover, .dui-btn-info-bordered:active, .dui-btn-info-bordered:focus {
-    text-decoration: none; }
-  .dui-btn-info-bordered:hover {
-    color: #2dc3e8;
-    background-color: #f1fcff; }
-  .dui-btn-info-bordered:active, .dui-btn-info-bordered:focus {
-    color: #2dc3e8;
-    background-color: #dbf8ff; }
 
 .dui-btn-warning {
   color: #fff;
@@ -464,48 +443,52 @@ button {
     text-decoration: none; }
   .dui-btn-warning:hover {
     color: #fff;
-    background-color: #f6b354; }
+    background-color: #e88703; }
   .dui-btn-warning:active, .dui-btn-warning:focus {
     color: #fff;
-    background-color: #f0ad4e; }
+    background-color: #e88703; }
+
+.dui-btn-info-bordered {
+  color: #2dc3e8;
+  background-color: #fff;
+  border-color: #2dc3e8; }
+  .dui-btn-info-bordered:hover, .dui-btn-info-bordered:active, .dui-btn-info-bordered:focus {
+    text-decoration: none; }
+  .dui-btn-info-bordered:hover {
+    color: #02aed9;
+    background-color: #fff;
+    border-color: #02aed9; }
+  .dui-btn-info-bordered:active, .dui-btn-info-bordered:focus {
+    color: #02aed9;
+    background-color: #fff; }
 
 .dui-btn-warning-bordered {
-  color: #ffb752;
+  color: #efaf2e;
   background-color: #fff;
-  border-color: #ffb752; }
+  border-color: #efaf2e; }
   .dui-btn-warning-bordered:hover, .dui-btn-warning-bordered:active, .dui-btn-warning-bordered:focus {
     text-decoration: none; }
   .dui-btn-warning-bordered:hover {
-    color: #ffb752;
-    background-color: #fffbf3; }
+    color: #e8870c;
+    background-color: #fff;
+    border-color: #e8870c; }
   .dui-btn-warning-bordered:active, .dui-btn-warning-bordered:focus {
-    color: #ffb752;
-    background-color: #fcf3df; }
+    color: #e8870c;
+    background-color: #fff; }
 
-.dui-btn-danger {
-  color: #fff;
-  background-color: #ff7f66; }
-  .dui-btn-danger:hover, .dui-btn-danger:active, .dui-btn-danger:focus {
-    text-decoration: none; }
-  .dui-btn-danger:hover {
-    color: #fff;
-    background-color: #ff917c; }
-  .dui-btn-danger:active, .dui-btn-danger:focus {
-    color: #fff;
-    background-color: #ff8770; }
-
-.dui-btn-danger-bordered {
-  color: #ff7f66;
+.dui-btn {
+  color: #333;
   background-color: #fff;
-  border-color: #ff7f66; }
-  .dui-btn-danger-bordered:hover, .dui-btn-danger-bordered:active, .dui-btn-danger-bordered:focus {
+  border-color: #bfbfbf; }
+  .dui-btn:hover, .dui-btn:active, .dui-btn:focus {
     text-decoration: none; }
-  .dui-btn-danger-bordered:hover {
-    color: #ff7f66;
-    background-color: #f2f2f2; }
-  .dui-btn-danger-bordered:active, .dui-btn-danger-bordered:focus {
-    color: #ff7f66;
-    background-color: #f2f2f2; }
+  .dui-btn:hover {
+    color: #02aed9;
+    background-color: #fff;
+    border-color: #02aed9; }
+  .dui-btn:active, .dui-btn:focus {
+    color: #02aed9;
+    background-color: #fff; }
 
 .dui-btn-large {
   padding: 0 18px;
@@ -536,8 +519,9 @@ button {
     margin-right: 0; }
 
 .disabled[class^="dui-btn"] {
-  background-color: #e3e3e3 !important;
-  color: #fff !important;
+  background-color: #ececec !important;
+  color: #999 !important;
+  border: #bfbfbf solid 1px !important;
   cursor: default !important;
   pointer-events: none; }
 
